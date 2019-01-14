@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@color/white">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/splash_logo"
+        android:id="@+id/iv_logo"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="70dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="INUnion에"
+        android:textSize="28sp"
+        android:lineSpacingExtra="6sp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="24dp"
+        android:id="@+id/tv_1"
+        android:layout_below="@+id/iv_logo"
+        android:textColor="#212529"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="오신걸 환영합니다!"
+        android:id="@+id/tv_2"
+        android:layout_below="@+id/tv_1"
+        android:textSize="28sp"
+        android:layout_marginStart="34dp"
+        android:textColor="#212529"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#868e96"
+        android:text="입장하시려는 직군을 선택해주세요."
+        android:id="@+id/tv_3"
+        android:layout_below="@+id/tv_2"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        />
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_height="49dp"
+        android:layout_gravity="center_horizontal"
+        android:text="관리자"
+        android:id="@+id/button_admin"
+        android:layout_above="@+id/button_student"
+        android:layout_marginBottom="19dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/shape_splash_button"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="42dp"
+        android:layout_alignParentBottom="true"
+        android:text="학생"
+        android:id="@+id/button_student"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/shape_splash_button"/>
+</RelativeLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    >
+<!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="198dp"
+        android:background="#4c6ef5"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/pagerButton"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/left_btn"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/Calendar_Month_text"
+            android:background="@drawable/ic_chevron_left_white_24dp" />
+
+        <TextView
+            android:id="@+id/Calendar_Month_text"
+            android:layout_width="217dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="22sp"/>
+
+        <Button
+            android:id="@+id/right_btn"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/Calendar_Month_text"
+            android:background="@drawable/ic_chevron_right_white_24dp" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/calendar_pager"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/pagerButton"
+        android:layout_centerHorizontal="true"
+        />
+
+    <ImageView
+        android:id="@+id/add_schedule_btn"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/pagerButton"
+        android:layout_marginTop="275dp"
+        android:src="@drawable/write_calendar"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_below="@+id/add_schedule_btn"
+        android:layout_marginTop="6dp"
+        android:text="이날의 이벤트"
+        android:id="@+id/tV"
+        android:textColor="#adb5bd"
+        android:textSize="12sp" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="18dp"
+        android:layout_below="@+id/tV"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true">
+
+    </android.support.v7.widget.RecyclerView>
+<!--</ScrollView>-->
+</RelativeLayout>

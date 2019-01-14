@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" android:id="@+id/search_focus_layout">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl"
+        >
+
+    <EditText
+        android:layout_width="280dp"
+        android:layout_height="34dp"
+        android:id="@+id/search_notice_focus"
+        android:hint="검색"
+        android:paddingLeft="43dp"
+        android:textColorHint="#ced4da"
+        android:textSize="16sp"
+        android:focusable="true"
+        android:background="@drawable/shape_search_focus"
+        />
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/ic_search"
+        />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/rl"
+        android:layout_marginLeft="9dp"
+        android:text="취소"
+        android:textColor="#bac8ff"
+        android:layout_centerVertical="true"
+        android:textSize="16sp"/>
+
+
+</RelativeLayout>

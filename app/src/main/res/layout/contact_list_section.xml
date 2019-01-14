@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView android:layout_height="22dp"
+    android:layout_width="282.9dp"
+    android:paddingLeft="8dp"
+    android:layout_centerVertical="true"
+    android:textSize="20sp"
+    android:textColor="#212529"
+    android:id="@+id/contact_section"
+    android:layout_marginTop="12dp"
+    android:background="@drawable/shape_contact_list_section"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

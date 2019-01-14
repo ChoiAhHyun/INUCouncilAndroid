@@ -1,0 +1,83 @@
+<LinearLayout android:layout_height="wrap_content"
+    android:layout_width="wrap_content" android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/noticeCardViewLayout"
+   >
+    <android.support.v7.widget.CardView android:layout_height="234dp"
+        android:layout_width="334dp"
+        android:id="@+id/notice_cardview"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardCornerRadius="8dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        app:cardBackgroundColor="#dee2e6"
+        android:layout_margin="@dimen/notice_cardview_margin"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/notice_title"
+                    android:textColor="#212529"
+                    android:textSize="17sp"
+                    android:layout_marginLeft="19.5dp"
+                    android:layout_centerVertical="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:id="@+id/notice_time"
+                    android:textColor="#adb5bd"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="17dp"
+                    />
+            </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="183dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/white">
+            <TextView
+                android:layout_width="288dp"
+                android:layout_height="70dp"
+                android:textSize="13sp"
+                android:lineSpacingExtra="3sp"
+                android:textColor="#495057"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="14dp"
+                android:id="@+id/notice_content"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="14dp"
+                android:layout_marginLeft="23dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:layout_below="@id/notice_content"
+                android:id="@+id/notice_cardview_image_rv"
+                android:overScrollMode="never">
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#ffffff"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="43dp"
+                android:layout_marginBottom="44dp"
+                android:id="@+id/notice_cardview_image_item_tv"/>
+
+        </RelativeLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

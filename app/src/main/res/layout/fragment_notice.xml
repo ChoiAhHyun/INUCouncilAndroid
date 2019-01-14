@@ -1,0 +1,71 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sauce.inunion.Notice" android:id="@+id/fragment_notice"
+    android:background="@color/backgroundColor">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="198dp"
+        android:background="#4c6ef5"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textColor="#ffffff"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="36dp"
+        android:text="학부이름"
+        android:id="@+id/major_name"
+
+        />
+
+        <RelativeLayout
+            android:layout_width="328dp" android:layout_marginTop="92dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content" android:id="@+id/search_layout"
+            >
+
+            <EditText
+                android:layout_width="328dp"
+                android:layout_height="34dp"
+                android:id="@+id/search_notice"
+                android:hint="검색"
+                android:paddingLeft="43dp"
+                android:imeOptions="actionSearch"
+                android:textColorHint="#bac8ff"
+                android:textSize="16sp"
+                android:background="@drawable/shape_search"
+                />
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:id="@+id/search_notice_icon"
+                android:src="@drawable/ic_unactive_search"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/search_tv"
+                android:layout_marginLeft="9dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="취소"
+                android:visibility="gone"
+                android:textColor="#bac8ff"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/notice_recyclerview"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="140dp">
+    </android.support.v7.widget.RecyclerView>
+</FrameLayout>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent" android:background="@color/backgroundColor"
+    android:layout_height="match_parent" android:scrollbars="vertical">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:id="@+id/toolbar_contact_modify"
+        android:background="#3b5bdb"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        >
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="13dp"
+            android:id="@+id/toolbar_back"
+            android:src="@drawable/back_white"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar_title"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:text="연락처 상세"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:text="저장"
+            android:id="@+id/toolbar_save"/>
+    </android.support.v7.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_marginRight="24dp"
+            android:layout_height="wrap_content" android:background="@color/backgroundColor" android:orientation="vertical"
+            android:layout_marginLeft="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이름"
+                android:textSize="16sp"
+                android:textColor="#212529"
+                android:layout_marginTop="30dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/contact_name"
+                android:textSize="15sp"
+                android:textColor="#495057"
+                android:background="@color/backgroundColor"
+                android:hint="인천대학교 앱센터"
+                android:imeOptions="actionNext"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="16dp"/>
+            <View
+                android:layout_width="320dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center_horizontal"
+                android:background="#8adee2e6"
+                android:layout_marginTop="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전화번호 추가"
+                android:layout_marginTop="33dp"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="#212529"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:background="@color/backgroundColor"
+                android:id="@+id/contact_phonenumber"
+                android:textColor="#495057"
+                android:imeOptions="actionNext"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="17dp"/>
+            <View
+                android:layout_width="328dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center_horizontal"
+                android:background="#8adee2e6"
+                android:layout_marginTop="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이메일 추가"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"
+                android:layout_marginTop="36dp"
+                android:textColor="#212529"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:background="@color/backgroundColor"
+                android:id="@+id/contact_email"
+                android:textColor="#495057"
+                android:imeOptions="actionNext"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="17dp"/>
+            <View
+                android:layout_width="328dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center_horizontal"
+                android:background="#8adee2e6"
+                android:layout_marginTop="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="위치 추가"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"
+                android:layout_marginTop="36dp"
+                android:textColor="#212529"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:background="@color/backgroundColor"
+                android:id="@+id/contact_position"
+                android:imeOptions="actionNext"
+                android:textColor="#495057"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="17dp"/>
+            <View
+                android:layout_width="328dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center_horizontal"
+                android:background="#8adee2e6"
+                android:layout_marginTop="15dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="메모"
+                android:textSize="16sp"
+                android:textColor="#212529"
+                android:layout_marginTop="39dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/contact_etc"
+                android:gravity="start"
+                android:textSize="14sp"
+                android:textColor="#495057"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:paddingTop="21dp"
+                android:paddingLeft="16.5dp"
+                android:background="@drawable/shape_memo"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="14dp"
+                android:orientation="horizontal"
+                android:layout_gravity="right"
+                >
+
+                <TextView
+                    android:id="@+id/length"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="#212529"
+                    android:textSize="13sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/300"
+                    android:textSize="13sp"
+                    android:textColor="#9b9b9b"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

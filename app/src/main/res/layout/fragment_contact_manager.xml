@@ -1,0 +1,99 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundColor"
+    android:id="@+id/fragment_contact">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="196dp"
+        android:background="#4c6ef5"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textColor="#ffffff"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="36dp"
+        android:text="학부이름"
+        android:id="@+id/major_name"
+        />
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/contact_write"
+        android:src="@drawable/add_new"
+        android:layout_gravity="end"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="24dp"/>
+
+    <RelativeLayout
+        android:layout_width="328dp" android:layout_marginTop="92dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content" android:id="@+id/search_layout"
+        >
+
+        <EditText
+            android:layout_width="328dp"
+            android:layout_height="34dp"
+            android:id="@+id/search_contact"
+            android:hint="검색"
+            android:paddingLeft="43dp"
+            android:imeOptions="actionSearch"
+            android:textColorHint="#bac8ff"
+            android:textSize="16sp"
+            android:background="@drawable/shape_search"
+            />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:id="@+id/search_notice_icon"
+            android:src="@drawable/ic_unactive_search"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/search_tv"
+            android:layout_marginLeft="9dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="취소"
+            android:visibility="gone"
+            android:textColor="#bac8ff"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="334dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="14dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/contact_list_area"
+        app:cardCornerRadius="12dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tv"/>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/contact_list">
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

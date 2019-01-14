@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:id="@+id/toolbar_notice_modify"
+        android:background="#3b5bdb"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        >
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="13dp"
+            android:id="@+id/toolbar_back"
+            android:src="@drawable/back_white"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar_title"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:text="공지사항"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="13dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:text="저장"
+            android:id="@+id/toolbar_save"/>
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="22dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:id="@+id/toolbar_image"
+            android:src="@drawable/picture_upload"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:orientation="vertical" android:background="@color/backgroundColor"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:textSize="20sp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/notice_write_title"
+            android:hint="공지사항 제목"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:inputType="text"
+            android:textColor="#212529"
+            android:textColorHint="#212529"
+            android:background="@color/backgroundColor"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="14dp"
+            android:background="#dee2e6"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="30dp"
+                    android:lineSpacingExtra="3sp"
+                    android:gravity="start"
+                    android:id="@+id/notice_write_content"
+                    android:textSize="16sp"
+                    android:textColorHint="#495057"
+                    android:textColor="#495057"
+                    android:hint="오늘의 공지사항입니다\n\n\n\n\n\n"
+                    android:background="@color/backgroundColor"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|bottom"
+                    android:layout_below="@+id/notice_write_content"
+                    android:layout_marginBottom="13dp"
+                    android:layout_alignParentBottom="true">
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/notice_write_image_layout"
+                        android:orientation="vertical"
+                        android:columnCount="4"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="30dp"
+
+                        android:layout_marginTop="42dp">
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/notice_modify_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false">
+                        </android.support.v7.widget.RecyclerView>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/notice_write_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false">
+                        </android.support.v7.widget.RecyclerView>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            >
+                            <ImageView
+                                android:layout_width="75dp"
+                                android:layout_height="75dp"
+                                android:src="@drawable/shape_image_empty"/>
+                            <ImageView
+                                android:layout_width="75dp"
+                                android:layout_height="75dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/picture_icon"/>
+                        </RelativeLayout>
+                    </GridLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>
+

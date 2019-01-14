@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f8f9fa"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="23dp"
+        android:textColor="#868e96"
+        android:gravity="center_horizontal"
+        android:text="PUSH 알람"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/bottom_border"
+        android:orientation="horizontal">
+
+        <Switch
+            android:id="@+id/switch2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="알림 허용"
+            android:textColor="#212529"
+            android:textSize="16sp"
+            android:theme="@style/SCBSwitch"
+
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="22dp"
+        android:textColor="#868e96"
+        android:gravity="center_horizontal"
+        android:text="관리자 로그인"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bottom_border"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/manager_setting_logout_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_border"
+            android:gravity="left|center_vertical"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="로그아웃"
+            android:textColor="#fa5252"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

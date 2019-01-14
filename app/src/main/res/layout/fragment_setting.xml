@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Setting"
+    android:orientation="vertical"
+    android:background="@color/backgroundColor"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="23dp"
+        android:textColor="#868e96"
+        android:gravity="center_horizontal"
+        android:text="학과 전환"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bottom_border"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/major_first"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="주 전공"
+                    android:layout_centerVertical="true"
+                    android:textColor="#adb5bd"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/delete1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/setup_delete_icon" />
+
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:background="#8adee2e6"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/major_second"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="복수 전공"
+                    android:layout_centerVertical="true"
+                    android:textColor="#adb5bd"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/delete2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/setup_delete_icon" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:background="#8adee2e6"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/major_third"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="부 전공"
+                    android:layout_centerVertical="true"
+                    android:textColor="#adb5bd"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/delete3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/setup_delete_icon" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
+                android:background="#8adee2e6"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:orientation="horizontal"
+                android:id="@+id/add_major_btn">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_add_circle_black_24dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_height="wrap_content"
+                    android:text="학과 추가"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#212529"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="23dp"
+        android:textColor="#868e96"
+        android:gravity="center_horizontal"
+        android:text="PUSH 알람"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/bottom_border"
+        android:orientation="horizontal">
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="알림 허용"
+            android:textColor="#212529"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:id="@+id/switch1"
+            android:theme="@style/SCBSwitch"
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="22dp"
+        android:textColor="#868e96"
+        android:gravity="center_horizontal"
+        android:text="관리자 로그인"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/bottom_border"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/setting_login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_border"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="15dp"
+            android:text="로그인 하기"
+            android:textColor="#212529"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

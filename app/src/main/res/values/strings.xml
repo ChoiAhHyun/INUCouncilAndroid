@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">INUnion</string>
+    <string name="title_notice">공지사항</string>
+    <string name="title_calendar">캘린더</string>
+    <string name="title_contact">연락처</string>
+    <string name="title_setting">설정</string>
+    <string-array name="day_of_week">
+        <item>S</item>
+        <item>M</item>
+        <item>T</item>
+        <item>W</item>
+        <item>T</item>
+        <item>F</item>
+        <item>S</item>
+    </string-array>
+
+</resources>
