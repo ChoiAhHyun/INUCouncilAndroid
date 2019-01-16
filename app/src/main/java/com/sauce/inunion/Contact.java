@@ -127,7 +127,7 @@ public class Contact extends Fragment {
                 List<RetrofitContact> res = response.body();
 
                 for (int j=0; j<res.size();j++){
-                    items.add(new ContactListItem(res.get(j).name,false));
+                    items.add(new ContactListItem(res.get(j).name,false,res.get(j).addressId));
                 }
 
 
@@ -367,7 +367,7 @@ public class Contact extends Fragment {
 
                 lastHeader = header;
 
-                mSectionList.add(new ContactListItem(header,true));
+                mSectionList.add(new ContactListItem(header,true,null));
 
             }
 

@@ -54,7 +54,7 @@ public class ContactDetail  extends Fragment {
         final TextView editPosition = (TextView) view.findViewById(R.id.contact_position);
         final TextView editEtc = (TextView) view.findViewById(R.id.contact_etc);
 
-        final String Name = getArguments().getString("name");
+        final String Id = getArguments().getString("id");
 
 
         retrofit = new Retrofit.Builder()
@@ -64,8 +64,7 @@ public class ContactDetail  extends Fragment {
         service = retrofit.create(ContactInterface.class);
         serviceD = retrofit.create(ContactInterface.class);
 
-        final String[] addressId = new String[1];
-        service.addressSelect(Name).enqueue(new Callback<List<RetrofitContact>>() {
+        service.addressSelect(Id).enqueue(new Callback<List<RetrofitContact>>() {
             @Override
             public void onResponse(Call<List<RetrofitContact>> call, Response<List<RetrofitContact>> response) {
                 Toast.makeText(getActivity(),"연결 성공",Toast.LENGTH_SHORT).show();
@@ -76,7 +75,6 @@ public class ContactDetail  extends Fragment {
                 editPhoneNumber.setText(res.get(0).phoneNumber);
                 editEmail.setText(res.get(0).email);
                 editEtc.setText(res.get(0).etc);
-                addressId[0] = res.get(0).addressId;
             }
 
             @Override

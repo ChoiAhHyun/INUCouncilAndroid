@@ -140,7 +140,7 @@ public class ContactListAdapterManager extends RecyclerView.Adapter<RecyclerView
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("name",item.getName());
+                bundle.putString("id",item.getId());
                 ContactDetailManager contactDetail= new ContactDetailManager();
                 contactDetail.setArguments(bundle);
 

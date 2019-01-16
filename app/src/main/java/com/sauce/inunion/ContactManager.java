@@ -132,12 +132,13 @@ public class ContactManager extends Fragment {
             @Override
             public void onResponse(Call<List<RetrofitContact>> call,
                                    Response<List<RetrofitContact>> response) {
-                Toast.makeText(getActivity(),"연결 성공"+response.code(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(),"연결 성공"+response.code(),Toast.LENGTH_SHORT).show();
 //                items.add(new ContactListItem(select.toString()));
                 List<RetrofitContact> res = response.body();
 
                 for (int j=0; j<res.size();j++){
-                    items.add(new ContactListItem(res.get(j).name,false));
+//                    Toast.makeText(getActivity(),res.get(j).addressId,Toast.LENGTH_SHORT).show();
+                    items.add(new ContactListItem(res.get(j).name,false,res.get(j).addressId));
                 }
 
 
@@ -277,7 +278,7 @@ public class ContactManager extends Fragment {
 
                 lastHeader = header;
 
-                mSectionList.add(new ContactListItem(header,true));
+                mSectionList.add(new ContactListItem(header,true,null));
 
             }
 

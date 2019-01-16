@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 
 public interface ContactInterface {
     @FormUrlEncoded
-    @POST("/addressSort")
+    @POST("/addressSelectAll")
     public Call<List<RetrofitContact>> addressSort(@Field("department") String department);
 
     @FormUrlEncoded
@@ -22,7 +22,7 @@ public interface ContactInterface {
 
     @FormUrlEncoded
     @POST("/addressSelect")
-    public Call<List<RetrofitContact>> addressSelect(@Field("name") String name);
+    public Call<List<RetrofitContact>> addressSelect(@Field("addressId") String addressId);
 
     @FormUrlEncoded
     @POST("/addressSave")

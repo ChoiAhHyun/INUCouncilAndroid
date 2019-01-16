@@ -66,7 +66,7 @@ public class ContactModify extends Activity {
         editEtc = (EditText) findViewById(R.id.contact_etc);
 
         Intent intent = getIntent();
-        final String Name=intent.getStringExtra("name");
+        final String Id = intent.getStringExtra("id");
 
         retrofitSelect = new Retrofit.Builder()
                 .baseUrl("http://117.16.231.66:7001")
@@ -74,7 +74,7 @@ public class ContactModify extends Activity {
                 .build();
         serviceSelect = retrofitSelect.create(ContactInterface.class);
 
-        serviceSelect.addressSelect(Name).enqueue(new Callback<List<RetrofitContact>>() {
+        serviceSelect.addressSelect(Id).enqueue(new Callback<List<RetrofitContact>>() {
             @Override
             public void onResponse(Call<List<RetrofitContact>> call, Response<List<RetrofitContact>> response) {
                 Toast.makeText(getApplicationContext(),"select 성공",Toast.LENGTH_SHORT).show();
@@ -86,8 +86,8 @@ public class ContactModify extends Activity {
                 editEmail.setText(res.get(0).email);
                 editEtc.setText(res.get(0).etc);
                 department= res.get(0).department;
-                addressId= res.get(0).addressId;
-                Log.d("test", addressId);
+//                addressId= res.get(0).addressId;
+                Log.d("test", Id);
             }
 
             @Override

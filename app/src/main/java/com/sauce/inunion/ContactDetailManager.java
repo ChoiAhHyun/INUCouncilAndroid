@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,8 +57,7 @@ public class ContactDetailManager  extends Fragment {
         final TextView editPosition = (TextView) view.findViewById(R.id.contact_position);
         final TextView editEtc = (TextView) view.findViewById(R.id.contact_etc);
 
-        final String Name = getArguments().getString("name");
-
+        final String Id = getArguments().getString("id");
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://117.16.231.66:7001")
@@ -66,8 +66,7 @@ public class ContactDetailManager  extends Fragment {
         service = retrofit.create(ContactInterface.class);
         serviceD = retrofit.create(ContactInterface.class);
 
-        final String[] addressId = new String[1];
-        service.addressSelect(Name).enqueue(new Callback<List<RetrofitContact>>() {
+        service.addressSelect(Id).enqueue(new Callback<List<RetrofitContact>>() {
             @Override
             public void onResponse(Call<List<RetrofitContact>> call, Response<List<RetrofitContact>> response) {
                 Toast.makeText(getActivity(),"연결 성공",Toast.LENGTH_SHORT).show();
@@ -78,7 +77,6 @@ public class ContactDetailManager  extends Fragment {
                 editPhoneNumber.setText(res.get(0).phoneNumber);
                 editEmail.setText(res.get(0).email);
                 editEtc.setText(res.get(0).etc);
-                addressId[0] = res.get(0).addressId;
             }
 
             @Override
@@ -113,7 +111,7 @@ public class ContactDetailManager  extends Fragment {
 //                        .commit();
 
                 Intent intent = new Intent(getContext().getApplicationContext(),ContactModify.class);
-                intent.putExtra("name",Name);
+                intent.putExtra("id",Id);
                 startActivity(intent);
 
             }
@@ -121,7 +119,7 @@ public class ContactDetailManager  extends Fragment {
         textDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                serviceD.addressDelete(addressId[0]).enqueue(new Callback<RetrofitContact>() {
+                serviceD.addressDelete(Id).enqueue(new Callback<RetrofitContact>() {
                     @Override
                     public void onResponse(Call<RetrofitContact> call, Response<RetrofitContact> response) {
                         Toast.makeText(getActivity(),"연결 성공",Toast.LENGTH_SHORT).show();
