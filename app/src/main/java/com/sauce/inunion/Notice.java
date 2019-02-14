@@ -166,7 +166,7 @@ public class Notice extends Fragment {
 
             @Override
             public void onFailure(Call<List<RetrofitNotice>> call, Throwable t) {
-//                Toast.makeText(getActivity(),""+t,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),""+t,Toast.LENGTH_SHORT).show();
             }
         });
 

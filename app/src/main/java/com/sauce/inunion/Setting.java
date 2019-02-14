@@ -19,6 +19,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+
 
 public class Setting extends Fragment {
     TextView major_first;
@@ -26,6 +33,7 @@ public class Setting extends Fragment {
     TextView major_third;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
+    FireBaseMessagingService fireBaseMessagingService = new FireBaseMessagingService();
     public static Setting newInstance() {
         return new Setting();
     }
@@ -54,12 +62,15 @@ public class Setting extends Fragment {
         major_third.setText(pref.getString("thirdMajor","부 전공"));
         if(pref.getString("App_department",null).equals(major_first.getText().toString())){
             major_first.setTextColor(Color.rgb(76,110,245));
+            fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
         }
         else if(pref.getString("App_department",null).equals(major_second.getText().toString())){
             major_second.setTextColor(Color.rgb(76,110,245));
+            fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
         }
         else if(pref.getString("App_department",null).equals(major_third.getText().toString())){
             major_third.setTextColor(Color.rgb(76,110,245));
+            fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
         }
         else{}
         major_first.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +82,7 @@ public class Setting extends Fragment {
                     major_third.setTextColor(Color.rgb(173,181,189));
                     editor.putString("App_department",major_first.getText().toString());
                     editor.apply();
+                    fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
                     Log.d("App_department",pref.getString("App_department",""));
                     Intent intent = new Intent("department_change");
                     intent.putExtra("changed","true");
@@ -87,6 +99,7 @@ public class Setting extends Fragment {
                     major_third.setTextColor(Color.rgb(173,181,189));
                     editor.putString("App_department",major_second.getText().toString());
                     editor.apply();
+                    fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
                     Log.d("App_department",pref.getString("App_department",null));
                     Intent intent = new Intent("department_change");
                     intent.putExtra("changed","true");
@@ -103,6 +116,7 @@ public class Setting extends Fragment {
                     major_first.setTextColor(Color.rgb(173,181,189));
                     editor.putString("App_department",major_third.getText().toString());
                     editor.apply();
+                    fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
                     Intent intent = new Intent("department_change");
                     intent.putExtra("changed","true");
                     LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);
@@ -119,6 +133,7 @@ public class Setting extends Fragment {
                         major_third.setTextColor(Color.rgb(173,181,189));
                         editor.putString("App_department",major_second.getText().toString());
                         editor.apply();
+                        fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
                         Log.d("App_department",pref.getString("App_department",null));
                         Intent intent = new Intent("department_change");
                         intent.putExtra("changed","true");
@@ -130,6 +145,7 @@ public class Setting extends Fragment {
                         major_first.setTextColor(Color.rgb(173,181,189));
                         editor.putString("App_department",major_third.getText().toString());
                         editor.apply();
+                        fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
                         Intent intent = new Intent("department_change");
                         intent.putExtra("changed","true");
                         LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);
@@ -156,6 +172,7 @@ public class Setting extends Fragment {
                         major_third.setTextColor(Color.rgb(173,181,189));
                         editor.putString("App_department",major_first.getText().toString());
                         editor.apply();
+                        fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
                         Log.d("App_department",pref.getString("App_department",""));
                         Intent intent = new Intent("department_change");
                         intent.putExtra("changed","true");
@@ -167,6 +184,7 @@ public class Setting extends Fragment {
                         major_first.setTextColor(Color.rgb(173,181,189));
                         editor.putString("App_department",major_third.getText().toString());
                         editor.apply();
+                        fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
                         Intent intent = new Intent("department_change");
                         intent.putExtra("changed","true");
                         LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);
@@ -188,6 +206,7 @@ public class Setting extends Fragment {
                         major_third.setTextColor(Color.rgb(173,181,189));
                         editor.putString("App_department",major_first.getText().toString());
                         editor.apply();
+                        fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
                         Log.d("App_department",pref.getString("App_department",""));
                         Intent intent = new Intent("department_change");
                         intent.putExtra("changed","true");
@@ -199,6 +218,7 @@ public class Setting extends Fragment {
                         major_third.setTextColor(Color.rgb(173,181,189));
                         editor.putString("App_department",major_second.getText().toString());
                         editor.apply();
+                        fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
                         Log.d("App_department",pref.getString("App_department",null));
                         Intent intent = new Intent("department_change");
                         intent.putExtra("changed","true");
@@ -239,7 +259,7 @@ public class Setting extends Fragment {
             String data = intent.getStringExtra("isAdded");
             if(data != null){
                 if(data.equals("true")){
-                    Log.d("test","gogogogogo");
+//                    Log.d("test","gogogogogo");
                     if(major_first.getText().toString().equals("주 전공")){
                         major_first.setText(pref.getString("temp_Major","주 전공"));
                         editor.putString("firstMajor",pref.getString("temp_Major","주 전공"));

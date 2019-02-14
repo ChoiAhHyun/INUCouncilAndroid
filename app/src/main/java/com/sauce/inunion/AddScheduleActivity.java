@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
@@ -37,6 +38,15 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
     TextView endTime;
     SharedPreferences pref;
     String department;
+    String[] startDateString = new String[3];
+    String[] endDateString = new String[3];
+    String startDate8;
+    String endDate8;
+    String[] startTimeString = new String[2];
+    String[] endTimeString = new String[2];
+    String startTime6;
+    String endTime6;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +105,8 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
                 intent2.putExtra("startDay",removeHangul(startDay));
                 intent2.putExtra("endDay",removeHangul(endDay));
                 LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent2);
-                retrofitCalendarSaveService.calendarsave(scheduleTitle.getText().toString(), removeHangul(startDay), removeHangul(startTime), removeHangul(endDay), removeHangul(endTime), position.getText().toString(), memo.getText().toString(), department).enqueue(new Callback<RetrofitResult>() {
+                Log.d("test",scheduleTitle.getText().toString()+" "+startDate8+" "+startTime6+" "+endDate8+" "+endTime6+" "+position.getText().toString()+" "+memo.getText().toString()+" "+department);
+                retrofitCalendarSaveService.calendarsave(scheduleTitle.getText().toString(), startDate8, startTime6, endDate8, endTime6, position.getText().toString(), memo.getText().toString(), department).enqueue(new Callback<RetrofitResult>() {
                     @Override
                     public void onResponse(Call<RetrofitResult> call, Response<RetrofitResult> response) {
                         if (response.isSuccessful()){
@@ -108,7 +119,7 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
 
                     @Override
                     public void onFailure(Call<RetrofitResult> call, Throwable t) {
-                        finish();
+                        Log.d("test",t+"");
                     }
                 });
 
@@ -125,6 +136,7 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AddScheduleActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        startDate8 = setStartDate(year, month, dayOfMonth);
                         setYMD(startDay, year, month, dayOfMonth);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -145,6 +157,7 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
                 TimePickerDialog timePickerDialog = new TimePickerDialog(AddScheduleActivity.this,AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                        startTime6 = setStartTime(hourOfDay,minute);
                         setTM(startTime,hourOfDay,minute);
                     }
                 },0,0,false);
@@ -160,6 +173,7 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AddScheduleActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        endDate8 = setEndDate(year, month, dayOfMonth);
                         setYMD(endDay, year, month, dayOfMonth);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -179,6 +193,7 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
                 TimePickerDialog timePickerDialog = new TimePickerDialog(AddScheduleActivity.this,AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                        endTime6 = setEndTime(hourOfDay,minute);
                         setTM(endTime,hourOfDay,minute);
                     }
                 },0,0,false);
@@ -248,6 +263,64 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
             textView.setText(hourOfDay+"시 "+minute+"분");
         }
 
+    }
+    public String setStartDate(int year, int month, int dayOfMonth){
+        startDateString[0] = year + "";
+        int temp = month + 1;
+        if(month < 10) {
+            startDateString[1] = "0" + temp + "";
+        }
+        else{
+            startDateString[1] = temp + "";
+        }
+        if(dayOfMonth < 10) {
+            startDateString[2] = "0" + dayOfMonth + "";
+        }
+        else
+            startDateString[2] = dayOfMonth + "";
+        return startDateString[0] + startDateString[1] + startDateString[2];
+    }
+    public String setEndDate(int year, int month, int dayOfMonth){
+        endDateString[0] = year + "";
+        int temp = month + 1;
+        if(month < 10) {
+            endDateString[1] = "0" + temp + "";
+        }
+        else{
+            endDateString[1] = temp + "";
+        }
+        if(dayOfMonth < 10) {
+            endDateString[2] = "0" + dayOfMonth + "";
+        }
+        else
+            endDateString[2] = dayOfMonth + "";
+        return endDateString[0] + endDateString[1] + endDateString[2];
+    }
+    public String setStartTime(int hourOfDay, int minute){
+        if(hourOfDay < 10) {
+            startTimeString[0] = "0" + hourOfDay + "";
+        }
+        else
+            startTimeString[0] = hourOfDay + "";
+        if(minute < 10) {
+            startTimeString[1] = "0" + minute + "";
+        }
+        else
+            startTimeString[1] = minute + "";
+        return startTimeString[0] + startTimeString[1] + "00";
+    }
+    public String setEndTime(int hourOfDay, int minute){
+        if(hourOfDay < 10) {
+            endTimeString[0] = "0" + hourOfDay + "";
+        }
+        else
+            endTimeString[0] = hourOfDay + "";
+        if(minute < 10) {
+            endTimeString[1] = "0" + minute + "";
+        }
+        else
+            endTimeString[1] = minute + "";
+        return endTimeString[0] + endTimeString[1] + "00";
     }
 } // end of class
 

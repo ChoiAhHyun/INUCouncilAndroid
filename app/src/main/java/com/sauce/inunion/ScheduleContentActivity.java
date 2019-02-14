@@ -81,7 +81,7 @@ public class ScheduleContentActivity extends Activity {
                 for(int i=0; i < array.size();i++){
                     JsonObject object = array.get(i).getAsJsonObject();
                     if(object.get("scheduleId").getAsString().equals(schedule_id)){
-                        Log.d("test","gogogo");
+                        Log.d("test",schedule_id);
                         schedule_content_title.setText(object.get("scheduleTitle").getAsString());
                         schedule_content_startdate.setText(sortingYMD(object.get("startDate").getAsString()));
                         schedule_content_starttime.setText(sortingTM(object.get("startTime").getAsString()));
@@ -148,7 +148,7 @@ public class ScheduleContentActivity extends Activity {
         Log.d("test1",resultCode+"");
         Log.d("test2",requestCode+"");
         if(requestCode == 50 && resultCode == 30){
-            Log.d("gogogo","gogogo");
+//            Log.d("gogogo","gogogo");
             schedule_content_title.setText(data.getStringExtra("edST")+"");
             schedule_content_startdate.setText(data.getStringExtra("tvSD")+"");
             schedule_content_starttime.setText(data.getStringExtra("tvST")+"");

@@ -195,7 +195,7 @@ public class StudentCalendarActivity extends Fragment implements TaTCalendarFrag
                         for(int i=0; i < array.size();i++){
                             JsonObject object = array.get(i).getAsJsonObject();
                             if(object.get("startDate").getAsString().equals(data2)){
-                                Log.d("test","gogogo");
+//                                Log.d("test","gogogo");
                                 Myitems.add(new CalendarScheduleRecyclerAdapter.Myscheduleitem(object.get("scheduleTitle").getAsString(),
                                         sortingTM(object.get("startTime").getAsString()),
                                         object.get("scheduleId").getAsString(),

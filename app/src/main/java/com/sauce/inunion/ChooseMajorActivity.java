@@ -52,6 +52,7 @@ public class ChooseMajorActivity extends Activity {
             "패션산업학과",
             "한국통상전공", "해양학과", "행정학과", "화학과"
     };
+    FireBaseMessagingService fireBaseMessagingService = new FireBaseMessagingService();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -226,6 +227,7 @@ public class ChooseMajorActivity extends Activity {
                 editor.putString("firstMajor",firstmajor);
                 editor.putString("App_department",firstmajor);
                 editor.apply();
+                fireBaseMessagingService.sendRegistrationToServer(ChooseMajorActivity.this,pref.getString("App_department",null));
                 TaTCalendarActivity.department = firstmajor;
                 isStudentMode = true;
                 Intent intent = new Intent(ChooseMajorActivity.this,ChooseSecondMajorActivity.class);

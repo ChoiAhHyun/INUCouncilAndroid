@@ -26,25 +26,25 @@ public interface NoticeInterface {
 //    public Call<RetrofitNotice> boardSave(@Field("title") String title, @Field("content") String content, @Field("department") String department, @Part("fileName") MultipartBody.Part file);
 
     @Multipart
-    @POST("/boardSave")
+    @POST("/boardSave/")
     public Call<RetrofitNotice> boardSave(@Part("title") RequestBody title, @Part("content") RequestBody content, @Part("department") RequestBody department,
                                           @Part List<MultipartBody.Part> file);
 
     @Multipart
-    @POST("/boardModify")
+    @POST("/boardModify/")
     public Call<RetrofitNotice> boardModify(@Part("title") RequestBody title, @Part("content") RequestBody content, @Part("content_serial_id") RequestBody content_serial_id, @Part("department") RequestBody department,
                                             @Part List<MultipartBody.Part> file);
 
     @FormUrlEncoded
-    @POST("/boardDelete")
+    @POST("/boardDelete/")
     public Call<RetrofitNotice> boardDelete(@Field("content_serial_id") String content_serial_id);
 
     @FormUrlEncoded
-    @POST("/boardSelectOne")
+    @POST("/boardSelectOne/")
     public Call<RetrofitNotice> boardSelect(@Field("content_serial_id") String content_serial_id, @Field("department") String department);
 
     @FormUrlEncoded
-    @POST("/boardSelect")
+    @POST("/boardSelect/")
     public Call<List<RetrofitNotice>> boardSort(@Field("department") String department);
 
     @GET

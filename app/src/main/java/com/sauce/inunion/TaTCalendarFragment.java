@@ -254,13 +254,17 @@ public class TaTCalendarFragment extends Fragment {
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                 boolean ing = false;
                 JsonArray array = response.body();
+                String sD;
+                String eD;
                 for(int i=0; i < array.size();i++){
                     JsonObject object = array.get(i).getAsJsonObject();
-                    Log.d("startDay",object.get("startDate").getAsString());
-                    Log.d("endDay",object.get("endDate").getAsString());
-                    if(object.get("startDate").getAsString().equals(object.get("endDate").getAsString())){
+                    sD = removeHyphen(object.get("startDate").getAsString());
+                    eD = removeHyphen(object.get("endDate").getAsString());
+                    Log.d("startDay",sD);
+                    Log.d("endDay",eD);
+                    if(sD.equals(eD)){
                         for (int j = 0; j < maxDateOfMonth; j++) {
-                            if (object.get("startDate").getAsString().equals(taTCalendarItemViews[j].getId() + "")) {
+                            if (sD.equals(taTCalendarItemViews[j].getId() + "")) {
                                 taTCalendarItemViews[j].setEvent(R.color.colorPrimaryDark);
                             }
                         }
@@ -268,11 +272,11 @@ public class TaTCalendarFragment extends Fragment {
                     else{
                         for(int j=0; j<maxDateOfMonth; j++){
                             if(ing == false){
-                                if(object.get("startDate").getAsString().equals(taTCalendarItemViews[j].getId()+"")){
+                                if(sD.equals(taTCalendarItemViews[j].getId()+"")){
                                     taTCalendarItemViews[j].setEvent(R.color.colorPrimaryDark);
                                     ing = true;
                                 }
-                            } else if(ing == true && object.get("endDate").getAsString().equals(taTCalendarItemViews[j].getId()+"")){
+                            } else if(ing == true && eD.equals(taTCalendarItemViews[j].getId()+"")){
                                 taTCalendarItemViews[j].setEvent(R.color.colorPrimaryDark);
                                 ing = false;
                             }
@@ -292,6 +296,16 @@ public class TaTCalendarFragment extends Fragment {
 
         return mRootView;
 
+    }
+
+    private String removeHyphen(String startDate) {
+        String result = new String();
+        for(int i = 0 ; i < 10; i ++)
+        {
+            if(startDate.charAt(i) != '-')
+                result += startDate.charAt(i);
+        }
+        return result;
     }
 
     @Override

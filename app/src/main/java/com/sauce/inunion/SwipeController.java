@@ -1,11 +1,14 @@
 package com.sauce.inunion;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper.Callback;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -129,14 +132,18 @@ class SwipeController extends Callback {
                     setItemsClickable(recyclerView, true);
                     swipeBack = false;
 
-//                    if (buttonsActions != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
-//                        if (buttonShowedState == ButtonsState.LEFT_VISIBLE) {
+                    if (buttonsActions != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
+                        if (buttonShowedState == ButtonsState.LEFT_VISIBLE) {
 //                            buttonsActions.onLeftClicked(viewHolder.getAdapterPosition());
-//                        }
-//                        else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE) {
+                        }
+                        else if (buttonShowedState == ButtonsState.RIGHT_VISIBLE) {
+                            Intent intent2 = new Intent("click_delete");
+                            intent2.putExtra("delete_position",viewHolder.getAdapterPosition()+"");
+                            Log.d("test33",viewHolder.getAdapterPosition()+"");
+                            LocalBroadcastManager.getInstance(recyclerView.getContext()).sendBroadcast(intent2);
 //                            buttonsActions.onRightClicked(viewHolder.getAdapterPosition());
-//                        }
-//                    }
+                        }
+                    }
                     buttonShowedState = ButtonsState.GONE;
                     currentItemViewHolder = null;
                 }

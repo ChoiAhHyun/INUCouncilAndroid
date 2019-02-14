@@ -10,14 +10,14 @@ import retrofit2.http.POST;
 
 public interface RetrofitService {
     @FormUrlEncoded
-    @POST("/login")
+    @POST("/login/")
     public Call<LoginResult> login(@Field("username") String username, @Field("password") String password);
 
     @FormUrlEncoded
     @POST("/calendarSave/")
     public Call<RetrofitResult> calendarsave(@Field("scheduleTitle") String scheduleTitle,
                                              @Field("startDate") String startDate,
-                                             @Field("startTime") String staetTime,
+                                             @Field("startTime") String startTime,
                                              @Field("endDate") String endDate,
                                              @Field("endTime") String endTime,
                                              @Field("position") String position,
@@ -36,7 +36,7 @@ public interface RetrofitService {
     @POST("/calendarModify/")
     public Call<RetrofitResult> calendarmodify(@Field("scheduleTitle") String scheduleTitle,
                                                @Field("startDate") String startDate,
-                                               @Field("startTime") String staetTime,
+                                               @Field("startTime") String startTime,
                                                @Field("endDate") String endDate,
                                                @Field("endTime") String endTime,
                                                @Field("position") String position,

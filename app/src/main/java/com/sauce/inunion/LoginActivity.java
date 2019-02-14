@@ -26,6 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends Activity {
     Retrofit retrofit;
     RetrofitService retrofitLoginService;
+    FireBaseMessagingService fireBaseMessagingService = new FireBaseMessagingService();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +108,7 @@ public class LoginActivity extends Activity {
                                 editor.putString("App_department", result.department);
                                 editor.putString("Login",result.ans);
                                 editor.apply();
+                                fireBaseMessagingService.sendRegistrationToServer(LoginActivity.this,pref.getString("App_department",null));
                                 ChooseMajorActivity.isStudentMode = false;
                                 Intent intent = new Intent(LoginActivity.this, MainActivityManager.class);
                                 startActivity(intent);

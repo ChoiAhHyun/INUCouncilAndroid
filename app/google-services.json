@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "426778718878",
+    "firebase_url": "https://union-b3bf6.firebaseio.com",
+    "project_id": "union-b3bf6",
+    "storage_bucket": "union-b3bf6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426778718878:android:a086636892a5d970",
+        "android_client_info": {
+          "package_name": "com.sauce.inunion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426778718878-efieer7e5ke5m6tamgn5mcnmc9ihjvcq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBA2jaqJx91fxGvrC6r5JadSR_RnelMt8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

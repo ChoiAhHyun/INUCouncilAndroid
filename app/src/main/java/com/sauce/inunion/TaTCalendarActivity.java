@@ -215,19 +215,31 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
                     @Override
                     public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
                         JsonArray array = response.body();
+                        String sD;
+                        String eD;
                         Myitems.clear();
                         for(int i=0; i < array.size();i++){
                             JsonObject object = array.get(i).getAsJsonObject();
-                            if(object.get("startDate").getAsString().equals(data2)){
-                                Log.d("test","gogogo");
+                            sD = removeHyphen(object.get("startDate").getAsString());
+                            eD = removeHyphen(object.get("endDate").getAsString());
+                            Log.d("startDayDay",sD);
+                            Log.d("endDayDay",eD);
+                            if(sD.equals(data2)){
+                                Log.d("test",sD+","
+                                        +object.get("scheduleTitle").getAsString()+","
+                                        +sortingTM(object.get("startTime").getAsString())+","
+                                        +object.get("scheduleId").getAsString()+","
+                                        +object.get("memo").getAsString()
+                                );
                                 Myitems.add(new CalendarScheduleRecyclerAdapter.Myscheduleitem(object.get("scheduleTitle").getAsString(),
                                         sortingTM(object.get("startTime").getAsString()),
                                         object.get("scheduleId").getAsString(),
-                                        object.get("memo").getAsString()));
+                                        object.get("memo").getAsString()
+                                ));
                                 adapter = new CalendarScheduleRecyclerAdapter(Myitems);
 
                             }
-                            else if((Integer.parseInt(data2) > Integer.parseInt(object.get("startDate").getAsString())) && Integer.parseInt(data2) <= Integer.parseInt(object.get("endDate").getAsString())){
+                            else if((Integer.parseInt(data2) > Integer.parseInt(sD)) && Integer.parseInt(data2) <= Integer.parseInt(eD)){
                                 Myitems.add(new CalendarScheduleRecyclerAdapter.Myscheduleitem(object.get("scheduleTitle").getAsString(),
                                         "진행 중",
                                         object.get("scheduleId").getAsString(),
@@ -312,7 +324,12 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
         String sorted = sb.toString();
         return sorted;
     }
-    public String sortingTM(String string) {
+    public String sortingTM(String str) {
+        String string = new String();
+        for (int i = 0; i < str.length(); i++)
+        {
+            string += str.charAt(i);
+        }
         StringBuffer sb = new StringBuffer(string);
         if (string.length() == 4) {
             if (string.charAt(0) == '1' || string.charAt(0) == '2') {
@@ -325,5 +342,27 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
         }
         String sorted = sb.toString();
         return sorted;
+    }
+
+    private String removeHyphen(String startDate) {
+        String result = new String();
+        for(int i = 0 ; i < 10; i ++)
+        {
+            if(startDate.charAt(i) != '-')
+                result += startDate.charAt(i);
+        }
+        return result;
+    }
+
+    public String removeZero(String string){
+        StringBuffer sb = new StringBuffer(6);
+        for(int i = 0 ; i < 6; i ++)
+        {
+            if(i < 4 )
+                sb.insert(i + 1,string.charAt(i));
+
+        }
+        String result = sb.toString();
+        return result;
     }
 }
