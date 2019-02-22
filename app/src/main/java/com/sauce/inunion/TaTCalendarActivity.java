@@ -56,7 +56,6 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
     TextView month;
     RecyclerView recyclerView;
     CalendarScheduleRecyclerAdapter adapter;
-    SwipeController swipeController;
     String scheduletitle;
     String memo;
     String year_month;
@@ -107,7 +106,6 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
 
         Myitems = new ArrayList<>();
 
-        setupRecyclerView();
 
         String title = taTCalendarAdapter.getMonthDisplayed(COUNT_PAGE);
         year_month = title;
@@ -197,7 +195,7 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
             });
 
             Myitems.remove(Integer.parseInt(data));
-            adapter = new CalendarScheduleRecyclerAdapter(Myitems);
+            adapter = new CalendarScheduleRecyclerAdapter(Myitems, getActivity());
             recyclerView.setAdapter(adapter);
         }
     };
@@ -236,7 +234,7 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
                                         object.get("scheduleId").getAsString(),
                                         object.get("memo").getAsString()
                                 ));
-                                adapter = new CalendarScheduleRecyclerAdapter(Myitems);
+                                adapter = new CalendarScheduleRecyclerAdapter(Myitems, getActivity());
 
                             }
                             else if((Integer.parseInt(data2) > Integer.parseInt(sD)) && Integer.parseInt(data2) <= Integer.parseInt(eD)){
@@ -244,7 +242,7 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
                                         "진행 중",
                                         object.get("scheduleId").getAsString(),
                                         object.get("memo").getAsString()));
-                                adapter = new CalendarScheduleRecyclerAdapter(Myitems);
+                                adapter = new CalendarScheduleRecyclerAdapter(Myitems, getActivity());
                             }
                         }
                         recyclerView.setAdapter(adapter);
@@ -288,27 +286,7 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
         anim.setDuration(200);
         anim.start();
     }
-    private void setupRecyclerView() {
-        swipeController = new SwipeController(new SwipeControllerActions() {
-            @Override
-            public void onRightClicked(int position) {
-                adapter.items.remove(position);
-                adapter.notifyItemRemoved(position);
-                adapter.notifyItemRangeChanged(position, adapter.getItemCount());
 
-            }
-        });
-
-        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
-        itemTouchhelper.attachToRecyclerView(recyclerView);
-
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-                swipeController.onDraw(c);
-            }
-        });
-    }
     public String sortingYMD(String string){
         StringBuffer sb = new StringBuffer(string);
         if(string.charAt(4) != '1'){

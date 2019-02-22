@@ -65,7 +65,7 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
 //        body.add("token",token);
 
         request = new Request.Builder()
-                .url("http://117.16.231.66:7001/fcm/")
+                .url("http://117.16.231.66:7001/tokenSave/")
                 .post(body)
                 .build();
 

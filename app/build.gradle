@@ -42,6 +42,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.3.2'
+    implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
+    implementation 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
 }
 
 apply plugin: 'com.google.gms.google-services'

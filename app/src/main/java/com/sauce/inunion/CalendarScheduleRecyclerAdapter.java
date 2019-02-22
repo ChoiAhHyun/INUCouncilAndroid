@@ -1,19 +1,23 @@
 package com.sauce.inunion;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class CalendarScheduleRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-
+    Context context;
     class MyItemViewHolder extends RecyclerView.ViewHolder{
 
         public MyItemViewHolder(@NonNull View itemView) {
@@ -34,7 +38,7 @@ public class CalendarScheduleRecyclerAdapter extends RecyclerView.Adapter<Recycl
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
             final Myscheduleitem myscheduleitem = items.get(i);
         TextView starttime = viewHolder.itemView.findViewById(R.id.time);
         starttime.setText(myscheduleitem.starttime);
@@ -52,14 +56,26 @@ public class CalendarScheduleRecyclerAdapter extends RecyclerView.Adapter<Recycl
                 view.getContext().startActivity(intent);
             }
         });
+
+        Button buttonDelete = viewHolder.itemView.findViewById(R.id.btnDeleteSchedule);
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent("click_delete");
+                intent2.putExtra("delete_position", i+"");
+                Log.d("test33", i+"");
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent2);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return items.size();
     }
-       CalendarScheduleRecyclerAdapter(ArrayList<Myscheduleitem> items){
+       CalendarScheduleRecyclerAdapter(ArrayList<Myscheduleitem> items, Context context){
         this.items = items;
+        this.context = context;
     }
      static class Myscheduleitem {
         public String scheduleTitle;
