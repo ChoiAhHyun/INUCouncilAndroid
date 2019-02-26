@@ -53,6 +53,7 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
     public void sendRegistrationToServer(Context context, String department) {
         pref = context.getSharedPreferences("first", context.MODE_PRIVATE);
         String thisToken = pref.getString("token",null);
+        Log.d(TAG, "thisToken: " + thisToken);
 
         client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
@@ -60,7 +61,6 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
                 .add("token",thisToken)
                 .build();
 
-        Log.d(TAG, "department: " + department + ", token: " + thisToken);
 //        List<MultipartBody.Part> body = new ArrayList<>();
 //        body.add("token",token);
 
@@ -80,7 +80,6 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
             // do above Server call here
             try {
                 client.newCall(request).execute();
-                Log.d(TAG, "request");
             }catch (IOException e){
                 e.printStackTrace();
             }
