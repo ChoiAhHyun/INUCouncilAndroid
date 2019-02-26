@@ -213,13 +213,25 @@ public class TaTCalendarFragment extends Fragment {
             child.setDate(calendar.getTimeInMillis());
             String string = null;
             if(i < 9) {
-                string = ("" + calendar.get(Calendar.YEAR)) + (calendar.get(Calendar.MONTH) + 1) + "1";
+                if(calendar.get(Calendar.MONTH)<10){
+                    string = ("" + calendar.get(Calendar.YEAR)) + "0"+(calendar.get(Calendar.MONTH) + 1) +"0"+(i+1);
+                }
+                else{
+                    string = ("" + calendar.get(Calendar.YEAR)) + (calendar.get(Calendar.MONTH) + 1) +"0"+(i+1);
+                }
             }
             else{
-                string = ("" + calendar.get(Calendar.YEAR)) + (calendar.get(Calendar.MONTH) + 1) + "01";
+                if(calendar.get(Calendar.MONTH)<10){
+                    string = ("" + calendar.get(Calendar.YEAR)) + "0"+(calendar.get(Calendar.MONTH) + 1) + (i+1);
+                }
+                else{
+                    string = ("" + calendar.get(Calendar.YEAR)) + (calendar.get(Calendar.MONTH) + 1) + (i+1);
+                }
             }
             int id = Integer.parseInt(string);
-            child.setId(id+i);
+            Log.d("setId",string);
+            child.setId(id);
+
             calendar.add(Calendar.DATE, 1);
             taTCalendarItemViews[i] = child;
             calendarView.addView(child);
