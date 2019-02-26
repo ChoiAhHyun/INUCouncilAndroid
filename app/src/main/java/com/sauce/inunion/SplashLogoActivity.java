@@ -13,7 +13,7 @@ import android.support.annotation.Nullable;
 
 public class SplashLogoActivity extends Activity {
     SharedPreferences pref;
-    private final int SPLASH_DISPLAY_LENGTH = 1400;
+    private final int SPLASH_DISPLAY_LENGTH = 1200;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

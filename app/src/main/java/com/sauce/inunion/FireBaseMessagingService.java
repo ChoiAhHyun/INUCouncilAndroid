@@ -53,7 +53,6 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
     public void sendRegistrationToServer(Context context, String department) {
         pref = context.getSharedPreferences("first", context.MODE_PRIVATE);
         String thisToken = pref.getString("token",null);
-        Log.d(TAG, "thisToken: " + thisToken);
 
         client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
@@ -72,6 +71,7 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
         NetworkJob job =  new NetworkJob();
         job.execute();
 
+        Log.d(TAG, "department: " + department + ", token: " + thisToken);
     }
     private class NetworkJob extends AsyncTask<String, Void, String> {
 

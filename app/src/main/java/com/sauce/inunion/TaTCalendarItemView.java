@@ -75,7 +75,6 @@ public class TaTCalendarItemView extends View {
             @Override
             public void onClick(View view) {
                 temp = (long) view.getTag();
-                String temp_date = makeZero(view.getId());
                 if(temp!=before_temp && view.getId() != -1) {
                     ((TaTCalendarView) getParent()).setCurrentSelectedView(view);
                 }
@@ -89,13 +88,6 @@ public class TaTCalendarItemView extends View {
             }
         });
         setPadding(30, 0, 30, 0);
-    }
-
-    private String makeZero(int id) {
-        String date = id + "";
-        Log.v("getId()", date);
-        String result = "";
-        return result;
     }
 
     @Override
