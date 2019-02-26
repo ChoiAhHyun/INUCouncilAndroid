@@ -287,37 +287,25 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
         anim.start();
     }
 
-    public String sortingYMD(String string){
-        StringBuffer sb = new StringBuffer(string);
-        if(string.charAt(4) != '1'){
-            sb.insert(4,"년 ");
-            sb.insert(7,"월 ");
-            sb.append("일");
-        }
-        else{
-            sb.insert(4,"년 ");
-            sb.insert(8,"월 ");
-            sb.append("일");
-        }
-        String sorted = sb.toString();
-        return sorted;
-    }
+
     public String sortingTM(String str) {
         String string = new String();
         for (int i = 0; i < str.length(); i++)
         {
-            string += str.charAt(i);
+            if (i < 5)
+                string += str.charAt(i);
         }
         StringBuffer sb = new StringBuffer(string);
-        if (string.length() == 4) {
-            if (string.charAt(0) == '1' || string.charAt(0) == '2') {
-                sb.insert(2, ":");
-                sb.append("");
-            }
-        } else {
-            sb.insert(1, ":");
-            sb.append("");
-        }
+//        if (string.length() == 4) {
+//            if (string.charAt(0) == '1' || string.charAt(0) == '2') {
+//        sb.insert(2, ":");
+//        sb.append("");
+//            }
+//        } else {
+//            sb.insert(1, ":");
+//            sb.append("");
+//        }
+
         String sorted = sb.toString();
         return sorted;
     }

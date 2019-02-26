@@ -82,11 +82,19 @@ public class ScheduleContentActivity extends Activity {
                     JsonObject object = array.get(i).getAsJsonObject();
                     if(object.get("scheduleId").getAsString().equals(schedule_id)){
                         Log.d("test",schedule_id);
+                        Log.d("test",object.get("scheduleTitle").getAsString()+","
+                                +object.get("startDate").getAsString()+","
+                                +object.get("startTime").getAsString()+","
+                                +object.get("endDate").getAsString()+","
+                                +object.get("endTime").getAsString()+","
+                                +object.get("position").getAsString()+","
+                                +object.get("memo").getAsString()
+                        );
                         schedule_content_title.setText(object.get("scheduleTitle").getAsString());
-                        schedule_content_startdate.setText(sortingYMD(object.get("startDate").getAsString()));
-                        schedule_content_starttime.setText(sortingTM(object.get("startTime").getAsString()));
-                        schedule_content_enddate.setText(sortingYMD(object.get("endDate").getAsString()));
-                        schedule_content_endtime.setText(sortingTM(object.get("endTime").getAsString()));
+                        schedule_content_startdate.setText(sortingYMD(removeHyphen(object.get("startDate").getAsString())));
+                        schedule_content_starttime.setText(sortingTM(removeColon(object.get("startTime").getAsString())));
+                        schedule_content_enddate.setText(sortingYMD(removeHyphen(object.get("endDate").getAsString())));
+                        schedule_content_endtime.setText(sortingTM(removeColon(object.get("endTime").getAsString())));
                         schedule_content_position.setText(object.get("position").getAsString());
                         schedule_content_memo.setText(object.get("memo").getAsString());
                     }
@@ -158,33 +166,80 @@ public class ScheduleContentActivity extends Activity {
             schedule_content_memo.setText(data.getStringExtra("edMM")+"");
         }
     }
+    private String removeHyphen(String startDate) {
+        String result = new String();
+        for(int i = 0 ; i < startDate.length(); i ++)
+        {
+            if(startDate.charAt(i) != '-')
+                result += startDate.charAt(i);
+        }
+        return result;
+    }
+    private String removeColon(String startDate) {
+        String result = new String();
+        for(int i = 0 ; i < startDate.length() - 3; i ++)
+        {
+            if(startDate.charAt(i) != ':')
+                result += startDate.charAt(i);
+        }
+        return result;
+    }
     public String sortingYMD(String string){
         StringBuffer sb = new StringBuffer(string);
-        if(string.charAt(4) != '1'){
-            sb.insert(4,"년 ");
-            sb.insert(7,"월 ");
-            sb.append("일");
-        }
-        else{
+//        for (int i = 0; i < string.length(); i++){
+//            if(string.charAt(i) == '-'){
+//                if (i < 4){
+//                    sb.charAt(i) = '년';
+//                }
+//            }
+//        }
+//
+//        sb.insert(4,"년 ");
+//        sb.insert(7,"월 ");
+//        sb.append("일");
+//        else{
             sb.insert(4,"년 ");
             sb.insert(8,"월 ");
             sb.append("일");
-        }
+//        }
         String sorted = sb.toString();
         return sorted;
     }
     public String sortingTM(String string){
-        StringBuffer sb = new StringBuffer(string);
-        if (string.length() == 4) {
-            if (string.charAt(0) == '1' || string.charAt(0) == '2') {
-                sb.insert(2, "시 ");
-                sb.append("분");
-            }
+        int temp = Integer.parseInt(string);
+        String str;
+        StringBuffer sb;
+        if (temp >= 1200) {
+            if (temp >= 1300)
+                temp -= 1200;
+            str = String.valueOf(temp);
+            sb = new StringBuffer(str);
+            if(temp < 1000)
+                sb.insert(1, ":");
+            else
+                sb.insert(2, ":");
+            sb.append(" p.m ");
         }
         else{
-            sb.insert(1,"시 ");
-            sb.append("분");
+            str = String.valueOf(temp);
+            sb = new StringBuffer(str);
+            if(temp < 1000)
+                sb.insert(1, ":");
+            else
+                sb.insert(2, ":");
+            sb.append(" a.m ");
         }
+
+//        if (string.length() == 4) {
+//            if (string.charAt(0) == '1' || string.charAt(0) == '2') {
+//                sb.insert(2, "시 ");
+//                sb.append("분");
+//            }
+//        }
+//        else{
+//            sb.insert(1,"시 ");
+//            sb.append("분");
+//        }
         String sorted = sb.toString();
         return sorted;
     }
