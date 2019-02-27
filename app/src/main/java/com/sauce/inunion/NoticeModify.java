@@ -106,7 +106,7 @@ public class NoticeModify extends Activity {
         service.boardSelect(Id,department).enqueue(new Callback<RetrofitNotice>() {
             @Override
             public void onResponse(Call<RetrofitNotice> call, Response<RetrofitNotice> response) {
-                Toast.makeText(getApplicationContext(),"select 성공",Toast.LENGTH_SHORT).show();
+                Log.d("notice", "연결 성공"+response.code());
 
                 RetrofitNotice res = response.body();
                 editTitle.setText(res.title);
@@ -116,7 +116,7 @@ public class NoticeModify extends Activity {
 
             @Override
             public void onFailure(Call<RetrofitNotice> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), ""+t, Toast.LENGTH_SHORT).show();
+                Log.d("contact", ""+t);
             }
         });
 
@@ -136,27 +136,27 @@ public class NoticeModify extends Activity {
         });
 
 
+        final PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Log.d("notice", "Permission Granted");
+            }
+
+            @Override
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                Log.d("notice", "Permission Denied\n" + deniedPermissions.toString());
+            }
+        };
+
+        TedPermission.with(NoticeModify.this)
+                .setPermissionListener(permissionlistener).setRationaleMessage("사진 첨부를 하기 위해서는 권한이 필요합니다")
+                .setDeniedMessage("거부하시면 정상적으로 사용이 불가합니다\n\n [설정] > [권한] 에서 권한을 허용해 주세요")
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .check();
 
         imageImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PermissionListener permissionlistener = new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted() {
-//                        Toast.makeText(NoticeModify.this, "Permission Granted", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onPermissionDenied(List<String> deniedPermissions) {
-                        Toast.makeText(NoticeModify.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-                    }
-
-                };
-                TedPermission.with(NoticeModify.this)
-                        .setPermissionListener(permissionlistener).setRationaleMessage("사진 첨부를 하기 위해서는 권한이 필요합니다")
-                        .setDeniedMessage("거부하시면 정상적으로 사용이 불가합니다\n\n [설정] > [권한] 에서 권한을 허용해 주세요")
-                        .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
-                        .check();
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setType("image/*");
@@ -217,7 +217,7 @@ public class NoticeModify extends Activity {
                         //이미지뷰에 이미지 셋팅
                         items.add(new NoticeWriteImageItem(photoURI));
                         imageAdapter.notifyDataSetChanged();
-                        imageUpload();
+//                        imageUpload();
                         Log.v("알림","이미지뷰에 이미지 저장");
                         //cropImage();
                     }catch (Exception e){

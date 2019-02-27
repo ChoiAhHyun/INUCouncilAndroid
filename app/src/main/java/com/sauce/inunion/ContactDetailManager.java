@@ -69,7 +69,7 @@ public class ContactDetailManager  extends Fragment {
         service.addressSelect(Id).enqueue(new Callback<List<RetrofitContact>>() {
             @Override
             public void onResponse(Call<List<RetrofitContact>> call, Response<List<RetrofitContact>> response) {
-                Toast.makeText(getActivity(),"연결 성공",Toast.LENGTH_SHORT).show();
+                Log.d("contact", "연결 성공"+response.code());
 
                 List<RetrofitContact> res = response.body();
                 editName.setText(res.get(0).name);
@@ -81,7 +81,7 @@ public class ContactDetailManager  extends Fragment {
 
             @Override
             public void onFailure(Call<List<RetrofitContact>> call, Throwable t) {
-                Toast.makeText(getContext().getApplicationContext(), ""+t, Toast.LENGTH_SHORT).show();
+                Log.d("contact", ""+t);
             }
         });
 
@@ -122,7 +122,7 @@ public class ContactDetailManager  extends Fragment {
                 serviceD.addressDelete(Id).enqueue(new Callback<RetrofitContact>() {
                     @Override
                     public void onResponse(Call<RetrofitContact> call, Response<RetrofitContact> response) {
-                        Toast.makeText(getActivity(),"연결 성공",Toast.LENGTH_SHORT).show();
+                        Log.d("contact", "연결 성공"+response.code());
                         ContactManager contact = new ContactManager();
                         getActivity().getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_container, contact)
@@ -134,7 +134,7 @@ public class ContactDetailManager  extends Fragment {
 
                     @Override
                     public void onFailure(Call<RetrofitContact> call, Throwable t) {
-                        Toast.makeText(getContext().getApplicationContext(), ""+t, Toast.LENGTH_SHORT).show();
+                        Log.d("contact", ""+t);
                     }
                 });
 

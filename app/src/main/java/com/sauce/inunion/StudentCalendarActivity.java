@@ -167,12 +167,12 @@ public class StudentCalendarActivity extends Fragment implements TaTCalendarFrag
 
                 @Override
                 public void onFailure(Call<RetrofitResult> call, Throwable t) {
-
+                    Log.d("delete",t+"");
                 }
             });
 
             Myitems.remove(Integer.parseInt(data));
-            adapter = new StudentScheduleRecyclerAdapter(Myitems, getActivity());
+            adapter = new StudentScheduleRecyclerAdapter(Myitems, getActivity(), getFragmentManager());
             recyclerView.setAdapter(adapter);
         }
     };
@@ -211,7 +211,7 @@ public class StudentCalendarActivity extends Fragment implements TaTCalendarFrag
                                         object.get("scheduleId").getAsString(),
                                         object.get("memo").getAsString()
                                 ));
-                                adapter = new StudentScheduleRecyclerAdapter(Myitems, getActivity());
+                                adapter = new StudentScheduleRecyclerAdapter(Myitems, getActivity(), getFragmentManager());
 
                             }
                             else if((Integer.parseInt(data2) > Integer.parseInt(sD)) && Integer.parseInt(data2) <= Integer.parseInt(eD)){
@@ -219,7 +219,7 @@ public class StudentCalendarActivity extends Fragment implements TaTCalendarFrag
                                         "진행 중",
                                         object.get("scheduleId").getAsString(),
                                         object.get("memo").getAsString()));
-                                adapter = new StudentScheduleRecyclerAdapter(Myitems, getActivity());
+                                adapter = new StudentScheduleRecyclerAdapter(Myitems, getActivity(), getFragmentManager());
                             }
                         }
                         recyclerView.setAdapter(adapter);
@@ -227,7 +227,7 @@ public class StudentCalendarActivity extends Fragment implements TaTCalendarFrag
 
                     @Override
                     public void onFailure(Call<JsonArray> call, Throwable t) {
-
+                        Log.d("test",t+"");
                     }
                 });
             }
@@ -281,16 +281,24 @@ public class StudentCalendarActivity extends Fragment implements TaTCalendarFrag
         String sorted = sb.toString();
         return sorted;
     }
-    public String sortingTM(String string){
+    public String sortingTM(String str){
+        String string = new String();
+        for (int i = 0; i < str.length(); i++)
+        {
+            if (i < 5)
+                string += str.charAt(i);
+        }
         StringBuffer sb = new StringBuffer(string);
-        if(string.charAt(0) == '1' || string.charAt(0) == '2'){
-            sb.insert(2,"시 ");
-            sb.append("분");
-        }
-        else{
-            sb.insert(1,"시 ");
-            sb.append("분");
-        }
+//        if (string.length() == 4) {
+//            if (string.charAt(0) == '1' || string.charAt(0) == '2') {
+//        sb.insert(2, ":");
+//        sb.append("");
+//            }
+//        } else {
+//            sb.insert(1, ":");
+//            sb.append("");
+//        }
+
         String sorted = sb.toString();
         return sorted;
     }

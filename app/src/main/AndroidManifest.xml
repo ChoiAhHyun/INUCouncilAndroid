@@ -28,8 +28,6 @@
         <activity android:name=".AddMajorActivity"/>
         <activity android:name=".AddScheduleActivity"/>
         <activity android:name=".ScheduleEditActivity"/>
-        <activity android:name=".ScheduleContentActivity">
-        </activity>
         <activity android:name=".SplashLogoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

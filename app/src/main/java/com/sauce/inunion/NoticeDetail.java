@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -139,13 +140,12 @@ public class NoticeDetail extends Fragment {
 
         final NoticeImageAdapter recyclerViewAdapter= new NoticeImageAdapter(getActivity());
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.notice_detail_image_rv);
-        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         service.boardSelect(Id,department).enqueue(new Callback<RetrofitNotice>() {
             @Override
             public void onResponse(Call<RetrofitNotice> call, Response<RetrofitNotice> response) {
-//                Toast.makeText(getActivity(),"연결 성공",Toast.LENGTH_SHORT).show();
+                Log.d("notice", "연결 성공"+response.code());
 
                 RetrofitNotice res = response.body();
                 choiceTitle.setText(res.title);
@@ -155,41 +155,15 @@ public class NoticeDetail extends Fragment {
                 for (int i=0;i<res.fileName.size();i++){
                     recyclerViewAdapter.addItem(new NoticeImageItem(res.fileName.get(i)));
                 }
+                recyclerViewAdapter.notifyDataSetChanged();
 
             }
 
             @Override
             public void onFailure(Call<RetrofitNotice> call, Throwable t) {
-                Toast.makeText(getContext().getApplicationContext(), ""+t, Toast.LENGTH_SHORT).show();
+                Log.d("notice", ""+t);
             }
         });
-
-/*
-        menu = (ImageView) view.findViewById(R.id.notice_detail_menu);
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                PopupMenu popup = new PopupMenu(getActivity(), menu);
-                popup.getMenuInflater().inflate(R.menu.notice_detail_menu, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        /*Toast.makeText(PopupMenuDemo.this,
-                                “You Clicked : ” + item.getTitle(),
-                                Toast.LENGTH_SHORT).show();
-                        if(item.getTitle()=="삭제"){
-
-                        }
-                        else
-                        {
-
-                        }
-                        return true;
-                    }
-                });
-                popup.show();
-            }
-        });*/
 
         return view;
     }

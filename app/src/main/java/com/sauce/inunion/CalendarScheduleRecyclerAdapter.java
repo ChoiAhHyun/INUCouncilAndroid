@@ -2,7 +2,9 @@ package com.sauce.inunion;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -27,6 +29,7 @@ public class CalendarScheduleRecyclerAdapter extends RecyclerView.Adapter<Recycl
     }
 
     public ArrayList<Myscheduleitem> items;
+    private FragmentManager fragmentManager;
 
     @NonNull
     @Override
@@ -51,9 +54,16 @@ public class CalendarScheduleRecyclerAdapter extends RecyclerView.Adapter<Recycl
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ScheduleContentActivity.class);
-                intent.putExtra("scheduleId", myscheduleitem.scheduleId);
-                view.getContext().startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putString("scheduleId", myscheduleitem.scheduleId);
+
+                ScheduleContentManager fragment= new ScheduleContentManager();
+                fragment.setArguments(bundle);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
+
             }
         });
 
@@ -73,9 +83,10 @@ public class CalendarScheduleRecyclerAdapter extends RecyclerView.Adapter<Recycl
     public int getItemCount() {
         return items.size();
     }
-       CalendarScheduleRecyclerAdapter(ArrayList<Myscheduleitem> items, Context context){
+       CalendarScheduleRecyclerAdapter(ArrayList<Myscheduleitem> items, Context context, FragmentManager fragmentManager){
         this.items = items;
         this.context = context;
+        this.fragmentManager = fragmentManager;
     }
      static class Myscheduleitem {
         public String scheduleTitle;

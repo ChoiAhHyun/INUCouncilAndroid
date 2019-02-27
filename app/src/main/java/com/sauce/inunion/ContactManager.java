@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -160,7 +161,7 @@ public class ContactManager extends Fragment {
 
             @Override
             public void onFailure(Call<List<RetrofitContact>> call, Throwable t) {
-                Toast.makeText(getActivity(),"연결 실패",Toast.LENGTH_SHORT).show();
+                Log.d("contact", ""+t);
             }
         });
 

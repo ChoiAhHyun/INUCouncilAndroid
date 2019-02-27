@@ -170,7 +170,7 @@ public class NoticeDetailManager extends Fragment {
 
             @Override
             public void onFailure(Call<RetrofitNotice> call, Throwable t) {
-                Toast.makeText(getContext().getApplicationContext(), ""+t, Toast.LENGTH_SHORT).show();
+                Log.d("notice", ""+t);
             }
         });
 
@@ -191,7 +191,7 @@ public class NoticeDetailManager extends Fragment {
                 service.boardDelete(Id).enqueue(new Callback<RetrofitNotice>() {
                     @Override
                     public void onResponse(Call<RetrofitNotice> call, Response<RetrofitNotice> response) {
-                        Toast.makeText(getActivity(),"연결 성공",Toast.LENGTH_SHORT).show();
+                        Log.d("notice", "연결 성공"+response.code());
                         NoticeManager notice = new NoticeManager();
                         getActivity().getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_container, notice)
@@ -203,7 +203,7 @@ public class NoticeDetailManager extends Fragment {
 
                     @Override
                     public void onFailure(Call<RetrofitNotice> call, Throwable t) {
-                        Toast.makeText(getContext().getApplicationContext(), ""+t, Toast.LENGTH_SHORT).show();
+                        Log.d("notice", ""+t);
                     }
                 });
 

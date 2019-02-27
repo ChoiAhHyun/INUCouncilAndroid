@@ -169,20 +169,22 @@ public class NoticeManager extends Fragment {
             @Override
             public void onResponse(Call<List<RetrofitNotice>> call,
                                    Response<List<RetrofitNotice>> response) {
-                Toast.makeText(getActivity(),"연결 성공"+response.code(),Toast.LENGTH_SHORT).show();
+                Log.d("notice", "연결 성공"+response.code());
                 final List<RetrofitNotice> res = response.body();
                 for (int i=0; i<res.size();i++){
-                    String count = "+"+Integer.toString(res.get(i).fileName.size() - 4);
+                    String count;
                     String stringDate = res.get(i).time;
                     Log.v("시간",stringDate);
                     ArrayList<String> newFileName = new ArrayList<>();
                     if (res.get(i).fileName.size() <= 4){
+                        count = "";
                         for (int j=0; j<res.get(i).fileName.size(); j++){
                             newFileName.add(res.get(i).fileName.get(j));
                             Log.v("파일",i +", " + res.get(i).fileName.get(j));
                         }
                     }
                     else{
+                        count = "+"+Integer.toString(res.get(i).fileName.size() - 4);
                         for (int j=0; j < 4; j++){
                             newFileName.add(res.get(i).fileName.get(j));
                             Log.v("파일",i +", " + res.get(i).fileName.get(j));

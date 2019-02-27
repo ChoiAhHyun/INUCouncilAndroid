@@ -47,7 +47,6 @@ public class NoticeWrite extends Activity {
     SharedPreferences pref;
     Retrofit retrofit;
     NoticeInterface service;
-    NoticeInterface serviceF;
     List<NoticeWriteImageItem> items = new ArrayList<>();
     NoticeWriteImageAdapter imageAdapter;
 
@@ -112,12 +111,12 @@ public class NoticeWrite extends Activity {
         final PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                Toast.makeText(NoticeWrite.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                Log.d("notice", "Permission Granted");
             }
 
             @Override
             public void onPermissionDenied(List<String> deniedPermissions) {
-                Toast.makeText(NoticeWrite.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                Log.d("notice", "Permission Denied\n" + deniedPermissions.toString());
             }
         };
 

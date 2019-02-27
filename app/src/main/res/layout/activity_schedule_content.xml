@@ -26,18 +26,7 @@
             android:id="@+id/toolbar_title"
             android:textColor="#ffffff"
             android:textSize="18sp"
-            android:text="일정 내용"
             android:layout_gravity="center"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="13dp"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:text="수정"
-            android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
-            android:id="@+id/schedule_content_edit_btn"/>
         </android.support.v7.widget.Toolbar>
 
         <View
@@ -54,7 +43,6 @@
                 android:layout_marginTop="40dp"
                 android:layout_below="@+id/toolbar_schedule_content"
                 android:letterSpacing="-0.02"
-                android:text="일정 이름"
                 android:textColor="#ffffff"
                 android:textSize="25sp" />
 
@@ -72,7 +60,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="-0.03"
-                    android:text="2018년 8월 15일"
                     android:lineSpacingExtra="5sp"
                     android:textColor="#ffffff"
                     android:textSize="15sp" />
@@ -84,7 +71,6 @@
                     android:layout_marginLeft="5dp"
                     android:letterSpacing="-0.03"
                     android:lineSpacingExtra="5sp"
-                    android:text="23시 23분"
                     android:textColor="#ffffff"
                     android:textSize="15sp" />
                 <TextView
@@ -92,7 +78,6 @@
                     android:layout_height="wrap_content"
                     android:letterSpacing="-0.03"
                     android:lineSpacingExtra="5sp"
-                    android:text="부터"
                     android:textColor="#ffffff"
                     android:textSize="15sp"
                     />
@@ -112,7 +97,6 @@
                     android:layout_height="wrap_content"
                     android:letterSpacing="-0.03"
                     android:lineSpacingExtra="5sp"
-                    android:text="2018년 8월 18일"
                     android:textColor="#ffffff"
                     android:textSize="15sp" />
 
@@ -123,7 +107,6 @@
                     android:layout_marginLeft="5dp"
                     android:letterSpacing="-0.03"
                     android:lineSpacingExtra="5sp"
-                    android:text="23시 23분"
                     android:textColor="#ffffff"
                     android:textSize="15sp" />
                 <TextView
@@ -131,22 +114,10 @@
                     android:layout_height="wrap_content"
                     android:letterSpacing="-0.03"
                     android:lineSpacingExtra="5sp"
-                    android:text="까지"
                     android:textColor="#ffffff"
                     android:textSize="15sp"
                     />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/add_schedule_btn"
-                android:layout_below="@+id/toolbar_schedule_content"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="24dp"
-                android:layout_marginTop="36dp"
-                android:background="@drawable/add_new" />
-
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -179,7 +150,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="-0.03"
-                    android:text="위치"
                     android:textColor="#212529"
                     android:textSize="16sp" />
 
@@ -192,7 +162,6 @@
                     android:background="@color/white"
                     android:letterSpacing="-0.03"
                     android:lineSpacingExtra="6sp"
-                    android:text="15호관 203호 강의실"
                     android:textColor="#7e7e7e"
                     android:textSize="14sp" />
 
@@ -216,7 +185,6 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:letterSpacing="-0.03"
-                    android:text="메모"
                     android:textColor="#212529"
                     android:textSize="16sp" />
 
@@ -229,7 +197,6 @@
                     android:background="@color/white"
                     android:letterSpacing="-0.03"
                     android:lineSpacingExtra="6sp"
-                    android:text="참석자는 기타 필기구를 지참하여 주시길 바랍니다.참석자는 기타 필기구를 지참하여 주시길 바랍니다.참석자는 기타 필기구를 지참하여 주시길 바랍니다.참석자는 기타 필기구를 지참하여 주시길 바랍니다.참석자는 기타 필기구를 지참하여 주시길 바랍니다."
                     android:textColor="#7e7e7e"
                     android:textSize="14sp" />
                 <View
@@ -241,18 +208,6 @@
                     android:background="#e0e0e0"/>
             </LinearLayout>
             </LinearLayout>
-
-                <TextView
-                    android:id="@+id/delete_event_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="19dp"
-                    android:layout_marginBottom="18dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentBottom="true"
-                    android:text="이벤트 삭제"
-                    android:textColor="#fa5252"
-                    android:textSize="15sp" />
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>

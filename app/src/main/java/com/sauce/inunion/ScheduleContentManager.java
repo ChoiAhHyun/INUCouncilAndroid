@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +19,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +26,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ScheduleContentActivity extends Fragment {
+public class ScheduleContentManager  extends Fragment {
     RetrofitService retrofitCalendarScheduleContentService;
     String department;
     TextView schedule_content_title;
@@ -39,8 +37,8 @@ public class ScheduleContentActivity extends Fragment {
     TextView schedule_content_position;
     TextView schedule_content_memo;
 
-    public static ScheduleContentActivity newInstance() {
-        return new ScheduleContentActivity();
+    public static ScheduleContentManager newInstance() {
+        return new ScheduleContentManager();
     }
 
     @Override
@@ -49,7 +47,7 @@ public class ScheduleContentActivity extends Fragment {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_schedule_content, container, false); // 여기서 UI를 생성해서 View를 return
+        View view = inflater.inflate(R.layout.activity_schedule_content_manager, container, false); // 여기서 UI를 생성해서 View를 return
 
         final Toolbar toolbarActivity = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbarActivity.setVisibility(View.GONE);
@@ -64,8 +62,27 @@ public class ScheduleContentActivity extends Fragment {
         schedule_content_endtime = view.findViewById(R.id.schedule_content_endtime);
         schedule_content_position = view.findViewById(R.id.schedule_content_position);
         schedule_content_memo = view.findViewById(R.id.schedule_content_memo);
-
+        TextView delete_btn = view.findViewById(R.id.delete_event_btn);
         ImageView cancel_btn = view.findViewById(R.id.schedule_content_cancel_btn);
+        TextView edit_btn = view.findViewById(R.id.schedule_content_edit_btn);
+        Button add_btn = view.findViewById(R.id.add_schedule_btn);
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent3 = new Intent(getActivity().getApplicationContext(),AddScheduleActivity.class);
+                SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월");
+                long currentMonth = System.currentTimeMillis();
+                String year_month = format.format(currentMonth);
+                intent3.putExtra("dialog_limit_Date",year_month);
+                startActivity(intent3);
+            }
+        });
+        if(ChooseMajorActivity.isStudentMode == true){
+            delete_btn.setVisibility(View.GONE);
+            delete_btn.setEnabled(false);
+            edit_btn.setVisibility(View.GONE);
+            edit_btn.setEnabled(false);
+        }
 
         final String Id = getArguments().getString("scheduleId");
         Log.d("test",Id);
@@ -107,12 +124,52 @@ public class ScheduleContentActivity extends Fragment {
         cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StudentCalendarActivity fragment= new StudentCalendarActivity();
+                TaTCalendarActivity fragment= new TaTCalendarActivity();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, fragment)
                         .addToBackStack(null)
                         .commit();
                 toolbarActivity.setVisibility(View.VISIBLE);
+            }
+        });
+        delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                retrofitCalendarScheduleContentService.calendardelete(Id).enqueue(new Callback<RetrofitResult>() {
+                    @Override
+                    public void onResponse(Call<RetrofitResult> call, Response<RetrofitResult> response) {
+                        if(response.isSuccessful()){
+                            RetrofitResult result = response.body();
+                            Log.d("delete",result.ans);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RetrofitResult> call, Throwable t) {
+
+                    }
+                });
+                TaTCalendarActivity fragment= new TaTCalendarActivity();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
+                toolbarActivity.setVisibility(View.VISIBLE);
+            }
+        });
+        edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(getActivity(),ScheduleEditActivity.class);
+                intent2.putExtra("IdOfSchedule",Id);
+                intent2.putExtra("ScheduleContentTitle",schedule_content_title.getText().toString());
+                intent2.putExtra("ScheduleContentStartDate",schedule_content_startdate.getText().toString());
+                intent2.putExtra("ScheduleContentStartTime",schedule_content_starttime.getText().toString());
+                intent2.putExtra("ScheduleContentEndDate",schedule_content_enddate.getText().toString());
+                intent2.putExtra("ScheduleContentEndTime",schedule_content_endtime.getText().toString());
+                intent2.putExtra("ScheduleContentPosition",schedule_content_position.getText().toString());
+                intent2.putExtra("ScheduleContentMemo",schedule_content_memo.getText().toString());
+                startActivityForResult(intent2,50);
             }
         });
 
@@ -167,9 +224,9 @@ public class ScheduleContentActivity extends Fragment {
 //        sb.insert(7,"월 ");
 //        sb.append("일");
 //        else{
-            sb.insert(4,"년 ");
-            sb.insert(8,"월 ");
-            sb.append("일");
+        sb.insert(4,"년 ");
+        sb.insert(8,"월 ");
+        sb.append("일");
 //        }
         String sorted = sb.toString();
         return sorted;

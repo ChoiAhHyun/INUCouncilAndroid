@@ -136,7 +136,7 @@ public class ContactWrite extends Activity {
 
                     @Override
                     public void onFailure(Call<RetrofitContact> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "저장실패", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "저장실패 "+t, Toast.LENGTH_SHORT).show();
                     }
                 });
 

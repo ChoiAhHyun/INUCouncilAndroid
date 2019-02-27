@@ -141,10 +141,9 @@ public class Notice extends Fragment {
         service = retrofit.create(NoticeInterface.class);
 
 
-        final List<NoticeListItem> items = new ArrayList<>();
-
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.notice_recyclerview);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutFrozen(true);
 
         final NoticeListAdapter recyclerViewAdapter = new NoticeListAdapter(getActivity(),getFragmentManager());
         recyclerView.setAdapter(recyclerViewAdapter);
@@ -154,19 +153,40 @@ public class Notice extends Fragment {
             @Override
             public void onResponse(Call<List<RetrofitNotice>> call,
                                    Response<List<RetrofitNotice>> response) {
-                Toast.makeText(getActivity(),"연결 성공"+response.code(),Toast.LENGTH_SHORT).show();
+                Log.d("notice", "연결 성공"+response.code());
                 final List<RetrofitNotice> res = response.body();
-
                 for (int i=0; i<res.size();i++){
-                    String count = Integer.toString(res.get(i).fileName.size() - 4);
+                    String count;
                     String stringDate = res.get(i).time;
-                    recyclerViewAdapter.addItem(new NoticeListItem(res.get(i).title,res.get(i).content,formatTimeString(stringToDate(stringDate)),res.get(i).content_serial_id,count, res.get(i).fileName));
+                    Log.v("시간",stringDate);
+                    ArrayList<String> newFileName = new ArrayList<>();
+                    if (res.get(i).fileName.size() <= 4){
+                        count = "";
+                        for (int j=0; j<res.get(i).fileName.size(); j++){
+                            newFileName.add(res.get(i).fileName.get(j));
+                            Log.v("파일",i +", " + res.get(i).fileName.get(j));
+                        }
+                    }
+                    else{
+                        count = "+"+Integer.toString(res.get(i).fileName.size() - 4);
+                        for (int j=0; j < 4; j++){
+                            newFileName.add(res.get(i).fileName.get(j));
+                            Log.v("파일",i +", " + res.get(i).fileName.get(j));
+                        }
+                    }
+                    recyclerViewAdapter.addItem(new NoticeListItem(res.get(i).title,
+                            res.get(i).content,
+                            formatTimeString(stringToDate(stringDate)),
+                            res.get(i).content_serial_id,
+                            count,
+                            newFileName));
+                    recyclerViewAdapter.notifyDataSetChanged();
                 }
             }
 
             @Override
             public void onFailure(Call<List<RetrofitNotice>> call, Throwable t) {
-                Toast.makeText(getActivity(),""+t,Toast.LENGTH_SHORT).show();
+                Log.v("notice",""+t);
             }
         });
 
@@ -217,6 +237,7 @@ public class Notice extends Fragment {
                 editText.setHintTextColor(getResources().getColor(R.color.search_hint));
                 editText.setBackgroundResource(R.drawable.shape_search);
                 editText.setPadding(calLeft,0,0,0);
+                editText.setText("");
                 textView.setVisibility(View.GONE);
                 SearchIcon.setImageResource(R.drawable.ic_unactive_search);
             }

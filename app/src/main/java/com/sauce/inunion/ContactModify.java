@@ -77,7 +77,7 @@ public class ContactModify extends Activity {
         serviceSelect.addressSelect(Id).enqueue(new Callback<List<RetrofitContact>>() {
             @Override
             public void onResponse(Call<List<RetrofitContact>> call, Response<List<RetrofitContact>> response) {
-                Toast.makeText(getApplicationContext(),"select 성공",Toast.LENGTH_SHORT).show();
+                Log.d("contact", "연결 성공"+response.code());
 
                 List<RetrofitContact> res = response.body();
                 editName.setText(res.get(0).name);
@@ -92,7 +92,7 @@ public class ContactModify extends Activity {
 
             @Override
             public void onFailure(Call<List<RetrofitContact>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), ""+t, Toast.LENGTH_SHORT).show();
+                Log.d("contact", ""+t);
             }
         });
 

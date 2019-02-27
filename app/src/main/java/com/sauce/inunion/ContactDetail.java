@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,7 @@ public class ContactDetail  extends Fragment {
         service.addressSelect(Id).enqueue(new Callback<List<RetrofitContact>>() {
             @Override
             public void onResponse(Call<List<RetrofitContact>> call, Response<List<RetrofitContact>> response) {
-                Toast.makeText(getActivity(),"연결 성공",Toast.LENGTH_SHORT).show();
+                Log.d("contact", "연결 성공"+response.code());
 
                 List<RetrofitContact> res = response.body();
                 editName.setText(res.get(0).name);
@@ -79,7 +80,7 @@ public class ContactDetail  extends Fragment {
 
             @Override
             public void onFailure(Call<List<RetrofitContact>> call, Throwable t) {
-                Toast.makeText(getContext().getApplicationContext(), ""+t, Toast.LENGTH_SHORT).show();
+                Log.d("contact", ""+t);
             }
         });
 
