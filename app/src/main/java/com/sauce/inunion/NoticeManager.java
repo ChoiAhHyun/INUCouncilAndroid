@@ -159,7 +159,7 @@ public class NoticeManager extends Fragment {
 
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.notice_recyclerview);
         recyclerView.setHasFixedSize(true);
-
+        recyclerView.setLayoutFrozen(true);
 
         final NoticeListAdapterManager recyclerViewAdapter = new NoticeListAdapterManager(getActivity(),getFragmentManager());
         recyclerView.setAdapter(recyclerViewAdapter);
@@ -175,7 +175,26 @@ public class NoticeManager extends Fragment {
                     String count = "+"+Integer.toString(res.get(i).fileName.size() - 4);
                     String stringDate = res.get(i).time;
                     Log.v("시간",stringDate);
-                    recyclerViewAdapter.addItem(new NoticeListItem(res.get(i).title,res.get(i).content,formatTimeString(stringToDate(stringDate)),res.get(i).content_serial_id,count, res.get(i).fileName));
+                    ArrayList<String> newFileName = new ArrayList<>();
+                    if (res.get(i).fileName.size() <= 4){
+                        for (int j=0; j<res.get(i).fileName.size(); j++){
+                            newFileName.add(res.get(i).fileName.get(j));
+                            Log.v("파일",i +", " + res.get(i).fileName.get(j));
+                        }
+                    }
+                    else{
+                        for (int j=0; j < 4; j++){
+                            newFileName.add(res.get(i).fileName.get(j));
+                            Log.v("파일",i +", " + res.get(i).fileName.get(j));
+                        }
+                    }
+                    recyclerViewAdapter.addItem(new NoticeListItem(res.get(i).title,
+                            res.get(i).content,
+                            formatTimeString(stringToDate(stringDate)),
+                            res.get(i).content_serial_id,
+                            count,
+                            newFileName));
+                    recyclerViewAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -233,6 +252,7 @@ public class NoticeManager extends Fragment {
                 editText.setHintTextColor(getResources().getColor(R.color.search_hint));
                 editText.setBackgroundResource(R.drawable.shape_search);
                 editText.setPadding(calLeft,0,0,0);
+                editText.setText("");
                 textView.setVisibility(View.GONE);
                 SearchIcon.setImageResource(R.drawable.ic_unactive_search);
             }

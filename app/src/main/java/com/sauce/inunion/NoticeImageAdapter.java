@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,6 @@ public class NoticeImageAdapter extends RecyclerView.Adapter<NoticeImageAdapter.
     private Context mCtx;
 
     public ArrayList<NoticeImageItem> items = new ArrayList<>();
-    public ArrayList<NoticeImageItem> arrayList = new ArrayList<>();
     public NoticeImageAdapter(Context context) {
         this.mCtx=context;
     }
@@ -45,9 +45,9 @@ public class NoticeImageAdapter extends RecyclerView.Adapter<NoticeImageAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final NoticeImageItem item=items.get(position);
-
+//        Log.w("파일",position +", " + item.getImage());
         Glide.with(mCtx)
-                .load(item.getImage())
+                .load("http://117.16.231.66:7001/imgload/" + item.getImage())
                 .into(holder.imageView);
 //        Picasso.get().load(item.getImage()).into(holder.imageView);
 //        holder.imageView.setImageBitmap(item.getImage());
@@ -55,13 +55,11 @@ public class NoticeImageAdapter extends RecyclerView.Adapter<NoticeImageAdapter.
 
     @Override
     public int getItemCount() {
-        return this.items.size();
+        return items.size();
     }
 
     public void addItem(NoticeImageItem item){
         items.add(item);
-        arrayList.add(item);
-        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

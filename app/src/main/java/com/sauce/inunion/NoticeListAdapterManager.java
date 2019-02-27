@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -190,7 +191,7 @@ public class NoticeListAdapterManager extends RecyclerView.Adapter<RecyclerView.
 
             mRecyclerView.setLayoutManager(layoutManager);
 
-            adapter.notifyDataSetChanged();
+//            adapter.notifyDataSetChanged();
 
             // this is needed if you are working with CollapsingToolbarLayout, I am adding this here just in case I forget.
             //mRecyclerView.setNestedScrollingEnabled(false);
@@ -208,7 +209,6 @@ public class NoticeListAdapterManager extends RecyclerView.Adapter<RecyclerView.
     public void addItem(NoticeListItem item){
         items.add(item);
         arrayList.add(item);
-        notifyDataSetChanged();
     }
 
     @Override
@@ -240,9 +240,9 @@ public class NoticeListAdapterManager extends RecyclerView.Adapter<RecyclerView.
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
 
-        switch (viewHolder.getItemViewType()) {
-
-            default: {
+//        switch (viewHolder.getItemViewType()) {
+//
+//            default: {
                 final NoticeListItem item=items.get(position);
                 final CellViewHolder cellViewHolder = (CellViewHolder) viewHolder;
 
@@ -252,17 +252,16 @@ public class NoticeListAdapterManager extends RecyclerView.Adapter<RecyclerView.
                 cellViewHolder.tv_time.setText(item.getTime());
                 //cellViewHolder.mRecyclerView.set;
                 cellViewHolder.tv_image.setText(item.getCount());
-                for (int i=0;i<item.getNoticeImageList().size();i++){
+                for (int i = 0; i < item.getNoticeImageList().size(); i++){
                     cellViewHolder.adapter.addItem(new NoticeImageItem(item.getNoticeImageList().get(i)));
+                    Log.d("파일",position + ", " + i + ", " + item.getNoticeImageList().get(i));
                 }
-
-                CellViewHolder ViewHolder = (CellViewHolder) viewHolder;
 
 //                NoticeListItem currentUser = ((NoticeListItem) items.get(position));
 //
 //                ViewHolder..setText(currentUser.getTitle());
 
-                ViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                cellViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Bundle bundle = new Bundle();
@@ -279,38 +278,38 @@ public class NoticeListAdapterManager extends RecyclerView.Adapter<RecyclerView.
                 });
 
 
-                int lastSeenFirstPosition = listPosition.get(position, 0);
-
-                if (lastSeenFirstPosition >= 0) {
-
-                    cellViewHolder.layoutManager.scrollToPositionWithOffset(lastSeenFirstPosition, 0);
-
-                }
-
-                break;
-
-
-            }
-
-        }
-
-    }
-
-
-    @Override
-    public void onViewRecycled(RecyclerView.ViewHolder viewHolder) {
-
-        final int position = viewHolder.getAdapterPosition();
-
-        CellViewHolder cellViewHolder = (CellViewHolder) viewHolder;
-
-        int firstVisiblePosition = cellViewHolder.layoutManager.findFirstVisibleItemPosition();
-
-        listPosition.put(position, firstVisiblePosition);
-
-        super.onViewRecycled(viewHolder);
+//                int lastSeenFirstPosition = listPosition.get(position, 0);
+//
+//                if (lastSeenFirstPosition >= 0) {
+//
+//                    cellViewHolder.layoutManager.scrollToPositionWithOffset(lastSeenFirstPosition, 0);
+//
+//                }
+//
+//                break;
+//
+//
+//            }
+//
+//        }
 
     }
+
+
+//    @Override
+//    public void onViewRecycled(RecyclerView.ViewHolder viewHolder) {
+//
+//        final int position = viewHolder.getAdapterPosition();
+//
+//        CellViewHolder cellViewHolder = (CellViewHolder) viewHolder;
+//
+//        int firstVisiblePosition = cellViewHolder.layoutManager.findFirstVisibleItemPosition();
+//
+//        listPosition.put(position, firstVisiblePosition);
+//
+//        super.onViewRecycled(viewHolder);
+//
+//    }
 
     @Override
     public int getItemCount() {

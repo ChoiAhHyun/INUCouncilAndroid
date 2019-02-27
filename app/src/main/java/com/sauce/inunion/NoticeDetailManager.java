@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -146,7 +147,6 @@ public class NoticeDetailManager extends Fragment {
 
         final NoticeImageAdapter recyclerViewAdapter= new NoticeImageAdapter(getActivity());
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.notice_detail_image_rv);
-        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         service.boardSelect(Id,department).enqueue(new Callback<RetrofitNotice>() {
@@ -159,10 +159,13 @@ public class NoticeDetailManager extends Fragment {
                 choiceContent.setText(res.content);
                 String stringDate = res.time;
                 choiceTime.setText(formatTimeString(stringToDate(stringDate)));
-                for (int i=0;i<res.fileName.size();i++){
-                    recyclerViewAdapter.addItem(new NoticeImageItem(res.fileName.get(i)));
-                }
 
+                for (int i = 0; i < res.fileName.size(); i++){
+                    recyclerViewAdapter.addItem(new NoticeImageItem(res.fileName.get(i)));
+                    Log.i("파일",i +", " + res.fileName.get(i));
+                }
+                recyclerViewAdapter.notifyDataSetChanged();
+                Log.i("파일","size: " + recyclerViewAdapter.getItemCount());
             }
 
             @Override

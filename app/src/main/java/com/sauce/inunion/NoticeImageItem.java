@@ -12,7 +12,7 @@ public class NoticeImageItem {
     private String notice_image;
 
     public String getImage() {
-        return "http://117.16.231.66:7001/imgload/"+notice_image;
+        return notice_image;
     }
     public void setImage(String notice_image) {
 

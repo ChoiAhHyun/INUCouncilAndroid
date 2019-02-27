@@ -50,7 +50,7 @@ public class StudentCalendarActivity extends Fragment implements TaTCalendarFrag
     private TaTCalendarAdapter taTCalendarAdapter;
     TextView month;
     RecyclerView recyclerView;
-    CalendarScheduleRecyclerAdapter adapter;
+    StudentScheduleRecyclerAdapter adapter;
     String scheduletitle;
     String memo;
     String year_month;
@@ -58,7 +58,7 @@ public class StudentCalendarActivity extends Fragment implements TaTCalendarFrag
     RetrofitService retrofitCalendarDeleteService;
 
     static String department;
-    ArrayList<CalendarScheduleRecyclerAdapter.Myscheduleitem> Myitems = null;
+    ArrayList<StudentScheduleRecyclerAdapter.Myscheduleitem> Myitems = null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,7 +172,7 @@ public class StudentCalendarActivity extends Fragment implements TaTCalendarFrag
             });
 
             Myitems.remove(Integer.parseInt(data));
-            adapter = new CalendarScheduleRecyclerAdapter(Myitems, getActivity());
+            adapter = new StudentScheduleRecyclerAdapter(Myitems, getActivity());
             recyclerView.setAdapter(adapter);
         }
     };
@@ -206,20 +206,20 @@ public class StudentCalendarActivity extends Fragment implements TaTCalendarFrag
                                         +object.get("scheduleId").getAsString()+","
                                         +object.get("memo").getAsString()
                                 );
-                                Myitems.add(new CalendarScheduleRecyclerAdapter.Myscheduleitem(object.get("scheduleTitle").getAsString(),
+                                Myitems.add(new StudentScheduleRecyclerAdapter.Myscheduleitem(object.get("scheduleTitle").getAsString(),
                                         sortingTM(object.get("startTime").getAsString()),
                                         object.get("scheduleId").getAsString(),
                                         object.get("memo").getAsString()
                                 ));
-                                adapter = new CalendarScheduleRecyclerAdapter(Myitems, getActivity());
+                                adapter = new StudentScheduleRecyclerAdapter(Myitems, getActivity());
 
                             }
                             else if((Integer.parseInt(data2) > Integer.parseInt(sD)) && Integer.parseInt(data2) <= Integer.parseInt(eD)){
-                                Myitems.add(new CalendarScheduleRecyclerAdapter.Myscheduleitem(object.get("scheduleTitle").getAsString(),
+                                Myitems.add(new StudentScheduleRecyclerAdapter.Myscheduleitem(object.get("scheduleTitle").getAsString(),
                                         "진행 중",
                                         object.get("scheduleId").getAsString(),
                                         object.get("memo").getAsString()));
-                                adapter = new CalendarScheduleRecyclerAdapter(Myitems, getActivity());
+                                adapter = new StudentScheduleRecyclerAdapter(Myitems, getActivity());
                             }
                         }
                         recyclerView.setAdapter(adapter);

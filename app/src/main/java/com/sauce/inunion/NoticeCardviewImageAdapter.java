@@ -3,6 +3,7 @@ package com.sauce.inunion;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -186,7 +187,6 @@ public class NoticeCardviewImageAdapter extends RecyclerView.Adapter<NoticeCardv
     private Context mCtx;
 
     private ArrayList<NoticeImageItem> items = new ArrayList<>();
-    private ArrayList<NoticeImageItem> arrayList = new ArrayList<>();
     public NoticeCardviewImageAdapter(Context context) {
         this.mCtx=context;
     }
@@ -201,27 +201,23 @@ public class NoticeCardviewImageAdapter extends RecyclerView.Adapter<NoticeCardv
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final NoticeImageItem item=items.get(position);
-
+        Log.w("파일",position +", " + item.getImage());
 //        Picasso.get().load(item.getImage()).resize(100, 100)
 //                .centerCrop()
 //                .into(holder.imageView);
         Glide.with(mCtx)
-                .load(item.getImage())
+                .load("http://117.16.231.66:7001/imgload/" + item.getImage())
                 .thumbnail(0.1f)
                 .into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        if (items == null)
-
-            return 0;
-        return this.items.size();
+        return items.size();
     }
+
     public void addItem(NoticeImageItem item){
         items.add(item);
-        arrayList.add(item);
-        notifyDataSetChanged();
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -237,8 +233,4 @@ public class NoticeCardviewImageAdapter extends RecyclerView.Adapter<NoticeCardv
 
     }
 
-//    public void addImage(Bitmap bitmap){
-//        items.add(new NoticeImageItem(bitmap));
-//        notifyItemInserted(items.size()-1);
-//    }
 }

@@ -131,7 +131,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="10dp"
-                            android:nestedScrollingEnabled="false"
                             android:id="@+id/notice_detail_image_rv"
                             >
                         </android.support.v7.widget.RecyclerView>

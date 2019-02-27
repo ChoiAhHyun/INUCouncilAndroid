@@ -109,26 +109,27 @@ public class NoticeWrite extends Activity {
         recyclerView.setAdapter(imageAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this,4));
 
+        final PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Toast.makeText(NoticeWrite.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                Toast.makeText(NoticeWrite.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        TedPermission.with(NoticeWrite.this)
+                .setPermissionListener(permissionlistener).setRationaleMessage("사진 첨부를 하기 위해서는 권한이 필요합니다")
+                .setDeniedMessage("거부하시면 정상적으로 사용이 불가합니다\n\n [설정] > [권한] 에서 권한을 허용해 주세요")
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .check();
+
         imageImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PermissionListener permissionlistener = new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted() {
-                        Toast.makeText(NoticeWrite.this, "Permission Granted", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onPermissionDenied(List<String> deniedPermissions) {
-                        Toast.makeText(NoticeWrite.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-                    }
-
-                };
-                TedPermission.with(NoticeWrite.this)
-                        .setPermissionListener(permissionlistener).setRationaleMessage("사진 첨부를 하기 위해서는 권한이 필요합니다")
-                        .setDeniedMessage("거부하시면 정상적으로 사용이 불가합니다\n\n [설정] > [권한] 에서 권한을 허용해 주세요")
-                        .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
-                        .check();
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setType("image/*");
