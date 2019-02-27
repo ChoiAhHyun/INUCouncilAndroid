@@ -37,9 +37,6 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseMessaging.getInstance().subscribeToTopic("news");
-        FirebaseInstanceId.getInstance().getToken();
-
         loadFragment(new Notice());
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);

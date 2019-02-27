@@ -16,7 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -57,6 +59,8 @@ public class Setting extends Fragment {
         Button delete3 = view.findViewById(R.id.delete3);
         LinearLayout add_major_btn = view.findViewById(R.id.add_major_btn);
         Button login_btn = view.findViewById(R.id.setting_login_btn);
+        Switch sw = (Switch) view.findViewById(R.id.switch1);
+
         major_first.setText(pref.getString("firstMajor","주 전공"));
         major_second.setText(pref.getString("secondMajor","복수 전공"));
         major_third.setText(pref.getString("thirdMajor","부 전공"));
@@ -72,7 +76,7 @@ public class Setting extends Fragment {
             major_third.setTextColor(Color.rgb(76,110,245));
             fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
         }
-        else{}
+
         major_first.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -248,6 +252,27 @@ public class Setting extends Fragment {
             }
         });
 
+        if (pref.getString("message","on").equals("on")){
+            sw.setChecked(true);
+            Log.d("message","check");
+        }
+        else if (pref.getString("message","on").equals("off")){
+            sw.setChecked(false);
+            Log.d("message","uncheck");
+        }
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    editor.putString("message","on");
+                    editor.apply();
+                    Log.d("message",pref.getString("message",null));
+                } else {
+                    editor.putString("message","off");
+                    editor.apply();
+                    Log.d("message",pref.getString("message", null));
+                }
+            }
+        });
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mBroadcastReceiver,
                 new IntentFilter("add_major"));
 

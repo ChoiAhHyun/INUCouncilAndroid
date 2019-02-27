@@ -42,7 +42,7 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(String token) {
         super.onNewToken(token);
-        pref = getSharedPreferences("first", Activity.MODE_PRIVATE);
+        pref = getSharedPreferences("first", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("token", token);
         editor.apply();
@@ -95,9 +95,13 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.d(TAG, "From: " + remoteMessage.getFrom());
+        pref = getSharedPreferences("first", MODE_PRIVATE);
 
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            if (pref.getString("message","on").equals("on")){
+                sendNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("body"));
+            }
 
             if (true) {
             } else {
@@ -107,7 +111,6 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
 //            sendNotification(remoteMessage.getNotification().getBody());
-            sendNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("content"));
 
         }
     }
@@ -146,7 +149,7 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
         if(title == null)
             title = "공지사항";
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, SplashLogoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(TYPE_NOTIFICATION);
@@ -174,12 +177,15 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
         builder.setAutoCancel(true);
         builder.setDefaults(Notification.DEFAULT_ALL);
         builder.setWhen(System.currentTimeMillis());
-        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
+//        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
         builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setColor(getResources().getColor(R.color.colorPrimary));
+        builder.setContentTitle(title);
         builder.setContentText(content);
+        builder.setContentIntent(pendingIntent);
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             // 아래 설정은 오레오부터 deprecated 되면서 NotificationChannel에서 동일 기능을 하는 메소드를 사용.
-            builder.setContentTitle(title);
+//            builder.setContentTitle(title);
             builder.setSound(defaultSoundUri);
             builder.setVibrate(new long[]{500, 500});
         }
