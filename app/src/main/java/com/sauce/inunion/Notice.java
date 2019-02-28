@@ -164,14 +164,14 @@ public class Notice extends Fragment {
                         count = "";
                         for (int j=0; j<res.get(i).fileName.size(); j++){
                             newFileName.add(res.get(i).fileName.get(j));
-                            Log.v("파일",i +", " + res.get(i).fileName.get(j));
+                            Log.w("파일",i +", " + res.get(i).fileName.get(j));
                         }
                     }
                     else{
                         count = "+"+Integer.toString(res.get(i).fileName.size() - 4);
-                        for (int j=0; j < 4; j++){
+                        for (int j=0; j < res.get(i).fileName.size(); j++){
                             newFileName.add(res.get(i).fileName.get(j));
-                            Log.v("파일",i +", " + res.get(i).fileName.get(j));
+                            Log.w("파일",i +", " + res.get(i).fileName.get(j));
                         }
                     }
                     recyclerViewAdapter.addItem(new NoticeListItem(res.get(i).title,

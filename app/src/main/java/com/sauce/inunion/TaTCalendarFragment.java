@@ -229,7 +229,6 @@ public class TaTCalendarFragment extends Fragment {
                 }
             }
             int id = Integer.parseInt(string);
-            Log.d("setId",string);
             child.setId(id);
 
             calendar.add(Calendar.DATE, 1);
@@ -272,8 +271,8 @@ public class TaTCalendarFragment extends Fragment {
                     JsonObject object = array.get(i).getAsJsonObject();
                     sD = removeHyphen(object.get("startDate").getAsString());
                     eD = removeHyphen(object.get("endDate").getAsString());
-                    Log.d("startDay",sD);
-                    Log.d("endDay",eD);
+                   // Log.d("startDay",sD);
+                   // Log.d("endDay",eD);
                     if(sD.equals(eD)){
                         for (int j = 0; j < maxDateOfMonth; j++) {
                             if (sD.equals(taTCalendarItemViews[j].getId() + "")) {

@@ -97,7 +97,7 @@ public class TaTCalendarAdapter extends FragmentStatePagerAdapter {
             calendar.add(Calendar.MONTH, 1);
             listMonthByMillis.add(calendar.getTimeInMillis());
         }
-        Log.d("TaTCalendarAdapter","numOfMonth("+numOfMonth+") listMonthByMillis size("+listMonthByMillis.size()+")");
+ //       Log.d("TaTCalendarAdapter","numOfMonth("+numOfMonth+") listMonthByMillis size("+listMonthByMillis.size()+")");
 
         notifyDataSetChanged();
     }
@@ -113,7 +113,7 @@ public class TaTCalendarAdapter extends FragmentStatePagerAdapter {
 
             listMonthByMillis.add(0, calendar.getTimeInMillis());
         }
-        Log.d("TaTCalendarAdapter","numOfMonth("+numOfMonth+") listMonthByMillis size("+listMonthByMillis.size()+")");
+  //      Log.d("TaTCalendarAdapter","numOfMonth("+numOfMonth+") listMonthByMillis size("+listMonthByMillis.size()+")");
 
         notifyDataSetChanged();
     }

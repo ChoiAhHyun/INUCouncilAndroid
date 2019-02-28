@@ -217,7 +217,11 @@ public class NoticeCardviewImageAdapter extends RecyclerView.Adapter<NoticeCardv
     }
 
     public void addItem(NoticeImageItem item){
-        items.add(item);
+         items.add(item);
+    }
+    public void clearItem(){
+        items.clear();
+        notifyDataSetChanged();
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
 

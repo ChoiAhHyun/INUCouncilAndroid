@@ -252,6 +252,7 @@ public class NoticeListAdapterManager extends RecyclerView.Adapter<RecyclerView.
                 cellViewHolder.tv_time.setText(item.getTime());
                 //cellViewHolder.mRecyclerView.set;
                 cellViewHolder.tv_image.setText(item.getCount());
+                cellViewHolder.adapter.clearItem();
                 for (int i = 0; i < item.getNoticeImageList().size(); i++){
                     cellViewHolder.adapter.addItem(new NoticeImageItem(item.getNoticeImageList().get(i)));
                     Log.d("파일",position + ", " + i + ", " + item.getNoticeImageList().get(i));

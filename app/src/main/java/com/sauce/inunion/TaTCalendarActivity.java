@@ -89,7 +89,7 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
         SharedPreferences pref = getActivity().getSharedPreferences("first", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         department = pref.getString("App_department",null);
-        Log.d("app-depar",department);
+        //Log.d("app-depar",department);
         Intent intent = new Intent("Appdepartment");
         intent.putExtra("app_department",department);
         LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);
@@ -176,7 +176,7 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
         @Override
         public void onReceive(Context context, Intent intent) {
             String data = intent.getStringExtra("delete_position");
-            Log.d("test2",Myitems.get(Integer.parseInt(data)).scheduleId+"");
+            //Log.d("test2",Myitems.get(Integer.parseInt(data)).scheduleId+"");
             String id = Myitems.get(Integer.parseInt(data)).scheduleId.toString();
             retrofitCalendarDeleteService = new Retrofit.Builder().baseUrl("http://117.16.231.66:7001").addConverterFactory(GsonConverterFactory.create()).build().create(RetrofitService.class);
             retrofitCalendarDeleteService.calendardelete(id).enqueue(new Callback<RetrofitResult>() {
@@ -184,13 +184,13 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
                 public void onResponse(Call<RetrofitResult> call, Response<RetrofitResult> response) {
                     if(response.isSuccessful()){
                         RetrofitResult result = response.body();
-                        Log.d("delete",result.ans);
+                        //Log.d("delete",result.ans);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<RetrofitResult> call, Throwable t) {
-                    Log.d("delete",t+"");
+                    //Log.d("delete",t+"");
                 }
             });
 
@@ -205,8 +205,8 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
         public void onReceive(Context context, Intent intent) {
             String data = intent.getStringExtra("selected");
             final String data2 = intent.getStringExtra("selected_id");
-            Log.d("data",data);
-            Log.d("data2",data2);
+            //Log.d("data",data);
+            //Log.d("data2",data2);
             if(data.equals("true")){
                 retrofitCalendarSelectService = new Retrofit.Builder().baseUrl("http://117.16.231.66:7001").addConverterFactory(GsonConverterFactory.create()).build().create(RetrofitService.class);
                 retrofitCalendarSelectService.calendarselect(department).enqueue(new Callback<JsonArray>() {
@@ -220,15 +220,15 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
                             JsonObject object = array.get(i).getAsJsonObject();
                             sD = removeHyphen(object.get("startDate").getAsString());
                             eD = removeHyphen(object.get("endDate").getAsString());
-                            Log.d("startDayDay",sD);
-                            Log.d("endDayDay",eD);
+                            //Log.d("startDayDay",sD);
+                            //Log.d("endDayDay",eD);
                             if(sD.equals(data2)){
-                                Log.d("test",sD+","
+                                /*Log.d("test",sD+","
                                         +object.get("scheduleTitle").getAsString()+","
                                         +sortingTM(object.get("startTime").getAsString())+","
                                         +object.get("scheduleId").getAsString()+","
                                         +object.get("memo").getAsString()
-                                );
+                                );*/
                                 Myitems.add(new CalendarScheduleRecyclerAdapter.Myscheduleitem(object.get("scheduleTitle").getAsString(),
                                         sortingTM(object.get("startTime").getAsString()),
                                         object.get("scheduleId").getAsString(),
@@ -250,7 +250,7 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
 
                     @Override
                     public void onFailure(Call<JsonArray> call, Throwable t) {
-                        Log.d("test",t+"");
+                        //Log.d("test",t+"");
                     }
                 });
             }

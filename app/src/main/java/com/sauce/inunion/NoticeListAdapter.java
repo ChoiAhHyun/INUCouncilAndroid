@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -144,9 +145,11 @@ public class NoticeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 cellViewHolder.tv_time.setText(item.getTime());
                 //cellViewHolder.mRecyclerView.set;
                 cellViewHolder.tv_image.setText(item.getCount());
+                cellViewHolder.adapter.clearItem();
                 for (int i=0;i<item.getNoticeImageList().size();i++){
                     cellViewHolder.adapter.addItem(new NoticeImageItem(item.getNoticeImageList().get(i)));
                 }
+
 
                 CellViewHolder ViewHolder = (CellViewHolder) viewHolder;
 

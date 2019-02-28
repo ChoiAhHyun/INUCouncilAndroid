@@ -15,6 +15,7 @@ import java.util.Calendar;
 public class TaTCalendarView extends ViewGroup {
     private final int mScreenWidth;
     private final int mWidthDate;
+    private float density;
     private long mMillis;
     /**
      * 1일의 요일
@@ -37,7 +38,9 @@ public class TaTCalendarView extends ViewGroup {
     public TaTCalendarView(Context context, AttributeSet attrs) {
         super(context,attrs);
         mScreenWidth = getResources().getDisplayMetrics().widthPixels;
+        density = getResources().getDisplayMetrics().density;
         mWidthDate = (mScreenWidth-270) / 7;
+
         //Log.d("TaTCalendarView","mScreenWidth("+mScreenWidth+") mWidthDate("+mWidthDate+")");
 
         DAY_OF_WEEK = getResources().getStringArray(R.array.day_of_week);
@@ -120,7 +123,7 @@ public class TaTCalendarView extends ViewGroup {
 
             child.measure(MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(childHeight, MeasureSpec.AT_MOST));
             curWidth = mWidthDate;
-            curHeight = 150;//(int) (mWidthDate * 0.75);
+            curHeight = (int) (density*40);//(int) (mWidthDate * 0.75);
 
             if (curLeft + curWidth >= childRight) {
                 curLeft = childLeft;
