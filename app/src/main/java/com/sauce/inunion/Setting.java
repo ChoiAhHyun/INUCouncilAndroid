@@ -87,7 +87,7 @@ public class Setting extends Fragment {
                     editor.putString("App_department",major_first.getText().toString());
                     editor.apply();
                     fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
-                    Log.d("App_department",pref.getString("App_department",""));
+                    Log.d("App_department",pref.getString("App_department",null));
                     Intent intent = new Intent("department_change");
                     intent.putExtra("changed","true");
                     LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);
@@ -177,7 +177,7 @@ public class Setting extends Fragment {
                         editor.putString("App_department",major_first.getText().toString());
                         editor.apply();
                         fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
-                        Log.d("App_department",pref.getString("App_department",""));
+                        Log.d("App_department",pref.getString("App_department",null));
                         Intent intent = new Intent("department_change");
                         intent.putExtra("changed","true");
                         LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);
@@ -211,7 +211,7 @@ public class Setting extends Fragment {
                         editor.putString("App_department",major_first.getText().toString());
                         editor.apply();
                         fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
-                        Log.d("App_department",pref.getString("App_department",""));
+                        Log.d("App_department",pref.getString("App_department",null));
                         Intent intent = new Intent("department_change");
                         intent.putExtra("changed","true");
                         LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);

@@ -13,17 +13,20 @@
         android:layout_alignParentTop="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        app:contentInsetStart="0dp"
         >
         <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginLeft="16dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:padding="10dp"
+            android:layout_marginStart="6dp"
             android:id="@+id/schedule_content_cancel_btn"
             android:src="@drawable/back_white"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar_title"
+            android:text="일정 내용"
             android:textColor="#ffffff"
             android:textSize="18sp"
             android:layout_gravity="center"/>
@@ -35,6 +38,7 @@
             android:textColor="@color/white"
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
+            android:text="수정"
             android:id="@+id/schedule_content_edit_btn"/>
     </android.support.v7.widget.Toolbar>
 
@@ -237,6 +241,7 @@
                 android:layout_marginBottom="18dp"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:text="이벤트 삭제"
                 android:textColor="#fa5252"
                 android:textSize="15sp" />
 

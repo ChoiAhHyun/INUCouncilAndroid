@@ -109,7 +109,7 @@ public class NoticeDetail extends Fragment {
 
         TextView tv_major = (TextView) view.findViewById(R.id.major_name);
         pref = getActivity().getSharedPreferences("first", Activity.MODE_PRIVATE);
-        String department = pref.getString("App_department","");
+        String department = pref.getString("App_department",null);
         tv_major.setText(department);
 
         ImageView imageBack = (ImageView) view.findViewById(R.id.toolbar_back);

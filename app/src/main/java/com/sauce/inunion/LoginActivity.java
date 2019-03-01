@@ -99,10 +99,12 @@ public class LoginActivity extends Activity {
                 retrofitLoginService.login(id_edit.getText().toString(),pw_edit.getText().toString()).enqueue(new Callback<LoginResult>() {
                     @Override
                     public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
+                        Log.d("login", response.code()+"");
                         if (response.isSuccessful()) {
                             LoginResult result = response.body();
+                            Log.d("login", response.code()+"");
                             if (result.ans.equals("true")) {
-                                Log.d("test", result.department);
+                                Log.d("login", result.department);
                                 SharedPreferences pref = getSharedPreferences("first", Activity.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = pref.edit();
                                 editor.putString("App_department", result.department);
@@ -123,13 +125,19 @@ public class LoginActivity extends Activity {
                                 }
                                 finish();
                             } else {
+                                Log.d("login", response.code()+"");
                                 warning_text.setVisibility(View.VISIBLE);
                             }
+                        }
+                        else {
+                            Log.d("login", response.code()+"");
+                            warning_text.setVisibility(View.VISIBLE);
                         }
                     }
                     @Override
                     public void onFailure(Call<LoginResult> call, Throwable t) {
-                        Log.d("테스트", ""+t);
+                        Log.d("login", ""+t);
+                        warning_text.setVisibility(View.VISIBLE);
                     }
 
                 });

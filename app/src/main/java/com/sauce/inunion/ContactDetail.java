@@ -1,6 +1,8 @@
 package com.sauce.inunion;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -46,6 +48,11 @@ public class ContactDetail  extends Fragment {
 
         final Toolbar toolbarActivity = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbarActivity.setVisibility(View.GONE);
+
+        TextView tv_major = (TextView) view.findViewById(R.id.major_name);
+        SharedPreferences pref = getActivity().getSharedPreferences("first", Activity.MODE_PRIVATE);
+        String department = pref.getString("App_department",null);
+        tv_major.setText(department);
 
         ImageView imageBack = (ImageView) view.findViewById(R.id.toolbar_back);
 

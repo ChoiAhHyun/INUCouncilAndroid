@@ -20,8 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,7 +62,7 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
         pref = getSharedPreferences("first", Activity.MODE_PRIVATE);
         final String department = pref.getString("App_department",null);
         final Calendar calendar = Calendar.getInstance();
-        TextView confirm_btn = findViewById(R.id.confirm_btn);
+        final TextView confirm_btn = findViewById(R.id.confirm_btn);
         ImageView cancel_btn = findViewById(R.id.cancel_btn);
         final Calendar minDate = Calendar.getInstance();
         final Calendar maxDate = Calendar.getInstance();
@@ -99,29 +101,34 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
         confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = getIntent();
-                Intent intent2 = new Intent("Confirm");
-                intent2.putExtra("confirm","true");
-                intent2.putExtra("startDay",removeHangul(startDay));
-                intent2.putExtra("endDay",removeHangul(endDay));
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent2);
-                Log.d("test",scheduleTitle.getText().toString()+" "+startDate8+" "+startTime6+" "+endDate8+" "+endTime6+" "+position.getText().toString()+" "+memo.getText().toString()+" "+department);
-                retrofitCalendarSaveService.calendarsave(scheduleTitle.getText().toString(), startDate8, startTime6, endDate8, endTime6, position.getText().toString(), memo.getText().toString(), department).enqueue(new Callback<RetrofitResult>() {
-                    @Override
-                    public void onResponse(Call<RetrofitResult> call, Response<RetrofitResult> response) {
-                        if (response.isSuccessful()){
-                            RetrofitResult result = response.body();
-                            Log.d("test",result.ans);
+                if (scheduleTitle.getText().toString() == null || startDate8 == null || startTime6 == null || endDate8 == null || endTime6 == null) {
+                    Toast.makeText(getApplicationContext(), "제목과 날짜를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent1 = getIntent();
+                    Intent intent2 = new Intent("Confirm");
+                    intent2.putExtra("confirm","true");
+                    intent2.putExtra("startDay",removeHangul(startDay));
+                    intent2.putExtra("endDay",removeHangul(endDay));
+                    LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent2);
+                    Log.d("calendar",scheduleTitle.getText().toString()+" "+startDate8+" "+startTime6+" "+endDate8+" "+endTime6+" "+position.getText().toString()+" "+memo.getText().toString()+" "+department);
+                    retrofitCalendarSaveService.calendarsave(scheduleTitle.getText().toString(), startDate8, startTime6, endDate8, endTime6, position.getText().toString(), memo.getText().toString(), department).enqueue(new Callback<RetrofitResult>() {
+                        @Override
+                        public void onResponse(Call<RetrofitResult> call, Response<RetrofitResult> response) {
+                            if (response.isSuccessful()){
+                                RetrofitResult result = response.body();
+                                Log.d("calendar",result.ans);
 
+                            }
+                            finish();
                         }
-                        finish();
-                    }
 
-                    @Override
-                    public void onFailure(Call<RetrofitResult> call, Throwable t) {
-                        Log.d("test",t+"");
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<RetrofitResult> call, Throwable t) {
+                            Log.d("calendar",t+"");
+                        }
+                    });
+                }
+
 
             }
         });
@@ -141,10 +148,10 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 minDate.set(Integer.parseInt(year),Integer.parseInt(finalMonth)-1,1);
-                datePickerDialog.getDatePicker().setMinDate(minDate.getTime().getTime());
+                datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
 
                 maxDate.set(Integer.parseInt(year),Integer.parseInt(finalMonth)-1, finalMaxOfMonth);
-                datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
+//                datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
                 datePickerDialog.show();
             }
         });
@@ -178,7 +185,7 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 minDate.set(Integer.parseInt(year),Integer.parseInt(finalMonth1)-1,1);
-                datePickerDialog.getDatePicker().setMinDate(minDate.getTime().getTime());
+                datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
 
                 maxDate.set(Integer.parseInt(year),Integer.parseInt(finalMonth1)-1, finalMaxOfMonth);
                 datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());

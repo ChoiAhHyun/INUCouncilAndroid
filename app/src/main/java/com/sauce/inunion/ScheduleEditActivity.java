@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -39,6 +40,14 @@ public class ScheduleEditActivity extends Activity implements DatePickerDialog.O
     EditText position;
     EditText memo;
     String department;
+    String[] startDateString = new String[3];
+    String[] endDateString = new String[3];
+    String startDate8;
+    String endDate8;
+    String[] startTimeString = new String[2];
+    String[] endTimeString = new String[2];
+    String startTime6;
+    String endTime6;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,31 +109,35 @@ public class ScheduleEditActivity extends Activity implements DatePickerDialog.O
         edit_confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Intent intent = new Intent();
-                retrofitCalendarSaveService.calendarmodify(scheduleTitle.getText().toString(), removeHangul(startDay), removeHangul(startTime), removeHangul(endDay), removeHangul(endTime), position.getText().toString(), memo.getText().toString(), department, schedule_id).enqueue(new Callback<RetrofitResult>() {
-                    @Override
-                    public void onResponse(Call<RetrofitResult> call, Response<RetrofitResult> response) {
-                        if (response.isSuccessful()) {
-                            RetrofitResult result = response.body();
-                            Log.d("test", result.ans);
-                            intent.putExtra("edST", scheduleTitle.getText().toString());
-                            intent.putExtra("tvSD", startDay.getText().toString());
-                            intent.putExtra("tvST", startTime.getText().toString());
-                            intent.putExtra("tvED", endDay.getText().toString());
-                            intent.putExtra("tvET", endTime.getText().toString());
-                            intent.putExtra("edPS", position.getText().toString());
-                            intent.putExtra("edMM", memo.getText().toString());
-                            setResult(30, intent);
-                            finish();
+                if (scheduleTitle.getText().toString() == null || startDate8 == null || startTime6 == null || endDate8 == null || endTime6 == null) {
+                    Toast.makeText(getApplicationContext(), "제목과 날짜를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    final Intent intent = new Intent();
+                    retrofitCalendarSaveService.calendarmodify(scheduleTitle.getText().toString(), startDate8, startTime6, endDate8, endTime6, position.getText().toString(), memo.getText().toString(), department, schedule_id).enqueue(new Callback<RetrofitResult>() {
+                        @Override
+                        public void onResponse(Call<RetrofitResult> call, Response<RetrofitResult> response) {
+                            if (response.isSuccessful()) {
+                                RetrofitResult result = response.body();
+                                Log.d("calendar", result.ans);
+                                intent.putExtra("edST", scheduleTitle.getText().toString());
+                                intent.putExtra("tvSD", startDay.getText().toString());
+                                intent.putExtra("tvST", startTime.getText().toString());
+                                intent.putExtra("tvED", endDay.getText().toString());
+                                intent.putExtra("tvET", endTime.getText().toString());
+                                intent.putExtra("edPS", position.getText().toString());
+                                intent.putExtra("edMM", memo.getText().toString());
+                                setResult(30, intent);
+                                finish();
+                            }
                         }
-                    }
 
 
-                    @Override
-                    public void onFailure(Call<RetrofitResult> call, Throwable t) {
-                        finish();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<RetrofitResult> call, Throwable t) {
+                            Log.d("calendar",t+"");
+                        }
+                    });
+                }
             }
         });
         final int finalMaxOfMonth = maxOfMonth;
@@ -136,6 +149,7 @@ public class ScheduleEditActivity extends Activity implements DatePickerDialog.O
                 DatePickerDialog datePickerDialog = new DatePickerDialog(ScheduleEditActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        startDate8 = setStartDate(year, month, dayOfMonth);
                         setYMD(startDay, year, month, dayOfMonth);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -154,6 +168,7 @@ public class ScheduleEditActivity extends Activity implements DatePickerDialog.O
                 TimePickerDialog timePickerDialog = new TimePickerDialog(ScheduleEditActivity.this, AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                        startTime6 = setStartTime(hourOfDay,minute);
                         setTM(startTime, hourOfDay, minute);
                     }
                 }, 0, 0, false);
@@ -185,6 +200,7 @@ public class ScheduleEditActivity extends Activity implements DatePickerDialog.O
                 TimePickerDialog timePickerDialog = new TimePickerDialog(ScheduleEditActivity.this, AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                        endTime6 = setEndTime(hourOfDay,minute);
                         setTM(endTime, hourOfDay, minute);
                     }
                 }, 0, 0, false);
@@ -242,9 +258,74 @@ public class ScheduleEditActivity extends Activity implements DatePickerDialog.O
     }
 
     public void setTM(TextView textView, int hourOfDay, int minute) {
-        textView.setText(hourOfDay + "시 " + minute + "분");
-    } // end of class
+        if(minute<10){
+            textView.setText(hourOfDay+"시 "+"0"+minute+"분");
+        }
+        else
+        {
+            textView.setText(hourOfDay+"시 "+minute+"분");
+        }
 
+    }
+
+    public String setStartDate(int year, int month, int dayOfMonth){
+        startDateString[0] = year + "";
+        int temp = month + 1;
+        if(month < 10) {
+            startDateString[1] = "0" + temp + "";
+        }
+        else{
+            startDateString[1] = temp + "";
+        }
+        if(dayOfMonth < 10) {
+            startDateString[2] = "0" + dayOfMonth + "";
+        }
+        else
+            startDateString[2] = dayOfMonth + "";
+        return startDateString[0] + startDateString[1] + startDateString[2];
+    }
+    public String setEndDate(int year, int month, int dayOfMonth){
+        endDateString[0] = year + "";
+        int temp = month + 1;
+        if(month < 10) {
+            endDateString[1] = "0" + temp + "";
+        }
+        else{
+            endDateString[1] = temp + "";
+        }
+        if(dayOfMonth < 10) {
+            endDateString[2] = "0" + dayOfMonth + "";
+        }
+        else
+            endDateString[2] = dayOfMonth + "";
+        return endDateString[0] + endDateString[1] + endDateString[2];
+    }
+    public String setStartTime(int hourOfDay, int minute){
+        if(hourOfDay < 10) {
+            startTimeString[0] = "0" + hourOfDay + "";
+        }
+        else
+            startTimeString[0] = hourOfDay + "";
+        if(minute < 10) {
+            startTimeString[1] = "0" + minute + "";
+        }
+        else
+            startTimeString[1] = minute + "";
+        return startTimeString[0] + startTimeString[1] + "00";
+    }
+    public String setEndTime(int hourOfDay, int minute){
+        if(hourOfDay < 10) {
+            endTimeString[0] = "0" + hourOfDay + "";
+        }
+        else
+            endTimeString[0] = hourOfDay + "";
+        if(minute < 10) {
+            endTimeString[1] = "0" + minute + "";
+        }
+        else
+            endTimeString[1] = minute + "";
+        return endTimeString[0] + endTimeString[1] + "00";
+    }
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 

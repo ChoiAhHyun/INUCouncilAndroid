@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent" android:background="@color/backgroundColor"
-    android:layout_height="match_parent" android:scrollbars="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/backgroundColor"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical">
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -9,11 +13,13 @@
         android:background="#3b5bdb"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        app:contentInsetStart="0dp"
         >
         <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginLeft="13dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:padding="10dp"
+            android:layout_marginStart="6dp"
             android:id="@+id/toolbar_back"
             android:src="@drawable/back_white"/>
         <TextView
@@ -55,7 +61,6 @@
         android:textSize="15sp"
         android:textColor="#495057"
         android:background="@color/backgroundColor"
-        android:hint="인천대학교 앱센터"
         android:imeOptions="actionNext"
         android:layout_marginLeft="13dp"
         android:layout_marginRight="13dp"

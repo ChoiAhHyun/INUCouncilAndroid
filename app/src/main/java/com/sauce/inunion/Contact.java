@@ -72,7 +72,7 @@ public class Contact extends Fragment {
 
         TextView tv_major = (TextView) view.findViewById(R.id.major_name);
         pref = getActivity().getSharedPreferences("first", Activity.MODE_PRIVATE);
-        String department = pref.getString("App_department","");
+        String department = pref.getString("App_department",null);
         tv_major.setText(department);
 
         imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -304,6 +304,7 @@ public class Contact extends Fragment {
                 editText.setHintTextColor(getResources().getColor(R.color.search_hint));
                 editText.setBackgroundResource(R.drawable.shape_search);
                 editText.setPadding(calLeft,0,0,0);
+                editText.setText("");
                 textView.setVisibility(View.GONE);
                 SearchIcon.setImageResource(R.drawable.ic_unactive_search);
             }

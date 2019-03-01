@@ -36,6 +36,7 @@ public class ChooseSecondMajorActivity extends Activity {
     boolean visible = false;
     Button second_choose_btn;
     String secondMajor;
+    ImageView arrow;
     String[] major = {
             "건설환경공학부","경영학부","경제학과","공연예술학과","국어교육과","국어국문학과","기계공학과",
             "도시건축학부","도시공학과","도시행정학과","독어독문학과","동북아국제통상학부","디자인학부",
@@ -104,6 +105,7 @@ public class ChooseSecondMajorActivity extends Activity {
                 editText.setHintTextColor(getResources().getColor(R.color.search_hint));
                 editText.setBackgroundResource(R.drawable.shape_search);
                 editText.setPadding(calLeft,0,0,0);
+                editText.setText("");
                 textView.setVisibility(View.GONE);
                 SearchIcon.setImageResource(R.drawable.ic_unactive_search);
             }
@@ -226,6 +228,8 @@ public class ChooseSecondMajorActivity extends Activity {
                 onBackPressed();
             }
         });
+
+        arrow = findViewById(R.id.iv_arrow);
     }
     private BroadcastReceiver mSecondBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -250,11 +254,13 @@ public class ChooseSecondMajorActivity extends Activity {
                     second_choose_btn.setTextColor(Color.WHITE);
                     second_choose_btn.setBackgroundColor(Color.rgb(76,110,245));
                     second_choose_btn.setText("시작하기");
+                    arrow.setVisibility(View.VISIBLE);
                 }
                 else{
                     second_choose_btn.setTextColor(Color.rgb(76,110,245));
                     second_choose_btn.setBackgroundDrawable(getDrawable(R.drawable.border));
                     second_choose_btn.setText("건너뛰기");
+                    arrow.setVisibility(View.GONE);
                 }
             }
             if(data2 != null){

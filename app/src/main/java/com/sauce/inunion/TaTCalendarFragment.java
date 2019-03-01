@@ -267,6 +267,7 @@ public class TaTCalendarFragment extends Fragment {
                 JsonArray array = response.body();
                 String sD;
                 String eD;
+                Log.d("test",array+"");
                 for(int i=0; i < array.size();i++){
                     JsonObject object = array.get(i).getAsJsonObject();
                     sD = removeHyphen(object.get("startDate").getAsString());
