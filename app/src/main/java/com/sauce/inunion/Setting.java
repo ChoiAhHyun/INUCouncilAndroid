@@ -76,6 +76,26 @@ public class Setting extends Fragment {
             major_third.setTextColor(Color.rgb(76,110,245));
             fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
         }
+        else{
+            if(!major_first.getText().toString().equals("주 전공")){
+                major_first.setTextColor(Color.rgb(76,110,245));
+                editor.putString("App_department",major_first.getText().toString());
+                editor.apply();
+                fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
+            }
+            else if(!major_second.getText().toString().equals("복수 전공")){
+                major_second.setTextColor(Color.rgb(76,110,245));
+                editor.putString("App_department",major_second.getText().toString());
+                editor.apply();
+                fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
+            }
+            else if(!major_third.getText().toString().equals("부 전공")){
+                major_third.setTextColor(Color.rgb(76,110,245));
+                editor.putString("App_department",major_third.getText().toString());
+                editor.apply();
+                fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
+            }
+        }
 
         major_first.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,14 +170,18 @@ public class Setting extends Fragment {
                         editor.putString("App_department",major_third.getText().toString());
                         editor.apply();
                         fireBaseMessagingService.sendRegistrationToServer(getActivity(),pref.getString("App_department",null));
+                        Log.d("App_department",pref.getString("App_department",null));
                         Intent intent = new Intent("department_change");
                         intent.putExtra("changed","true");
                         LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);
                     }
                     else{
+                        editor.putString("App_department",null);
+                        editor.apply();
                         Intent intent = new Intent(getContext().getApplicationContext(), // 현재 화면의 제어권자
                                 ChooseMajorActivity.class); // 다음 넘어갈 클래스 지정
                         startActivity(intent); // 다음 화면으로 넘어간다
+                        getActivity().finish();
                     }
                 }
                 major_first.setText("주 전공");
@@ -193,6 +217,14 @@ public class Setting extends Fragment {
                         intent.putExtra("changed","true");
                         LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);
                     }
+                    else{
+                        editor.putString("App_department",null);
+                        editor.apply();
+                        Intent intent = new Intent(getContext().getApplicationContext(), // 현재 화면의 제어권자
+                                ChooseMajorActivity.class); // 다음 넘어갈 클래스 지정
+                        startActivity(intent); // 다음 화면으로 넘어간다
+                        getActivity().finish();
+                    }
                 }
                 major_second.setText("복수 전공");
                 major_second.setTextColor(Color.rgb(173,181,189));
@@ -227,6 +259,14 @@ public class Setting extends Fragment {
                         Intent intent = new Intent("department_change");
                         intent.putExtra("changed","true");
                         LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);
+                    }
+                    else{
+                        editor.putString("App_department",null);
+                        editor.apply();
+                        Intent intent = new Intent(getContext().getApplicationContext(), // 현재 화면의 제어권자
+                                ChooseMajorActivity.class); // 다음 넘어갈 클래스 지정
+                        startActivity(intent); // 다음 화면으로 넘어간다
+                        getActivity().finish();
                     }
                 }
                 major_third.setText("부 전공");

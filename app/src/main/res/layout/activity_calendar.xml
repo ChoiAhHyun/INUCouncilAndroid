@@ -85,7 +85,6 @@
         android:id="@+id/recycler_calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="18dp"
         android:layout_below="@+id/tV"
         android:layout_marginTop="8dp"
         android:layout_centerHorizontal="true">

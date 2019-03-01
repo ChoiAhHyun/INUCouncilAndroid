@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -102,7 +103,7 @@ public class ContactManager extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext().getApplicationContext(), // 현재 화면의 제어권자
                         ContactWrite.class); // 다음 넘어갈 클래스 지정
-                startActivity(intent); // 다음 화면으로 넘어간다
+                startActivityForResult(intent, 500); // 다음 화면으로 넘어간다
             }
         });
 
@@ -241,6 +242,16 @@ public class ContactManager extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("contact",resultCode+"");
+        Log.d("contact",requestCode+"");
+        if(requestCode == 500 && resultCode == 500){
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }
     }
     private void getHeaderListLatter(List<ContactListItem> usersList) {
 

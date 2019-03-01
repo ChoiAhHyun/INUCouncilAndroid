@@ -77,7 +77,7 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
             month = year_month.substring(4);
         }
         int maxOfMonth = 0;
-        Log.d("test",year_month);
+        Log.d("calendar",year_month);
         Log.d("year",year);
         Log.d("month",month);
         if(month.equals("1") || month.equals("3")||month.equals("5")||month.equals("7")||month.equals("8")||month.equals("10")||month.equals("12")){
@@ -104,7 +104,7 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
                 if (scheduleTitle.getText().toString() == null || startDate8 == null || startTime6 == null || endDate8 == null || endTime6 == null) {
                     Toast.makeText(getApplicationContext(), "제목과 날짜를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent1 = getIntent();
+                    final Intent intent1 = getIntent();
                     Intent intent2 = new Intent("Confirm");
                     intent2.putExtra("confirm","true");
                     intent2.putExtra("startDay",removeHangul(startDay));
@@ -117,9 +117,9 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
                             if (response.isSuccessful()){
                                 RetrofitResult result = response.body();
                                 Log.d("calendar",result.ans);
-
+                                setResult(200, intent1);
+                                finish();
                             }
-                            finish();
                         }
 
                         @Override
@@ -150,8 +150,8 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
                 minDate.set(Integer.parseInt(year),Integer.parseInt(finalMonth)-1,1);
                 datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
 
-                maxDate.set(Integer.parseInt(year),Integer.parseInt(finalMonth)-1, finalMaxOfMonth);
-//                datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
+//                maxDate.set(Integer.parseInt(year),Integer.parseInt(finalMonth)-1, finalMaxOfMonth);
+//                datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
                 datePickerDialog.show();
             }
         });
@@ -187,8 +187,8 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
                 minDate.set(Integer.parseInt(year),Integer.parseInt(finalMonth1)-1,1);
                 datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
 
-                maxDate.set(Integer.parseInt(year),Integer.parseInt(finalMonth1)-1, finalMaxOfMonth);
-                datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
+//                maxDate.set(Integer.parseInt(year),Integer.parseInt(finalMonth1)-1, finalMaxOfMonth);
+//                datePickerDialog.getDatePicker().setMaxDate(null);
                 datePickerDialog.show();
             }
         });

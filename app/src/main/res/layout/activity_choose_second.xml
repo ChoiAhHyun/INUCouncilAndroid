@@ -95,14 +95,6 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:id="@+id/iv_arrow"
-            android:src="@drawable/arrow_forward"
-            android:layout_alignEnd="@id/second_choose_btn"
-            android:layout_marginEnd="33dp"
-            android:layout_centerVertical="true"/>
     <Button
         android:id="@+id/second_choose_btn"
         android:layout_width="match_parent"
@@ -112,6 +104,14 @@
         android:text="건너뛰기"
         android:textColor="#4c6ef5"
         android:textSize="18sp" />
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:id="@+id/iv_arrow"
+            android:src="@drawable/arrow_forward"
+            android:layout_alignEnd="@id/second_choose_btn"
+            android:layout_marginEnd="33dp"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 
 </LinearLayout>

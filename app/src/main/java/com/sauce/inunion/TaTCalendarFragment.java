@@ -36,7 +36,7 @@ public class TaTCalendarFragment extends Fragment {
     private OnFragmentListener onFragmentListener;
     private View mRootView;
     private TaTCalendarView calendarView;
-    public TaTCalendarItemView[] taTCalendarItemViews = new TaTCalendarItemView[31];
+    public TaTCalendarItemView[] taTCalendarItemViews;
     int maxDateOfMonth;
     RetrofitService retrofitCalendarSelectService;
     //    String department;
@@ -59,8 +59,9 @@ public class TaTCalendarFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        position = getArguments().getInt("poisition");
-        LocalBroadcastManager.getInstance(TaTCalendarFragment.this.getContext()).registerReceiver(mBroadcastReceiver,
+        taTCalendarItemViews = new TaTCalendarItemView[31];
+        position = getArguments().getInt("position");
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(mBroadcastReceiver,
                 new IntentFilter("Confirm"));
 //        LocalBroadcastManager.getInstance(TaTCalendarFragment.this.getContext()).registerReceiver(mSecondBroadcastReceiver,
 //                new IntentFilter("department_change"));
@@ -173,6 +174,7 @@ public class TaTCalendarFragment extends Fragment {
             TaTCalendarItemView child = new TaTCalendarItemView(getActivity().getApplicationContext());
             child.setDate(calendar.getTimeInMillis());
             child.setDayOfWeek(i);
+            child.setClickable(false);
             calendarView.addView(child);
             calendarView.setPadding(40,45,0,0);
         }
@@ -183,6 +185,7 @@ public class TaTCalendarFragment extends Fragment {
         for(int i=0; i < preOfDay; i++) {
             TaTCalendarItemView child = new TaTCalendarItemView(getActivity().getApplicationContext());
             child.setTextColorChange(true);
+            child.setClickable(false);
             if(i == 0) {
                 calendar.add(Calendar.DATE,-(preOfDay-i));
             }else{
@@ -242,6 +245,7 @@ public class TaTCalendarFragment extends Fragment {
         for(int i=0; i < nextOfDay; i++) {
             final TaTCalendarItemView child = new TaTCalendarItemView(getActivity().getApplicationContext());
             child.setTextColorChange(true);
+            child.setClickable(false);
             child.setDate(calendar.getTimeInMillis());
             calendar.add(Calendar.DATE, 1);
             calendarView.addView(child);
@@ -267,13 +271,13 @@ public class TaTCalendarFragment extends Fragment {
                 JsonArray array = response.body();
                 String sD;
                 String eD;
-                Log.d("test",array+"");
+                Log.d("test",array.size() + ", " + array);
                 for(int i=0; i < array.size();i++){
                     JsonObject object = array.get(i).getAsJsonObject();
                     sD = removeHyphen(object.get("startDate").getAsString());
                     eD = removeHyphen(object.get("endDate").getAsString());
-                   // Log.d("startDay",sD);
-                   // Log.d("endDay",eD);
+                    Log.d("startDay",sD);
+                    Log.d("endDay",eD);
                     if(sD.equals(eD)){
                         for (int j = 0; j < maxDateOfMonth; j++) {
                             if (sD.equals(taTCalendarItemViews[j].getId() + "")) {
@@ -358,23 +362,24 @@ public class TaTCalendarFragment extends Fragment {
 //            Log.d("test",data1);
             //     Log.d("test2",data2);
             boolean ing = false;
-            if(startDay != null && endDay != null){
-                if(startDay.equals(endDay)) {
+            if (startDay != null && endDay != null) {
+                if (startDay.equals(endDay)) {
                     for (int i = 0; i < maxDateOfMonth; i++) {
                         if (startDay.equals(taTCalendarItemViews[i].getId() + "")) {
                             taTCalendarItemViews[i].setEvent(R.color.colorPrimaryDark);
                         }
                     }
-                }
-                else{
-                    for(int i=0; i<maxDateOfMonth; i++) {
+                } else {
+                    for (int i = 0; i < maxDateOfMonth; i++) {
 
                         if (ing == false) {
-                            if (startDay.equals(taTCalendarItemViews[i].getId() + "")) {
-                                taTCalendarItemViews[i].setEvent(R.color.colorPrimaryDark);
-                                ing = true;
+                        if (startDay.equals(taTCalendarItemViews[i].getId() + "")) {
+                            taTCalendarItemViews[i].setEvent(R.color.colorPrimaryDark);
+                            ing = true;
                             }
                         } else if (ing == true && endDay.equals(taTCalendarItemViews[i].getId() + "")) {
+                        }
+                        if (ing == true && endDay.equals(taTCalendarItemViews[i].getId() + "")) {
                             taTCalendarItemViews[i].setEvent(R.color.colorPrimaryDark);
                             ing = false;
                         } else {
@@ -382,9 +387,8 @@ public class TaTCalendarFragment extends Fragment {
                         }
                     }
                 }
-            }
 
+            }
         }
     };
-
 }

@@ -185,13 +185,13 @@ public class ChooseSecondMajorActivity extends Activity {
 
                     recyclerView.setAdapter(mSectionedAdapter);
                 } else {
-                    Log.d("test",text);
-                    Log.d("test",temp.get(1).getName());
+                    Log.d("major",text);
+                    Log.d("major",temp.get(1).getName());
                     for (int i=0; i<57; i++) {
                         String name = temp.get(i).getName();
-                        Log.d("test",name);
+                        Log.d("major",name);
                         if (name.contains(text)) {
-                            Log.d("test",name);
+                            Log.d("major",name);
                             Myitems.add(temp.get(i));
                         }
                     }

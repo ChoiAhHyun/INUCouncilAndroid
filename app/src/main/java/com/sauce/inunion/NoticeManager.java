@@ -148,12 +148,8 @@ public class NoticeManager extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext().getApplicationContext(), // 현재 화면의 제어권자
                         NoticeWrite.class); // 다음 넘어갈 클래스 지정
-                startActivity(intent); // 다음 화면으로 넘어간다
-//                NoticeWrite noticeWrite = new NoticeWrite();
-//                getActivity().getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.fragment_container, noticeWrite)
-//                        .addToBackStack(null)
-//                        .commit();
+                startActivityForResult(intent, 100); // 다음 화면으로 넘어간다
+
             }
         });
 
@@ -296,5 +292,13 @@ public class NoticeManager extends Fragment {
         return view;
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("notice",resultCode+"");
+        Log.d("notice",requestCode+"");
+        if(requestCode == 100 && resultCode == 100){
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }
+    }
 }

@@ -21,6 +21,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -86,9 +87,9 @@ public class ScheduleEditActivity extends Activity implements DatePickerDialog.O
             month = year_month.substring(4,6);
         }
         int maxOfMonth = 0;
-        Log.d("test", year_month);
-        Log.d("year", year);
-        Log.d("month", month);
+        Log.d("calendar", year_month);
+        Log.d("calendar", year);
+        Log.d("calendar", month);
         if (month.equals("1") || month.equals("3") || month.equals("5") || month.equals("7") || month.equals("8") || month.equals("10") || month.equals("12")) {
             maxOfMonth = 31;
         } else if (month.equals("2")) {
@@ -154,10 +155,10 @@ public class ScheduleEditActivity extends Activity implements DatePickerDialog.O
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 minDate.set(Integer.parseInt(year), Integer.parseInt(finalMonth) - 1, 1);
-                datePickerDialog.getDatePicker().setMinDate(minDate.getTime().getTime());
+                datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
 
-                maxDate.set(Integer.parseInt(year), Integer.parseInt(finalMonth) - 1, finalMaxOfMonth);
-                datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
+//                maxDate.set(Integer.parseInt(year), Integer.parseInt(finalMonth) - 1, finalMaxOfMonth);
+//                datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
                 datePickerDialog.show();
             }
         });
@@ -186,10 +187,10 @@ public class ScheduleEditActivity extends Activity implements DatePickerDialog.O
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 minDate.set(Integer.parseInt(year), Integer.parseInt(finalMonth1) - 1, 1);
-                datePickerDialog.getDatePicker().setMinDate(minDate.getTime().getTime());
+                datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
 
-                maxDate.set(Integer.parseInt(year), Integer.parseInt(finalMonth1) - 1, finalMaxOfMonth);
-                datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
+//                maxDate.set(Integer.parseInt(year), Integer.parseInt(finalMonth1) - 1, finalMaxOfMonth);
+//                datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
                 datePickerDialog.show();
             }
         });

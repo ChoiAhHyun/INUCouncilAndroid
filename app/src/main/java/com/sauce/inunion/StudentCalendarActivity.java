@@ -153,7 +153,7 @@ public class StudentCalendarActivity extends Fragment implements TaTCalendarFrag
         @Override
         public void onReceive(Context context, Intent intent) {
             String data = intent.getStringExtra("delete_position");
-            Log.d("test2",Myitems.get(Integer.parseInt(data)).scheduleId+"");
+            Log.d("calendar",Myitems.get(Integer.parseInt(data)).scheduleId+"");
             String id = Myitems.get(Integer.parseInt(data)).scheduleId.toString();
             retrofitCalendarDeleteService = new Retrofit.Builder().baseUrl("http://117.16.231.66:7001").addConverterFactory(GsonConverterFactory.create()).build().create(RetrofitService.class);
             retrofitCalendarDeleteService.calendardelete(id).enqueue(new Callback<RetrofitResult>() {
@@ -200,7 +200,7 @@ public class StudentCalendarActivity extends Fragment implements TaTCalendarFrag
                             Log.d("startDayDay",sD);
                             Log.d("endDayDay",eD);
                             if(sD.equals(data2)){
-                                Log.d("test",sD+","
+                                Log.d("calendar",sD+","
                                         +object.get("scheduleTitle").getAsString()+","
                                         +sortingTM(object.get("startTime").getAsString())+","
                                         +object.get("scheduleId").getAsString()+","
@@ -227,7 +227,7 @@ public class StudentCalendarActivity extends Fragment implements TaTCalendarFrag
 
                     @Override
                     public void onFailure(Call<JsonArray> call, Throwable t) {
-                        Log.d("test",t+"");
+                        Log.d("calendar",t+"");
                     }
                 });
             }

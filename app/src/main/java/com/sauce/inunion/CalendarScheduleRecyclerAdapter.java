@@ -73,7 +73,7 @@ public class CalendarScheduleRecyclerAdapter extends RecyclerView.Adapter<Recycl
             public void onClick(View view) {
                 Intent intent2 = new Intent("click_delete");
                 intent2.putExtra("delete_position", i+"");
-                Log.d("test33", i+"");
+                Log.d("calendar", i+"");
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent2);
             }
         });

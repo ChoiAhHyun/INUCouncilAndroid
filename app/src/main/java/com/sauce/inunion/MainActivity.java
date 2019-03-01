@@ -1,6 +1,7 @@
 package com.sauce.inunion;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +25,8 @@ import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.Set;
 
 
 public class MainActivity extends FragmentActivity {
@@ -81,22 +85,27 @@ public class MainActivity extends FragmentActivity {
                                                        }
         );
 
-
     }
+
     @Override
     public void onBackPressed() {
         long tempTime = System.currentTimeMillis();
         long intervalTime = tempTime - backPressedTime;
 
-        if (0 <= intervalTime && FINSH_INTERVAL_TIME >= intervalTime) {
-            moveTaskToBack(true);
-            ActivityCompat.finishAffinity(this);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        Log.v("main", fragment.toString());
+//        if (fragment instanceof Notice || fragment instanceof StudentCalendarActivity || fragment instanceof Contact || fragment instanceof Setting){
+            if (0 <= intervalTime && FINSH_INTERVAL_TIME >= intervalTime) {
+                moveTaskToBack(true);
+                ActivityCompat.finishAffinity(this);
 //            android.os.Process.killProcess(android.os.Process.myPid());
-        } else {
-            backPressedTime = tempTime;
-            Toast.makeText(getApplicationContext(), "\'뒤로\' 버튼을 한 번 더 누르시면 종료됩니다.",
-                    Toast.LENGTH_SHORT).show();
-        }
+            } else {
+                backPressedTime = tempTime;
+                Toast.makeText(getApplicationContext(), "\'뒤로\' 버튼을 한 번 더 누르시면 종료됩니다.",
+                        Toast.LENGTH_SHORT).show();
+            }
+//        }
+
     }
 
 /*
@@ -112,7 +121,6 @@ public class MainActivity extends FragmentActivity {
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-
 
         }
     }

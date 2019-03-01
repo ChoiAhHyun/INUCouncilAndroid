@@ -85,7 +85,6 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
         recyclerView = view.findViewById(R.id.recycler_calendar);
         viewPager = view.findViewById(R.id.calendar_pager);
         taTCalendarAdapter = new TaTCalendarAdapter(getActivity().getSupportFragmentManager());
-        viewPager.setAdapter(taTCalendarAdapter);
         SharedPreferences pref = getActivity().getSharedPreferences("first", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         department = pref.getString("App_department",null);
@@ -93,14 +92,8 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
         Intent intent = new Intent("Appdepartment");
         intent.putExtra("app_department",department);
         LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);
-        taTCalendarAdapter.setOnFragmentListener(this);
-        taTCalendarAdapter.setNumOfMonth(COUNT_PAGE);
-        viewPager.setCurrentItem(COUNT_PAGE);
-        viewPager.setClipToPadding(false);
-        viewPager.setPadding(80, 0, 0, 0);
-        viewPager.setPageMargin(40);
 
-
+        setCalendar();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
 
@@ -117,7 +110,7 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity().getApplicationContext(),AddScheduleActivity.class);
                 intent.putExtra("dialog_limit_Date",year_month);
-                startActivity(intent);
+                startActivityForResult(intent, 200);
             }
         });
 //        Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.add_blue);
@@ -172,6 +165,29 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
         return view;
 
     }
+
+    private void setCalendar() {
+        viewPager.setAdapter(taTCalendarAdapter);
+        taTCalendarAdapter.setOnFragmentListener(this);
+        taTCalendarAdapter.setNumOfMonth(COUNT_PAGE);
+        viewPager.setCurrentItem(COUNT_PAGE);
+        viewPager.setClipToPadding(false);
+        viewPager.setPadding(80, 0, 0, 0);
+        viewPager.setPageMargin(40);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("calendar",resultCode+"");
+        Log.d("calendar",requestCode+"");
+        if(requestCode == 200 && resultCode == 200){
+//            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+//            setCalendar();
+//            MainActivityManager activityManager = new MainActivityManager();
+//            activityManager.loadFragment(this);
+        }
+    }
     private BroadcastReceiver mSecondBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -185,6 +201,10 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
                     if(response.isSuccessful()){
                         RetrofitResult result = response.body();
                         //Log.d("delete",result.ans);
+//                        getFragmentManager().beginTransaction().detach(TaTCalendarActivity.this).attach(TaTCalendarActivity.this).commit();
+//                        setCalendar();
+//                        MainActivityManager activityManager = new MainActivityManager();
+//                        activityManager.loadFragment(TaTCalendarActivity.this);
                     }
                 }
 
@@ -250,7 +270,7 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
 
                     @Override
                     public void onFailure(Call<JsonArray> call, Throwable t) {
-                        //Log.d("test",t+"");
+                        Log.d("calendar",t+"");
                     }
                 });
             }

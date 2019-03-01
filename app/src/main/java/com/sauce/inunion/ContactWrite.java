@@ -1,6 +1,7 @@
 package com.sauce.inunion;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -103,10 +104,12 @@ public class ContactWrite extends Activity {
         textSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                service.addressSave(editName.getText().toString(),editPhoneNumber.getText().toString(),editEmail.getText().toString(),editPosition.getText().toString(),editEtc.getText().toString(),"정보통신공학과").enqueue(new Callback<RetrofitContact>() {
-                    @Override
-                    public void onResponse(Call<RetrofitContact> call, Response<RetrofitContact> response) {
+                if (editName.getText().toString() == null) {
+                    Toast.makeText(getApplicationContext(), "이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    service.addressSave(editName.getText().toString(), editPhoneNumber.getText().toString(), editEmail.getText().toString(), editPosition.getText().toString(), editEtc.getText().toString(), "정보통신공학과").enqueue(new Callback<RetrofitContact>() {
+                        @Override
+                        public void onResponse(Call<RetrofitContact> call, Response<RetrofitContact> response) {
                        /* if(response.isSuccessful()){
                             RetrofitContact result = response.body();
                             Log.d("test",""+result.name);
@@ -121,8 +124,8 @@ public class ContactWrite extends Activity {
                         }else{
                             Toast.makeText(getContext().getApplicationContext(), "저장실패1", Toast.LENGTH_SHORT).show();
                         }*/
-                        // Toast.makeText(getContext().getApplicationContext(),String.valueOf(response.isSuccessful()), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getApplicationContext(), "저장완료", Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(getContext().getApplicationContext(),String.valueOf(response.isSuccessful()), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "저장완료", Toast.LENGTH_SHORT).show();
 //                        Contact contact = new Contact();
 //                        getActivity().getSupportFragmentManager().beginTransaction()
 //                                .replace(R.id.fragment_container, contact)
@@ -131,15 +134,18 @@ public class ContactWrite extends Activity {
 //                        toolbarActivity.setVisibility(View.VISIBLE);
 //                        navigation.setVisibility(View.VISIBLE);
 //                        shadow.setVisibility(View.VISIBLE);
-                        finish();
-                    }
+                            Intent saveIntent = new Intent();
+                            setResult(500, saveIntent);
+                            finish();
+                        }
 
-                    @Override
-                    public void onFailure(Call<RetrofitContact> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "저장실패 "+t, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<RetrofitContact> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "저장실패 " + t, Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
+                }
             }
         });
     }

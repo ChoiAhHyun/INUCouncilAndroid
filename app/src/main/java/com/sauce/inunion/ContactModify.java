@@ -87,7 +87,7 @@ public class ContactModify extends Activity {
                 editEtc.setText(res.get(0).etc);
                 department= res.get(0).department;
 //                addressId= res.get(0).addressId;
-                Log.d("test", Id);
+                Log.d("contact", Id);
             }
 
             @Override
@@ -148,7 +148,7 @@ public class ContactModify extends Activity {
             serviceModify.addressModify(editName.getText().toString(),editPhoneNumber.getText().toString(),editEmail.getText().toString(),editPosition.getText().toString(),editEtc.getText().toString(),department, addressId).enqueue(new Callback<RetrofitContact>() {
                 @Override
                 public void onResponse(Call<RetrofitContact> call, Response<RetrofitContact> response) {
-                    Log.d("test", editName.getText().toString());
+                    Log.d("contact", editName.getText().toString());
                     Toast.makeText(getApplicationContext(), "저장완료", Toast.LENGTH_SHORT).show();
 //                        Contact contact = new Contact();
 //                        getActivity().getSupportFragmentManager().beginTransaction()

@@ -302,6 +302,8 @@ public class NoticeModify extends Activity {
             @Override
             public void onResponse(Call<RetrofitNotice> call, Response<RetrofitNotice> response) {
                 Toast.makeText(getApplicationContext(), "저장완료", Toast.LENGTH_SHORT).show();
+                Intent saveIntent =  new Intent();
+                setResult(100, saveIntent);
                 finish();
             }
 

@@ -63,7 +63,7 @@ public class NoticeWrite extends Activity {
     EditText editContent;
     String department;
     @Override
-    public void onCreate(@Nullable Bundle saveInstanceState) {
+    public void onCreate(@Nullable final Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.notice_writing);
 
@@ -281,6 +281,8 @@ public class NoticeWrite extends Activity {
             @Override
             public void onResponse(Call<RetrofitNotice> call, Response<RetrofitNotice> response) {
                 Toast.makeText(getApplicationContext(), "저장완료", Toast.LENGTH_SHORT).show();
+                Intent saveIntent =  new Intent();
+                setResult(100, saveIntent);
                 finish();
             }
             @Override

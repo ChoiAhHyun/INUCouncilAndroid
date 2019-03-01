@@ -68,7 +68,7 @@ public class ScheduleContentActivity extends Fragment {
         ImageView cancel_btn = view.findViewById(R.id.schedule_content_cancel_btn);
 
         final String Id = getArguments().getString("scheduleId");
-        Log.d("test",Id);
+        Log.d("calendar",Id);
         retrofitCalendarScheduleContentService = new Retrofit.Builder().baseUrl("http://117.16.231.66:7001").addConverterFactory(GsonConverterFactory.create()).build().create(RetrofitService.class);
         retrofitCalendarScheduleContentService.calendarselect(department).enqueue(new Callback<JsonArray>() {
             @Override
@@ -77,8 +77,8 @@ public class ScheduleContentActivity extends Fragment {
                 for(int i=0; i < array.size();i++){
                     JsonObject object = array.get(i).getAsJsonObject();
                     if(object.get("scheduleId").getAsString().equals(Id)){
-                        Log.d("test",Id);
-                        Log.d("test",object.get("scheduleTitle").getAsString()+","
+                        Log.d("calendar",Id);
+                        Log.d("calendar",object.get("scheduleTitle").getAsString()+","
                                 +object.get("startDate").getAsString()+","
                                 +object.get("startTime").getAsString()+","
                                 +object.get("endDate").getAsString()+","
@@ -101,7 +101,7 @@ public class ScheduleContentActivity extends Fragment {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-
+                Log.d("calendar",t+"");
             }
         });
         cancel_btn.setOnClickListener(new View.OnClickListener() {
@@ -122,8 +122,8 @@ public class ScheduleContentActivity extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("test1",resultCode+"");
-        Log.d("test2",requestCode+"");
+        Log.d("calendar",resultCode+"");
+        Log.d("calendar",requestCode+"");
         if(requestCode == 50 && resultCode == 30){
 //            Log.d("gogogo","gogogo");
             schedule_content_title.setText(data.getStringExtra("edST")+"");
@@ -192,8 +192,15 @@ public class ScheduleContentActivity extends Fragment {
         else{
             str = String.valueOf(temp);
             sb = new StringBuffer(str);
-            if(temp < 1000)
+            if (temp < 10){
+                sb.insert(0, "0:0");
+            }
+            else if (temp < 100){
+                sb.insert(0, "0:");
+            }
+            else if(temp < 1000){
                 sb.insert(1, ":");
+            }
             else
                 sb.insert(2, ":");
             sb.append(" a.m ");
