@@ -30,6 +30,7 @@ public class TaTCalendarItemView extends View {
     Paint mPaintBackground = new Paint(Paint.ANTI_ALIAS_FLAG);
     Paint mPaintBackgroundToday = new Paint(Paint.ANTI_ALIAS_FLAG);
     Paint mPaintBackgroundEvent = new Paint(Paint.ANTI_ALIAS_FLAG);
+    Paint mPaintBackgroundWhite = new Paint(Paint.ANTI_ALIAS_FLAG);
     private int dayOfWeek = -1;
     private boolean isStaticText = false;
     private long millis;
@@ -215,6 +216,21 @@ public class TaTCalendarItemView extends View {
                 canvas.drawRect(xPos - 5, getHeight() / 2 + 20, xPos + 5, getHeight() / 2 + 30, mPaintBackground);
             }
         }
+        else {
+                if (Build.VERSION.SDK_INT >= 23) {
+                    mPaintBackgroundWhite.setColor(Color.TRANSPARENT);
+                }else{
+                    mPaintBackgroundWhite.setColor(Color.TRANSPARENT);
+                }
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    canvas.drawRoundRect(xPos - 10, getHeight() / 2 + 50, xPos + 10, getHeight() / 2 + 70, 50f, 50f, mPaintBackgroundWhite);
+                    }else{
+                    canvas.drawRect(xPos - 5, getHeight() / 2 + 20, xPos + 5, getHeight() / 2 + 30, mPaintBackgroundWhite);
+                    }
+            }
+
+
 
     }
 
@@ -238,6 +254,10 @@ public class TaTCalendarItemView extends View {
     public void setEvent(int... resid) {
         hasEvent = true;
         mColorEvents = resid;
+        invalidate();
+    }
+    public void unSetEvent() {
+        hasEvent = false;
         invalidate();
     }
 

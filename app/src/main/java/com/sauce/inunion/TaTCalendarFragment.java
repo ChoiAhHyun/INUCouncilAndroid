@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -63,6 +64,8 @@ public class TaTCalendarFragment extends Fragment {
         position = getArguments().getInt("position");
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(mBroadcastReceiver,
                 new IntentFilter("Confirm"));
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(mBroadcastReceiver2,
+                new IntentFilter("Delete"));
 //        LocalBroadcastManager.getInstance(TaTCalendarFragment.this.getContext()).registerReceiver(mSecondBroadcastReceiver,
 //                new IntentFilter("department_change"));
 
@@ -123,6 +126,7 @@ public class TaTCalendarFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         LocalBroadcastManager.getInstance(TaTCalendarFragment.this.getContext()).unregisterReceiver(mBroadcastReceiver);
+        LocalBroadcastManager.getInstance(TaTCalendarFragment.this.getContext()).unregisterReceiver(mBroadcastReceiver2);
     }
 
     @Nullable
@@ -276,8 +280,8 @@ public class TaTCalendarFragment extends Fragment {
                     JsonObject object = array.get(i).getAsJsonObject();
                     sD = removeHyphen(object.get("startDate").getAsString());
                     eD = removeHyphen(object.get("endDate").getAsString());
-                    Log.d("startDay",sD);
-                    Log.d("endDay",eD);
+                    Log.d("test",sD);
+                    Log.d("test",eD);
                     if(sD.equals(eD)){
                         for (int j = 0; j < maxDateOfMonth; j++) {
                             if (sD.equals(taTCalendarItemViews[j].getId() + "")) {
@@ -306,7 +310,7 @@ public class TaTCalendarFragment extends Fragment {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-
+                Log.d("test", "" + t);
             }
         });
 
@@ -359,10 +363,11 @@ public class TaTCalendarFragment extends Fragment {
             String startDay = intent.getStringExtra("startDay");
             String endDay = intent.getStringExtra("endDay");
 
-//            Log.d("test",data1);
-            //     Log.d("test2",data2);
+
+            Log.d("test",startDay);
+            Log.d("test",endDay);
             boolean ing = false;
-            if (startDay != null && endDay != null) {
+//            if (startDay != null && endDay != null) {
                 if (startDay.equals(endDay)) {
                     for (int i = 0; i < maxDateOfMonth; i++) {
                         if (startDay.equals(taTCalendarItemViews[i].getId() + "")) {
@@ -378,8 +383,6 @@ public class TaTCalendarFragment extends Fragment {
                             ing = true;
                             }
                         } else if (ing == true && endDay.equals(taTCalendarItemViews[i].getId() + "")) {
-                        }
-                        if (ing == true && endDay.equals(taTCalendarItemViews[i].getId() + "")) {
                             taTCalendarItemViews[i].setEvent(R.color.colorPrimaryDark);
                             ing = false;
                         } else {
@@ -388,7 +391,46 @@ public class TaTCalendarFragment extends Fragment {
                     }
                 }
 
-            }
+//            }
+        }
+    };
+
+    private BroadcastReceiver mBroadcastReceiver2 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String startDay = intent.getStringExtra("startDay");
+            String endDay = intent.getStringExtra("endDay");
+
+
+            Log.d("test",startDay);
+            Log.d("test",endDay);
+            boolean ing = false;
+//            if (startDay != null && endDay != null) {
+                if (startDay.equals(endDay)) {
+                    for (int i = 0; i < maxDateOfMonth; i++) {
+                        if (startDay.equals(taTCalendarItemViews[i].getId() + "")) {
+                            taTCalendarItemViews[i].unSetEvent();
+                        }
+                    }
+                } else {
+                    for (int i = 0; i < maxDateOfMonth; i++) {
+
+                        if (ing == false) {
+                        if (startDay.equals(taTCalendarItemViews[i].getId() + "")) {
+                            taTCalendarItemViews[i].unSetEvent();
+                            ing = true;
+                            }
+                        } else if (ing == true && endDay.equals(taTCalendarItemViews[i].getId() + "")) {
+                            taTCalendarItemViews[i].unSetEvent();
+                            ing = false;
+                        } else {
+                            taTCalendarItemViews[i].unSetEvent();
+                        }
+                    }
+                }
+
+//            }
         }
     };
 }

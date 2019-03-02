@@ -105,11 +105,7 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
                     Toast.makeText(getApplicationContext(), "제목과 날짜를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
                     final Intent intent1 = getIntent();
-                    Intent intent2 = new Intent("Confirm");
-                    intent2.putExtra("confirm","true");
-                    intent2.putExtra("startDay",removeHangul(startDay));
-                    intent2.putExtra("endDay",removeHangul(endDay));
-                    LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent2);
+                    final Intent intent2 = new Intent("Confirm");
                     Log.d("calendar",scheduleTitle.getText().toString()+" "+startDate8+" "+startTime6+" "+endDate8+" "+endTime6+" "+position.getText().toString()+" "+memo.getText().toString()+" "+department);
                     retrofitCalendarSaveService.calendarsave(scheduleTitle.getText().toString(), startDate8, startTime6, endDate8, endTime6, position.getText().toString(), memo.getText().toString(), department).enqueue(new Callback<RetrofitResult>() {
                         @Override
@@ -117,6 +113,12 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
                             if (response.isSuccessful()){
                                 RetrofitResult result = response.body();
                                 Log.d("calendar",result.ans);
+                                intent2.putExtra("confirm","true");
+                                intent2.putExtra("startDay",startDate8);
+                                intent2.putExtra("endDay",endDate8);
+                                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent2);
+                                Log.d("test",startDate8);
+                                Log.d("test",endDate8);
                                 setResult(200, intent1);
                                 finish();
                             }

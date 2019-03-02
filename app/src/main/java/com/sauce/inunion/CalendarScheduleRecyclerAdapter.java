@@ -74,6 +74,8 @@ public class CalendarScheduleRecyclerAdapter extends RecyclerView.Adapter<Recycl
                 Intent intent2 = new Intent("click_delete");
                 intent2.putExtra("delete_position", i+"");
                 Log.d("calendar", i+"");
+                Log.d("calendar", i+" "+myscheduleitem.startDay);
+                Log.d("calendar", i+" "+myscheduleitem.endDay);
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent2);
             }
         });
@@ -91,12 +93,16 @@ public class CalendarScheduleRecyclerAdapter extends RecyclerView.Adapter<Recycl
      static class Myscheduleitem {
         public String scheduleTitle;
         public String starttime;
+        public String startDay;
+        public String endDay;
          public String scheduleId;
          public String memo;
 
-        public Myscheduleitem(String scheduleTitle, String starttime, String scheduleId, String memo) {
+        public Myscheduleitem(String scheduleTitle, String starttime, String scheduleId, String memo, String startDay, String endDay) {
             this.scheduleTitle = scheduleTitle;
             this.starttime = starttime;
+            this.startDay = startDay;
+            this.endDay = endDay;
             this.scheduleId = scheduleId;
             this.memo = memo;
 

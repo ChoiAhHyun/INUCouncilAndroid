@@ -191,9 +191,11 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
     private BroadcastReceiver mSecondBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String data = intent.getStringExtra("delete_position");
+            final String data = intent.getStringExtra("delete_position");
             //Log.d("test2",Myitems.get(Integer.parseInt(data)).scheduleId+"");
             String id = Myitems.get(Integer.parseInt(data)).scheduleId.toString();
+            final String startDate = Myitems.get(Integer.parseInt(data)).startDay.toString();
+            final String endDate = Myitems.get(Integer.parseInt(data)).endDay.toString();
             retrofitCalendarDeleteService = new Retrofit.Builder().baseUrl("http://117.16.231.66:7001").addConverterFactory(GsonConverterFactory.create()).build().create(RetrofitService.class);
             retrofitCalendarDeleteService.calendardelete(id).enqueue(new Callback<RetrofitResult>() {
                 @Override
@@ -205,6 +207,13 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
 //                        setCalendar();
 //                        MainActivityManager activityManager = new MainActivityManager();
 //                        activityManager.loadFragment(TaTCalendarActivity.this);
+                        Intent intent = new Intent("Delete");
+                        intent.putExtra("startDay",startDate);
+                        intent.putExtra("endDay",endDate);
+                        LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);
+                        Log.d("test",startDate);
+                        Log.d("test",endDate);
+
                     }
                 }
 
@@ -252,7 +261,9 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
                                 Myitems.add(new CalendarScheduleRecyclerAdapter.Myscheduleitem(object.get("scheduleTitle").getAsString(),
                                         sortingTM(object.get("startTime").getAsString()),
                                         object.get("scheduleId").getAsString(),
-                                        object.get("memo").getAsString()
+                                        object.get("memo").getAsString(),
+                                        sD,
+                                        eD
                                 ));
                                 adapter = new CalendarScheduleRecyclerAdapter(Myitems, getActivity(), getFragmentManager());
 
@@ -261,7 +272,9 @@ public class TaTCalendarActivity extends Fragment implements  TaTCalendarFragmen
                                 Myitems.add(new CalendarScheduleRecyclerAdapter.Myscheduleitem(object.get("scheduleTitle").getAsString(),
                                         "진행 중",
                                         object.get("scheduleId").getAsString(),
-                                        object.get("memo").getAsString()));
+                                        object.get("memo").getAsString(),
+                                        sD,
+                                        eD));
                                 adapter = new CalendarScheduleRecyclerAdapter(Myitems, getActivity(), getFragmentManager());
                             }
                         }
