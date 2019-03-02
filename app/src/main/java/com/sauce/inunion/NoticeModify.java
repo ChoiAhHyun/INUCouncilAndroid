@@ -58,9 +58,8 @@ public class NoticeModify extends Activity {
     //    public static NoticeWrite newInstance() {
 //        return new NoticeWrite();
 //    }
-    TextView textSave;
-    EditText editTitle;
-    EditText editContent;
+
+    EditText editTitle, editContent;
     String department;
     @Override
     public void onCreate(@Nullable Bundle saveInstanceState) {
@@ -69,7 +68,7 @@ public class NoticeModify extends Activity {
 
         ImageView imageBack = (ImageView) findViewById(R.id.toolbar_back);
         ImageView imageImage = (ImageView) findViewById(R.id.toolbar_image);
-        textSave = (TextView) findViewById(R.id.toolbar_save);
+        TextView textSave = (TextView) findViewById(R.id.toolbar_save);
 
         editTitle = (EditText) findViewById(R.id.notice_write_title);
         editContent = (EditText) findViewById(R.id.notice_write_content);
@@ -277,9 +276,6 @@ public class NoticeModify extends Activity {
     }
 
     private void imageUpload() {
-        textSave = (TextView) findViewById(R.id.toolbar_save);
-        editTitle = (EditText) findViewById(R.id.notice_write_title);
-        editContent = (EditText) findViewById(R.id.notice_write_content);
 
 //        File file = new File (getPath(photoURI));
         final RequestBody titleRequest = RequestBody.create(MediaType.parse("text/plain"), editTitle.getText().toString());
@@ -303,7 +299,11 @@ public class NoticeModify extends Activity {
             public void onResponse(Call<RetrofitNotice> call, Response<RetrofitNotice> response) {
                 Toast.makeText(getApplicationContext(), "저장완료", Toast.LENGTH_SHORT).show();
                 Intent saveIntent =  new Intent();
-                setResult(100, saveIntent);
+//                saveIntent.putExtra("title", editTitle.getText().toString());
+//                saveIntent.putExtra("content", editContent.getText().toString());
+//                saveIntent.putExtra("id", Id);
+//                saveIntent.putExtra("file", Id);
+                setResult(700, saveIntent);
                 finish();
             }
 

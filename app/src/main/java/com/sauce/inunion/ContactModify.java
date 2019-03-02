@@ -33,16 +33,10 @@ public class ContactModify extends Activity {
 
     Retrofit retrofitSelect;
     Retrofit retrofitModify;
-    ContactInterface serviceSelect;
-    ContactInterface serviceModify;
+    ContactInterface service;
 
-    EditText editName;
-    EditText editPhoneNumber;
-    EditText editEmail;
-    EditText editPosition;
-    EditText editEtc;
-    String department;
-    String addressId;
+    EditText editName, editPhoneNumber, editEmail, editPosition, editEtc;
+    String department, addressId;
 
 //    public static ContactModify newInstance() {
 //        return new ContactModify();
@@ -72,9 +66,9 @@ public class ContactModify extends Activity {
                 .baseUrl("http://117.16.231.66:7001")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        serviceSelect = retrofitSelect.create(ContactInterface.class);
+        service = retrofitSelect.create(ContactInterface.class);
 
-        serviceSelect.addressSelect(Id).enqueue(new Callback<List<RetrofitContact>>() {
+        service.addressSelect(Id).enqueue(new Callback<List<RetrofitContact>>() {
             @Override
             public void onResponse(Call<List<RetrofitContact>> call, Response<List<RetrofitContact>> response) {
                 Log.d("contact", "연결 성공"+response.code());
@@ -136,36 +130,41 @@ public class ContactModify extends Activity {
                 .baseUrl("http://117.16.231.66:7001")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        serviceModify = retrofitModify.create(ContactInterface.class);
-        textSave.setOnClickListener(clickListener);
+        service = retrofitModify.create(ContactInterface.class);
 
-    }
-
-    private View.OnClickListener clickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
-            serviceModify.addressModify(editName.getText().toString(),editPhoneNumber.getText().toString(),editEmail.getText().toString(),editPosition.getText().toString(),editEtc.getText().toString(),department, addressId).enqueue(new Callback<RetrofitContact>() {
-                @Override
-                public void onResponse(Call<RetrofitContact> call, Response<RetrofitContact> response) {
-                    Log.d("contact", editName.getText().toString());
-                    Toast.makeText(getApplicationContext(), "저장완료", Toast.LENGTH_SHORT).show();
+        textSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (editName.getText().toString().length() == 0) {
+                    Toast.makeText(getApplicationContext(), "이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    service.addressModify(editName.getText().toString(), editPhoneNumber.getText().toString(), editEmail.getText().toString(), editPosition.getText().toString(), editEtc.getText().toString(), department, addressId).enqueue(new Callback<RetrofitContact>() {
+                        @Override
+                        public void onResponse(Call<RetrofitContact> call, Response<RetrofitContact> response) {
+                            Toast.makeText(getApplicationContext(), "저장완료", Toast.LENGTH_SHORT).show();
+                            Log.d("contact", response.code() + "");
 //                        Contact contact = new Contact();
 //                        getActivity().getSupportFragmentManager().beginTransaction()
 //                                .replace(R.id.fragment_container, contact)
 //                                .addToBackStack(null)
 //                                .commit();
 //                        toolbarActivity.setVisibility(View.VISIBLE);
-                    finish();
-                }
+                            Intent intent = new Intent();
+                            setResult(900, intent);
+                            finish();
+                        }
 
-                @Override
-                public void onFailure(Call<RetrofitContact> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), "저장실패", Toast.LENGTH_SHORT).show();
+                        @Override
+                        public void onFailure(Call<RetrofitContact> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "저장실패", Toast.LENGTH_SHORT).show();
+                            Log.d("contact", t + "");
+                        }
+                    });
                 }
-            });
-        }
-    };
+            }
+        });
+
+    }
 
 //    @Override
 //    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

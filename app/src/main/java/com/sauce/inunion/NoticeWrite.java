@@ -58,9 +58,7 @@ public class NoticeWrite extends Activity {
 //    public static NoticeWrite newInstance() {
 //        return new NoticeWrite();
 //    }
-    TextView textSave;
-    EditText editTitle;
-    EditText editContent;
+    EditText editTitle, editContent;
     String department;
     @Override
     public void onCreate(@Nullable final Bundle saveInstanceState) {
@@ -69,7 +67,7 @@ public class NoticeWrite extends Activity {
 
         ImageView imageBack = (ImageView) findViewById(R.id.toolbar_back);
         ImageView imageImage = (ImageView) findViewById(R.id.toolbar_image);
-        textSave = (TextView) findViewById(R.id.toolbar_save);
+        TextView textSave = (TextView) findViewById(R.id.toolbar_save);
 
         editTitle = (EditText) findViewById(R.id.notice_write_title);
         editContent = (EditText) findViewById(R.id.notice_write_content);
@@ -257,9 +255,6 @@ public class NoticeWrite extends Activity {
     }
 
     private void imageUpload() {
-        textSave = (TextView) findViewById(R.id.toolbar_save);
-        editTitle = (EditText) findViewById(R.id.notice_write_title);
-        editContent = (EditText) findViewById(R.id.notice_write_content);
 
 //        File file = new File (getPath(photoURI));
         final RequestBody titleRequest = RequestBody.create(MediaType.parse("text/plain"), editTitle.getText().toString());

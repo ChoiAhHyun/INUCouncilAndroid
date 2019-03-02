@@ -101,10 +101,11 @@ public class ContactWrite extends Activity {
                 onBackPressed();
             }
         });
+
         textSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (editName.getText().toString() == null) {
+                if (editName.getText().toString().length() == 0 ) {
                     Toast.makeText(getApplicationContext(), "이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
                     service.addressSave(editName.getText().toString(), editPhoneNumber.getText().toString(), editEmail.getText().toString(), editPosition.getText().toString(), editEtc.getText().toString(), "정보통신공학과").enqueue(new Callback<RetrofitContact>() {

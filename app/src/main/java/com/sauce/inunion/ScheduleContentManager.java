@@ -36,6 +36,8 @@ public class ScheduleContentManager  extends Fragment {
     TextView schedule_content_endtime;
     TextView schedule_content_position;
     TextView schedule_content_memo;
+    String[] schedule_start = new String[2];
+    String[] schedule_end = new String[2];
 
     public static ScheduleContentManager newInstance() {
         return new ScheduleContentManager();
@@ -103,11 +105,17 @@ public class ScheduleContentManager  extends Fragment {
                                 +object.get("position").getAsString()+","
                                 +object.get("memo").getAsString()
                         );
+
+                        schedule_start[0] = removeHyphen(object.get("startDate").getAsString());
+                        schedule_start[1] = removeColon(object.get("startTime").getAsString());
+                        schedule_end[0] = removeHyphen(object.get("endDate").getAsString());
+                        schedule_end[1] = removeColon(object.get("endTime").getAsString());
+
                         schedule_content_title.setText(object.get("scheduleTitle").getAsString());
-                        schedule_content_startdate.setText(sortingYMD(removeHyphen(object.get("startDate").getAsString())));
-                        schedule_content_starttime.setText(sortingTM(removeColon(object.get("startTime").getAsString())));
-                        schedule_content_enddate.setText(sortingYMD(removeHyphen(object.get("endDate").getAsString())));
-                        schedule_content_endtime.setText(sortingTM(removeColon(object.get("endTime").getAsString())));
+                        schedule_content_startdate.setText(sortingYMD(schedule_start[0]));
+                        schedule_content_starttime.setText(sortingTM(schedule_start[1]));
+                        schedule_content_enddate.setText(sortingYMD(schedule_end[0]));
+                        schedule_content_endtime.setText(sortingTM(schedule_end[1]));
                         schedule_content_position.setText(object.get("position").getAsString());
                         schedule_content_memo.setText(object.get("memo").getAsString());
                     }
@@ -163,10 +171,10 @@ public class ScheduleContentManager  extends Fragment {
                 Intent intent2 = new Intent(getActivity(),ScheduleEditActivity.class);
                 intent2.putExtra("IdOfSchedule",Id);
                 intent2.putExtra("ScheduleContentTitle",schedule_content_title.getText().toString());
-                intent2.putExtra("ScheduleContentStartDate",schedule_content_startdate.getText().toString());
-                intent2.putExtra("ScheduleContentStartTime",schedule_content_starttime.getText().toString());
-                intent2.putExtra("ScheduleContentEndDate",schedule_content_enddate.getText().toString());
-                intent2.putExtra("ScheduleContentEndTime",schedule_content_endtime.getText().toString());
+                intent2.putExtra("ScheduleContentStartDate",schedule_start[0]);
+                intent2.putExtra("ScheduleContentStartTime",schedule_start[1]);//6
+                intent2.putExtra("ScheduleContentEndDate",schedule_end[0]);
+                intent2.putExtra("ScheduleContentEndTime",schedule_end[1]);//6
                 intent2.putExtra("ScheduleContentPosition",schedule_content_position.getText().toString());
                 intent2.putExtra("ScheduleContentMemo",schedule_content_memo.getText().toString());
                 startActivityForResult(intent2,50);
@@ -183,13 +191,18 @@ public class ScheduleContentManager  extends Fragment {
         Log.d("calendar",requestCode+"");
         if(requestCode == 50 && resultCode == 30){
 //            Log.d("gogogo","gogogo");
-            schedule_content_title.setText(data.getStringExtra("edST")+"");
-            schedule_content_startdate.setText(data.getStringExtra("tvSD")+"");
-            schedule_content_starttime.setText(data.getStringExtra("tvST")+"");
-            schedule_content_enddate.setText(data.getStringExtra("tvED")+"");
-            schedule_content_endtime.setText(data.getStringExtra("tvET")+"");
-            schedule_content_position.setText(data.getStringExtra("edPS")+"");
-            schedule_content_memo.setText(data.getStringExtra("edMM")+"");
+            schedule_content_title.setText(data.getStringExtra("edST"));
+            schedule_content_startdate.setText(sortingYMD(data.getStringExtra("tvSD")));
+            schedule_start[0] = data.getStringExtra("tvSD");
+            schedule_content_starttime.setText(sortingTM(data.getStringExtra("tvST")));
+            schedule_start[1] = data.getStringExtra("tvST");
+            schedule_content_enddate.setText(sortingYMD(data.getStringExtra("tvED")));
+            schedule_end[0] = data.getStringExtra("tvED");
+            schedule_content_endtime.setText(sortingTM(data.getStringExtra("tvET")));
+            schedule_end[1] = data.getStringExtra("tvET");
+//            Log.d("calendar",data.getStringExtra("tvET"));//6
+            schedule_content_position.setText(data.getStringExtra("edPS"));
+            schedule_content_memo.setText(data.getStringExtra("edMM"));
         }
     }
     private String removeHyphen(String startDate) {
@@ -203,7 +216,7 @@ public class ScheduleContentManager  extends Fragment {
     }
     private String removeColon(String startDate) {
         String result = new String();
-        for(int i = 0 ; i < startDate.length() - 3; i ++)
+        for(int i = 0 ; i < startDate.length(); i ++)
         {
             if(startDate.charAt(i) != ':')
                 result += startDate.charAt(i);
@@ -232,6 +245,15 @@ public class ScheduleContentManager  extends Fragment {
         return sorted;
     }
     public String sortingTM(String string){
+        if (string.length() == 6){
+            String string2 = string;
+            string = "";
+            for(int i = 0 ; i < 4; i ++)
+            {
+                string += string2.charAt(i);
+            }
+        }
+
         int temp = Integer.parseInt(string);
         String str;
         StringBuffer sb;

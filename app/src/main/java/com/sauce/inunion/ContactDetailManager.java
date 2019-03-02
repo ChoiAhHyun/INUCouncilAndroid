@@ -30,7 +30,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ContactDetailManager  extends Fragment {
     Retrofit retrofit;
     ContactInterface service;
-    ContactInterface serviceD;
+
+    String Id;
+    TextView editName, editPhoneNumber, editEmail, editPosition, editEtc;
 
     public static ContactDetailManager newInstance() {
         return new ContactDetailManager();
@@ -59,39 +61,21 @@ public class ContactDetailManager  extends Fragment {
         TextView textModify = (TextView) view.findViewById(R.id.toolbar_modify);
         TextView textDelete = (TextView) view.findViewById(R.id.contact_delete);
 
-        final TextView editName = (TextView) view.findViewById(R.id.contact_name);
-        final TextView editPhoneNumber = (TextView) view.findViewById(R.id.contact_phonenumber);
-        final TextView editEmail = (TextView) view.findViewById(R.id.contact_email);
-        final TextView editPosition = (TextView) view.findViewById(R.id.contact_position);
-        final TextView editEtc = (TextView) view.findViewById(R.id.contact_etc);
+        editName = (TextView) view.findViewById(R.id.contact_name);
+        editPhoneNumber = (TextView) view.findViewById(R.id.contact_phonenumber);
+        editEmail = (TextView) view.findViewById(R.id.contact_email);
+        editPosition = (TextView) view.findViewById(R.id.contact_position);
+        editEtc = (TextView) view.findViewById(R.id.contact_etc);
 
-        final String Id = getArguments().getString("id");
+        Id = getArguments().getString("id");
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://117.16.231.66:7001")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         service = retrofit.create(ContactInterface.class);
-        serviceD = retrofit.create(ContactInterface.class);
 
-        service.addressSelect(Id).enqueue(new Callback<List<RetrofitContact>>() {
-            @Override
-            public void onResponse(Call<List<RetrofitContact>> call, Response<List<RetrofitContact>> response) {
-                Log.d("contact", "연결 성공"+response.code());
-
-                List<RetrofitContact> res = response.body();
-                editName.setText(res.get(0).name);
-                editPosition.setText(res.get(0).position);
-                editPhoneNumber.setText(res.get(0).phoneNumber);
-                editEmail.setText(res.get(0).email);
-                editEtc.setText(res.get(0).etc);
-            }
-
-            @Override
-            public void onFailure(Call<List<RetrofitContact>> call, Throwable t) {
-                Log.d("contact", ""+t);
-            }
-        });
+        contentUpdate();
 
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +89,7 @@ public class ContactDetailManager  extends Fragment {
                 toolbarActivity.setVisibility(View.VISIBLE);
             }
         });
+
         textModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,16 +103,16 @@ public class ContactDetailManager  extends Fragment {
 //                        .addToBackStack(null)
 //                        .commit();
 
-                Intent intent = new Intent(getContext().getApplicationContext(),ContactModify.class);
+                Intent intent = new Intent(getActivity(),ContactModify.class);
                 intent.putExtra("id",Id);
-                startActivity(intent);
-
+                startActivityForResult(intent, 950);
             }
         });
+
         textDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                serviceD.addressDelete(Id).enqueue(new Callback<RetrofitContact>() {
+                service.addressDelete(Id).enqueue(new Callback<RetrofitContact>() {
                     @Override
                     public void onResponse(Call<RetrofitContact> call, Response<RetrofitContact> response) {
                         Log.d("contact", "연결 성공"+response.code());
@@ -153,7 +138,7 @@ public class ContactDetailManager  extends Fragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext().getApplicationContext(), // 현재 화면의 제어권자
+                Intent intent = new Intent(getActivity(), // 현재 화면의 제어권자
                         ContactWrite.class); // 다음 넘어갈 클래스 지정
                 startActivity(intent); // 다음 화면으로 넘어간다
             }
@@ -199,5 +184,36 @@ public class ContactDetailManager  extends Fragment {
         });*/
 
         return view;
+    }
+
+    private void contentUpdate() {
+        service.addressSelect(Id).enqueue(new Callback<List<RetrofitContact>>() {
+            @Override
+            public void onResponse(Call<List<RetrofitContact>> call, Response<List<RetrofitContact>> response) {
+                Log.d("contact", "연결 성공"+response.code());
+
+                List<RetrofitContact> res = response.body();
+                editName.setText(res.get(0).name);
+                editPosition.setText(res.get(0).position);
+                editPhoneNumber.setText(res.get(0).phoneNumber);
+                editEmail.setText(res.get(0).email);
+                editEtc.setText(res.get(0).etc);
+            }
+
+            @Override
+            public void onFailure(Call<List<RetrofitContact>> call, Throwable t) {
+                Log.d("contact", ""+t);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("contact",resultCode+"");
+        Log.d("contact",requestCode+"");
+        if(requestCode == 950 && resultCode == 900){
+            contentUpdate();
+        }
     }
 }

@@ -69,10 +69,10 @@ public class ScheduleEditActivity extends Activity implements DatePickerDialog.O
         Intent intent1 = getIntent();
         final String schedule_id = intent1.getStringExtra("IdOfSchedule");
         scheduleTitle.setText(intent1.getStringExtra("ScheduleContentTitle"));
-        startDay.setText(intent1.getStringExtra("ScheduleContentStartDate"));
-        startTime.setText(intent1.getStringExtra("ScheduleContentStartTime"));
-        endDay.setText(intent1.getStringExtra("ScheduleContentEndDate"));
-        endTime.setText(intent1.getStringExtra("ScheduleContentEndTime"));
+        startDate8 = startYMD(startDay, intent1.getStringExtra("ScheduleContentStartDate"));
+        startTime6 = startTM(startTime, intent1.getStringExtra("ScheduleContentStartTime"));
+        endDate8 = endYMD(endDay, intent1.getStringExtra("ScheduleContentEndDate"));
+        endTime6 = endTM(endTime, intent1.getStringExtra("ScheduleContentEndTime"));
         position.setText(intent1.getStringExtra("ScheduleContentPosition"));
         memo.setText(intent1.getStringExtra("ScheduleContentMemo"));
         final Calendar calendar = Calendar.getInstance();
@@ -110,9 +110,16 @@ public class ScheduleEditActivity extends Activity implements DatePickerDialog.O
         edit_confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (scheduleTitle.getText().toString() == null || startDate8 == null || startTime6 == null || endDate8 == null || endTime6 == null) {
+                if (scheduleTitle.getText().toString().length() == 0 || startDate8 == null || startTime6 == null || endDate8 == null || endTime6 == null) {
                     Toast.makeText(getApplicationContext(), "제목과 날짜를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else if (Integer.parseInt(startDate8) > Integer.parseInt(endDate8)){
+                    Toast.makeText(getApplicationContext(), "시작 날짜와 종료 날짜를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                }
+                else if (startDate8.equals(endDate8) && Integer.parseInt(startTime6) > Integer.parseInt(endTime6)){
+                    Toast.makeText(getApplicationContext(), "시작 시간과 종료 시간을 확인해주세요.", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     final Intent intent = new Intent();
                     retrofitCalendarSaveService.calendarmodify(scheduleTitle.getText().toString(), startDate8, startTime6, endDate8, endTime6, position.getText().toString(), memo.getText().toString(), department, schedule_id).enqueue(new Callback<RetrofitResult>() {
                         @Override
@@ -121,10 +128,10 @@ public class ScheduleEditActivity extends Activity implements DatePickerDialog.O
                                 RetrofitResult result = response.body();
                                 Log.d("calendar", result.ans);
                                 intent.putExtra("edST", scheduleTitle.getText().toString());
-                                intent.putExtra("tvSD", startDay.getText().toString());
-                                intent.putExtra("tvST", startTime.getText().toString());
-                                intent.putExtra("tvED", endDay.getText().toString());
-                                intent.putExtra("tvET", endTime.getText().toString());
+                                intent.putExtra("tvSD", startDate8);
+                                intent.putExtra("tvST", startTime6);
+                                intent.putExtra("tvED", endDate8);
+                                intent.putExtra("tvET", endTime6);
                                 intent.putExtra("edPS", position.getText().toString());
                                 intent.putExtra("edMM", memo.getText().toString());
                                 setResult(30, intent);
@@ -183,6 +190,7 @@ public class ScheduleEditActivity extends Activity implements DatePickerDialog.O
                 DatePickerDialog datePickerDialog = new DatePickerDialog(ScheduleEditActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        endDate8 = setEndDate(year, month, dayOfMonth);
                         setYMD(endDay, year, month, dayOfMonth);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -267,6 +275,105 @@ public class ScheduleEditActivity extends Activity implements DatePickerDialog.O
             textView.setText(hourOfDay+"시 "+minute+"분");
         }
 
+    }
+    public String startYMD(TextView textView, String string) {
+        String Year =  new String();
+        String Month =  new String();
+        String Day =  new String();
+        int year, month, dayOfMonth;
+        for (int i = 0; i < 8; i++){
+            if(i < 4){
+                Year += string.charAt(i);
+            }
+            else if(i < 6){
+                Month += string.charAt(i);
+            }
+            else{
+                Day += string.charAt(i);
+            }
+        }
+        year = Integer.parseInt(Year);
+        month = Integer.parseInt(Month);
+        dayOfMonth = Integer.parseInt(Day);
+
+        textView.setText(year + "년 " + month + "월 " + dayOfMonth + "일");
+
+        return Year + Month + Day;
+    }
+    public String endYMD(TextView textView, String string) {
+        String Year =  new String();
+        String Month =  new String();
+        String Day =  new String();
+        int year, month, dayOfMonth;
+        for (int i = 0; i < 8; i++){
+            if(i < 4){
+                Year += string.charAt(i);
+            }
+            else if(i < 6){
+                Month += string.charAt(i);
+            }
+            else{
+                Day += string.charAt(i);
+            }
+        }
+        year = Integer.parseInt(Year);
+        month = Integer.parseInt(Month);
+        dayOfMonth = Integer.parseInt(Day);
+
+        textView.setText(year + "년 " + month + "월 " + dayOfMonth + "일");
+
+        return Year + Month + Day;
+    }
+
+    public String startTM(TextView textView, String string) {
+        String Hour = new String();
+        String Minute = new String();
+        int hourOfDay, minute;
+        for (int i = 0; i < 4; i++){
+            if(i < 2){
+                Hour += string.charAt(i);
+            }
+            else{
+                Minute += string.charAt(i);
+            }
+        }
+        hourOfDay = Integer.parseInt(Hour);
+        minute = Integer.parseInt(Minute);
+
+        if(minute<10){
+            textView.setText(hourOfDay+"시 "+"0"+minute+"분");
+        }
+        else
+        {
+            textView.setText(hourOfDay+"시 "+minute+"분");
+        }
+
+        return Hour + Minute + "00";
+    }
+    public String endTM(TextView textView, String string) {
+        String Hour = new String();
+        String Minute = new String();
+        int hourOfDay, minute;
+        for (int i = 0; i < 4; i++){
+            if(i < 2){
+                Hour += string.charAt(i);
+            }
+            else{
+                Minute += string.charAt(i);
+            }
+        }
+        hourOfDay = Integer.parseInt(Hour);
+        minute = Integer.parseInt(Minute);
+
+        if(minute<10){
+            textView.setText(hourOfDay+"시 "+"0"+minute+"분");
+        }
+        else
+        {
+            textView.setText(hourOfDay+"시 "+minute+"분");
+        }
+
+        return Hour + Minute + "00";
     }
 
     public String setStartDate(int year, int month, int dayOfMonth){

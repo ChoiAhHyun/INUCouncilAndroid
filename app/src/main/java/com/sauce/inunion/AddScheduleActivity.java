@@ -101,9 +101,16 @@ public class AddScheduleActivity extends Activity implements DatePickerDialog.On
         confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (scheduleTitle.getText().toString() == null || startDate8 == null || startTime6 == null || endDate8 == null || endTime6 == null) {
+                if (scheduleTitle.getText().toString().length() == 0 || startDate8 == null || startTime6 == null || endDate8 == null || endTime6 == null) {
                     Toast.makeText(getApplicationContext(), "제목과 날짜를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else if (Integer.parseInt(startDate8) > Integer.parseInt(endDate8)){
+                    Toast.makeText(getApplicationContext(), "시작 날짜와 종료 날짜를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                }
+                else if (startDate8.equals(endDate8) && Integer.parseInt(startTime6) > Integer.parseInt(endTime6)){
+                    Toast.makeText(getApplicationContext(), "시작 시간과 종료 시간을 확인해주세요.", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     final Intent intent1 = getIntent();
                     final Intent intent2 = new Intent("Confirm");
                     Log.d("calendar",scheduleTitle.getText().toString()+" "+startDate8+" "+startTime6+" "+endDate8+" "+endTime6+" "+position.getText().toString()+" "+memo.getText().toString()+" "+department);

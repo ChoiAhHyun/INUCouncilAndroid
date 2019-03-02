@@ -45,6 +45,12 @@ public class NoticeDetailManager extends Fragment {
 
     Retrofit retrofit;
     NoticeInterface service;
+
+    String Id, department;
+    TextView choiceTitle, choiceContent, choiceTime;
+    NoticeImageAdapter recyclerViewAdapter;
+    RecyclerView recyclerView;
+
     private Date stringToDate(String stringDate) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = null;
@@ -110,22 +116,21 @@ public class NoticeDetailManager extends Fragment {
         final Toolbar toolbarActivity = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbarActivity.setVisibility(View.GONE);
 
-        final String Id = getArguments().getString("id");
+        Id = getArguments().getString("id");
 
         TextView tv_major = (TextView) view.findViewById(R.id.major_name);
         pref = getActivity().getSharedPreferences("first", Activity.MODE_PRIVATE);
-        String department = pref.getString("App_department",null);
+        department = pref.getString("App_department",null);
         tv_major.setText(department);
 
         ImageView imageBack = (ImageView) view.findViewById(R.id.toolbar_back);
         TextView textModify = (TextView) view.findViewById(R.id.toolbar_modify);
         ImageView imageDelete = (ImageView) view.findViewById(R.id.notice_detail_delete);
 
-        final TextView choiceTitle = (TextView) view.findViewById(R.id.choice_title);
-        final TextView choiceTime = (TextView) view.findViewById(R.id.choice_time);
-        final TextView choiceContent = (TextView) view.findViewById(R.id.choice_content);
+        choiceTitle = (TextView) view.findViewById(R.id.choice_title);
+        choiceTime = (TextView) view.findViewById(R.id.choice_time);
+        choiceContent = (TextView) view.findViewById(R.id.choice_content);
         //Toast.makeText(getActivity(), position +"", Toast.LENGTH_LONG).show();
-
 
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,52 +144,30 @@ public class NoticeDetailManager extends Fragment {
                 toolbarActivity.setVisibility(View.VISIBLE);
             }
         });
+
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://117.16.231.66:7001")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         service = retrofit.create(NoticeInterface.class);
 
-        final NoticeImageAdapter recyclerViewAdapter= new NoticeImageAdapter(getActivity());
-        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.notice_detail_image_rv);
+        recyclerViewAdapter= new NoticeImageAdapter(getActivity());
+        recyclerView = (RecyclerView) view.findViewById(R.id.notice_detail_image_rv);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        service.boardSelect(Id,department).enqueue(new Callback<RetrofitNotice>() {
-            @Override
-            public void onResponse(Call<RetrofitNotice> call, Response<RetrofitNotice> response) {
-//                Toast.makeText(getActivity(),"연결 성공",Toast.LENGTH_SHORT).show();
 
-                RetrofitNotice res = response.body();
-                choiceTitle.setText(res.title);
-                choiceContent.setText(res.content);
-                String stringDate = res.time;
-                choiceTime.setText(formatTimeString(stringToDate(stringDate)));
-
-                for (int i = 0; i < res.fileName.size(); i++){
-                    recyclerViewAdapter.addItem(new NoticeImageItem(res.fileName.get(i)));
-                    Log.i("파일",i +", " + res.fileName.get(i));
-                }
-                recyclerViewAdapter.notifyDataSetChanged();
-                Log.i("파일","size: " + recyclerViewAdapter.getItemCount());
-            }
-
-            @Override
-            public void onFailure(Call<RetrofitNotice> call, Throwable t) {
-                Log.d("notice", ""+t);
-            }
-        });
-
+        contentUpdate();
 
         textModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getContext().getApplicationContext(),NoticeModify.class);
+                Intent intent = new Intent(getActivity(), NoticeModify.class);
                 intent.putExtra("id",Id);
-                startActivity(intent);
-
+                startActivityForResult(intent, 750);
             }
         });
+
         imageDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -215,4 +198,41 @@ public class NoticeDetailManager extends Fragment {
         return view;
     }
 
+    private void contentUpdate() {
+        service.boardSelect(Id,department).enqueue(new Callback<RetrofitNotice>() {
+            @Override
+            public void onResponse(Call<RetrofitNotice> call, Response<RetrofitNotice> response) {
+//                Toast.makeText(getActivity(),"연결 성공",Toast.LENGTH_SHORT).show();
+
+                RetrofitNotice res = response.body();
+                choiceTitle.setText(res.title);
+                choiceContent.setText(res.content);
+                String stringDate = res.time;
+                choiceTime.setText(formatTimeString(stringToDate(stringDate)));
+
+                recyclerViewAdapter.items.clear();
+                for (int i = 0; i < res.fileName.size(); i++){
+                    recyclerViewAdapter.addItem(new NoticeImageItem(res.fileName.get(i)));
+                    Log.i("파일",i +", " + res.fileName.get(i));
+                }
+                recyclerViewAdapter.notifyDataSetChanged();
+                Log.i("파일","size: " + recyclerViewAdapter.getItemCount());
+            }
+
+            @Override
+            public void onFailure(Call<RetrofitNotice> call, Throwable t) {
+                Log.d("notice", ""+t);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("notice",resultCode+"");
+        Log.d("notice",requestCode+"");
+        if(requestCode == 750 && resultCode == 700){
+            contentUpdate();
+        }
+    }
 }
