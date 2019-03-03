@@ -13,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ImageView;
-import android.widget.Toast;
-
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,15 +32,6 @@ public class ContactDetailManager  extends Fragment {
     String Id;
     TextView editName, editPhoneNumber, editEmail, editPosition, editEtc;
 
-    public static ContactDetailManager newInstance() {
-        return new ContactDetailManager();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle saveInstanceState) {
-        super.onCreate(saveInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,7 +73,6 @@ public class ContactDetailManager  extends Fragment {
                 ContactManager fragment= new ContactManager();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, fragment)
-                        .addToBackStack(null)
                         .commit();
                 toolbarActivity.setVisibility(View.VISIBLE);
             }
@@ -100,7 +88,6 @@ public class ContactDetailManager  extends Fragment {
 //
 //                getActivity().getSupportFragmentManager().beginTransaction()
 //                        .replace(R.id.fragment_container, contactModify)
-//                        .addToBackStack(null)
 //                        .commit();
 
                 Intent intent = new Intent(getActivity(),ContactModify.class);
@@ -119,7 +106,6 @@ public class ContactDetailManager  extends Fragment {
                         ContactManager contact = new ContactManager();
                         getActivity().getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_container, contact)
-                                .addToBackStack(null)
                                 .commit();
                         toolbarActivity.setVisibility(View.VISIBLE);
 
@@ -158,7 +144,6 @@ public class ContactDetailManager  extends Fragment {
                                 Contact contact = new Contact();
                                 getActivity().getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.fragment_container, contact)
-                                        .addToBackStack(null)
                                         .commit();
                             }
                         }else{
@@ -169,7 +154,6 @@ public class ContactDetailManager  extends Fragment {
                         Contact contact = new Contact();
                         getActivity().getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_container, contact)
-                                .addToBackStack(null)
                                 .commit();
                         toolbarActivity.setVisibility(View.VISIBLE);
                     }

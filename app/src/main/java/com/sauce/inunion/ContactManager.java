@@ -60,11 +60,6 @@ public class ContactManager extends Fragment {
         return String.valueOf(INITIAL_SOUND[index]);
     }
 
-
-    public static ContactManager newInstance() {
-        return new ContactManager();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_contact_manager, container, false); // 여기서 UI를 생성해서 View를 return
@@ -106,17 +101,6 @@ public class ContactManager extends Fragment {
                 startActivityForResult(intent, 500); // 다음 화면으로 넘어간다
             }
         });
-
-//        mNames = new String[7];
-//        mNames[0]="안";
-//        mNames[1]="류준열";
-//        mNames[2]="박보검";
-//        mNames[3]="이동욱";
-//        mNames[4]="조승우";
-//        mNames[5]="하정우";
-//        mNames[6]="김수현";
-//        mNames[j].toString()
-
 
 
         final List<ContactListItem> items= new ArrayList<>();

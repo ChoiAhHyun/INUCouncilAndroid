@@ -39,14 +39,6 @@ public class ScheduleContentManager  extends Fragment {
     String[] schedule_start = new String[2];
     String[] schedule_end = new String[2];
 
-    public static ScheduleContentManager newInstance() {
-        return new ScheduleContentManager();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_schedule_content_manager, container, false); // 여기서 UI를 생성해서 View를 return
@@ -135,7 +127,6 @@ public class ScheduleContentManager  extends Fragment {
                 TaTCalendarActivity fragment= new TaTCalendarActivity();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, fragment)
-                        .addToBackStack(null)
                         .commit();
                 toolbarActivity.setVisibility(View.VISIBLE);
             }
@@ -160,7 +151,6 @@ public class ScheduleContentManager  extends Fragment {
                 TaTCalendarActivity fragment= new TaTCalendarActivity();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, fragment)
-                        .addToBackStack(null)
                         .commit();
                 toolbarActivity.setVisibility(View.VISIBLE);
             }

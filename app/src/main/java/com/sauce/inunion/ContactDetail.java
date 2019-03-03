@@ -1,10 +1,8 @@
 package com.sauce.inunion;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -32,15 +29,6 @@ public class ContactDetail  extends Fragment {
     ContactInterface service;
     ContactInterface serviceD;
 
-    public static ContactDetail newInstance() {
-        return new ContactDetail();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle saveInstanceState) {
-        super.onCreate(saveInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,7 +86,6 @@ public class ContactDetail  extends Fragment {
                 Contact fragment= new Contact();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, fragment)
-                        .addToBackStack(null)
                         .commit();
                 toolbarActivity.setVisibility(View.VISIBLE);
             }

@@ -3,16 +3,12 @@ package com.sauce.inunion;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,15 +24,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by 123 on 2018-08-08.
  */
 
-public class ContactWrite extends Activity {
+public class ContactWrite extends AppCompatActivity {
 
     Retrofit retrofit;
     ContactInterface service;
     SharedPreferences pref;
-
-//    public static ContactWrite newInstance() {
-//        return new ContactWrite();
-//    }
 
     @Override
     public void onCreate(@Nullable Bundle saveInstanceState) {
@@ -98,7 +90,6 @@ public class ContactWrite extends Activity {
 //                Contact contact = new Contact();
 //                getActivity().getSupportFragmentManager().beginTransaction()
 //                        .replace(R.id.fragment_container, contact)
-//                        .addToBackStack(null)
 //                        .commit();
 //                toolbarActivity.setVisibility(View.VISIBLE);
 //                navigation.setVisibility(View.VISIBLE);
@@ -124,7 +115,6 @@ public class ContactWrite extends Activity {
                                 Contact contact = new Contact();
                                 getActivity().getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.fragment_container, contact)
-                                        .addToBackStack(null)
                                         .commit();
                             }
                         }else{
@@ -135,7 +125,6 @@ public class ContactWrite extends Activity {
 //                        Contact contact = new Contact();
 //                        getActivity().getSupportFragmentManager().beginTransaction()
 //                                .replace(R.id.fragment_container, contact)
-//                                .addToBackStack(null)
 //                                .commit();
 //                        toolbarActivity.setVisibility(View.VISIBLE);
 //                        navigation.setVisibility(View.VISIBLE);

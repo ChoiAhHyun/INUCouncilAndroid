@@ -4,14 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by 123 on 2018-08-26.
  */
 
-public class ContactModify extends Activity {
+public class ContactModify extends AppCompatActivity {
 
     Retrofit retrofitSelect;
     Retrofit retrofitModify;
@@ -37,10 +34,6 @@ public class ContactModify extends Activity {
 
     EditText editName, editPhoneNumber, editEmail, editPosition, editEtc;
     String department, Id;
-
-//    public static ContactModify newInstance() {
-//        return new ContactModify();
-//    }
 
     @Override
     public void onCreate(@Nullable Bundle saveInstanceState) {
@@ -120,7 +113,6 @@ public class ContactModify extends Activity {
 //                Contact contact = new Contact();
 //                getActivity().getSupportFragmentManager().beginTransaction()
 //                        .replace(R.id.fragment_container, contact)
-//                        .addToBackStack(null)
 //                        .commit();
 //                toolbarActivity.setVisibility(View.VISIBLE);
                 onBackPressed();
@@ -146,7 +138,6 @@ public class ContactModify extends Activity {
 //                        Contact contact = new Contact();
 //                        getActivity().getSupportFragmentManager().beginTransaction()
 //                                .replace(R.id.fragment_container, contact)
-//                                .addToBackStack(null)
 //                                .commit();
 //                        toolbarActivity.setVisibility(View.VISIBLE);
                             Intent intent = new Intent();

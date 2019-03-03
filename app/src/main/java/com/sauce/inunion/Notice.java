@@ -3,10 +3,7 @@ package com.sauce.inunion;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,12 +20,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,7 +27,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,15 +40,6 @@ public class Notice extends Fragment {
     SharedPreferences pref;
     Retrofit retrofit;
     NoticeInterface service;
-    public static Notice newInstance() {
-        return new Notice();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle saveInstanceState){
-        super.onCreate(saveInstanceState);
-
-    }
 
 
     private Date stringToDate(String stringDate) {

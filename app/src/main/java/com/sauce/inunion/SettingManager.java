@@ -15,17 +15,12 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.io.IOException;
 
 public class SettingManager extends Fragment {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
-    public static SettingManager newInstance() {
-        return new SettingManager();
-    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting_manager, container, false); // 여기서 UI를 생성해서 View를 return
 

@@ -1,11 +1,9 @@
 package com.sauce.inunion;
 
-import android.net.Uri;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by 123 on 2018-08-18.

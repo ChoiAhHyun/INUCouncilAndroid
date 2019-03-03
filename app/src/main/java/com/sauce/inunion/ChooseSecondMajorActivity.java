@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,13 +15,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,13 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ChooseSecondMajorActivity extends Activity {
+public class ChooseSecondMajorActivity extends AppCompatActivity {
     RecyclerView recyclerView = null;
     MajorRecyclerAdapter adapter = null;
-    boolean visible = false;
     Button second_choose_btn;
     String secondMajor;
-    ImageView arrow;
     String[] major = {
             "건설환경공학부","경영학부","경제학과","공연예술학과","국어교육과","국어국문학과","기계공학과",
             "도시건축학부","도시공학과","도시행정학과","독어독문학과","동북아국제통상학부","디자인학부",
@@ -208,7 +203,7 @@ public class ChooseSecondMajorActivity extends Activity {
                 SharedPreferences pref = getSharedPreferences("first", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("secondMajor",secondMajor);
-                editor.commit();
+                editor.apply();
                 Intent intent = new Intent(ChooseSecondMajorActivity.this,MainActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
@@ -229,7 +224,6 @@ public class ChooseSecondMajorActivity extends Activity {
             }
         });
 
-        arrow = findViewById(R.id.iv_arrow);
     }
     private BroadcastReceiver mSecondBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -239,7 +233,7 @@ public class ChooseSecondMajorActivity extends Activity {
                 SharedPreferences pref = getSharedPreferences("Second", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("secondmajor",data);
-                editor.commit();
+                editor.apply();
             }
         }
     };
@@ -254,17 +248,14 @@ public class ChooseSecondMajorActivity extends Activity {
                     second_choose_btn.setTextColor(Color.WHITE);
                     second_choose_btn.setBackgroundColor(Color.rgb(76,110,245));
                     second_choose_btn.setText("시작하기");
-                    arrow.setVisibility(View.VISIBLE);
+                    secondMajor = data2;
                 }
                 else{
                     second_choose_btn.setTextColor(Color.rgb(76,110,245));
                     second_choose_btn.setBackgroundDrawable(getDrawable(R.drawable.border));
                     second_choose_btn.setText("건너뛰기");
-                    arrow.setVisibility(View.GONE);
+                    secondMajor = null;
                 }
-            }
-            if(data2 != null){
-                secondMajor = data2;
             }
 
         }

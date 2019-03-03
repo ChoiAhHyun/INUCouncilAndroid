@@ -3,30 +3,21 @@ package com.sauce.inunion;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,9 +31,6 @@ public class NoticeDetail extends Fragment {
     SharedPreferences pref;
     Retrofit retrofit;
     NoticeInterface service;
-    public static NoticeDetail newInstance() {
-        return new NoticeDetail();
-    }
 
     private Date stringToDate(String stringDate) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -92,11 +80,6 @@ public class NoticeDetail extends Fragment {
         return msg;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle saveInstanceState){
-        super.onCreate(saveInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -127,7 +110,6 @@ public class NoticeDetail extends Fragment {
                 Notice fragment= new Notice();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, fragment)
-                        .addToBackStack(null)
                         .commit();
                 toolbarActivity.setVisibility(View.VISIBLE);
             }

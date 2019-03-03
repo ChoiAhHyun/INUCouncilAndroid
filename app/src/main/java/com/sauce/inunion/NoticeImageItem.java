@@ -1,8 +1,6 @@
 package com.sauce.inunion;
 
 
-import android.graphics.Bitmap;
-import android.net.Uri;
 
 /**
  * Created by 123 on 2018-08-19.

@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,13 +15,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,15 +27,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ChooseMajorActivity extends Activity {
+public class ChooseMajorActivity extends AppCompatActivity {
     RecyclerView recyclerView = null;
     MajorRecyclerAdapter adapter = null;
-    boolean visible = false;
     String firstmajor;
     EditText editText;
     Button choose_btn;
     static boolean isStudentMode = false;
-    ImageView arrow;
     String[] major = {
             "건설환경공학부","경영학부","경제학과","공연예술학과","국어교육과","국어국문학과","기계공학과",
             "도시건축학부","도시공학과","도시행정학과","독어독문학과","동북아국제통상학부","디자인학부",
@@ -253,7 +248,6 @@ public class ChooseMajorActivity extends Activity {
             }
         });
 
-        arrow = findViewById(R.id.iv_arrow);
     }
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -266,17 +260,15 @@ public class ChooseMajorActivity extends Activity {
                     choose_btn.setBackgroundColor(Color.rgb(76,110,245));
                     choose_btn.setText("다음으로");
                     choose_btn.setEnabled(true);
-                    arrow.setVisibility(View.VISIBLE);
+                    firstmajor = data2;
                 }
                 else{
                     choose_btn.setTextColor(Color.rgb(76,110,245));
                     choose_btn.setBackground(getDrawable(R.drawable.border));
                     choose_btn.setText("선택해주세요");
-                    arrow.setVisibility(View.GONE);
+                    choose_btn.setEnabled(false);
+                    firstmajor = null;
                 }
-            }
-            if(data2 != null){
-                firstmajor = data2;
             }
 
         }

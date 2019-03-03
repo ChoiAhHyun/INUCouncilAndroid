@@ -1,8 +1,6 @@
 package com.sauce.inunion;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
@@ -15,18 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
 /*
 public class NoticeListAdapterManager extends BaseQuickAdapter<NoticeListItem,BaseViewHolder> {
     Context mContext;
@@ -273,7 +264,6 @@ public class NoticeListAdapterManager extends RecyclerView.Adapter<RecyclerView.
 
                         fragmentManager.beginTransaction()
                                 .replace(R.id.fragment_container, noticeDetail)
-                                .addToBackStack(null)
                                 .commit();
                     }
                 });

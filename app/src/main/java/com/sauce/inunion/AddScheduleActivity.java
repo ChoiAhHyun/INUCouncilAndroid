@@ -7,14 +7,13 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,7 +30,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AddScheduleActivity extends Activity implements DatePickerDialog.OnDateSetListener{
+public class AddScheduleActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
     Retrofit retrofit;
     RetrofitService retrofitCalendarSaveService;
     TextView startDay;

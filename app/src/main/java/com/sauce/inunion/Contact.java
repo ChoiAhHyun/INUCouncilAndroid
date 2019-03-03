@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,10 +57,6 @@ public class Contact extends Fragment {
         return String.valueOf(INITIAL_SOUND[index]);
     }
 
-
-    public static Contact newInstance() {
-        return new Contact();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -182,7 +177,6 @@ public class Contact extends Fragment {
 //                Contact contact = new Contact();
 //                getActivity().getSupportFragmentManager().beginTransaction()
 //                        .replace(R.id.fragment_container, contact)
-//                        .addToBackStack(null)
 //                        .commit();
 //                toolbarActivity.setVisibility(View.VISIBLE);
 //            }
@@ -246,7 +240,6 @@ public class Contact extends Fragment {
 //
 //                        getActivity().getSupportFragmentManager().beginTransaction()
 //                                .replace(R.id.fragment_container, contactDetail)
-//                                .addToBackStack(null)
 //                                .commit();
 //                    }
 //

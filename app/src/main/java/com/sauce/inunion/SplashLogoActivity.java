@@ -6,12 +6,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by 123 on 2018-08-29.
  */
 
-public class SplashLogoActivity extends Activity {
+public class SplashLogoActivity extends AppCompatActivity {
     SharedPreferences pref;
     private final int SPLASH_DISPLAY_LENGTH = 1200;
 

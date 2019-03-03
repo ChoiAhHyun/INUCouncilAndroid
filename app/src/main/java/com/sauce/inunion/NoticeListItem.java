@@ -1,11 +1,7 @@
 package com.sauce.inunion;
 
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by 123 on 2018-08-03.

@@ -6,21 +6,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,14 +34,7 @@ public class ScheduleContentActivity extends Fragment {
     TextView schedule_content_position;
     TextView schedule_content_memo;
 
-    public static ScheduleContentActivity newInstance() {
-        return new ScheduleContentActivity();
-    }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_schedule_content, container, false); // 여기서 UI를 생성해서 View를 return
@@ -110,7 +98,6 @@ public class ScheduleContentActivity extends Fragment {
                 StudentCalendarActivity fragment= new StudentCalendarActivity();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, fragment)
-                        .addToBackStack(null)
                         .commit();
                 toolbarActivity.setVisibility(View.VISIBLE);
             }

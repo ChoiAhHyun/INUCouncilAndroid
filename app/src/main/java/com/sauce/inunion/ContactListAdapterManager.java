@@ -4,19 +4,12 @@ package com.sauce.inunion;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.CardView;
-
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -146,7 +139,6 @@ public class ContactListAdapterManager extends RecyclerView.Adapter<RecyclerView
 
                 fragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, contactDetail)
-                        .addToBackStack(null)
                         .commit();
             }
         });

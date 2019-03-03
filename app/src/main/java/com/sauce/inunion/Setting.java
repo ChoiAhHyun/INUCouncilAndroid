@@ -21,13 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import java.io.IOException;
-
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-
 
 public class Setting extends Fragment {
     TextView major_first;
@@ -36,9 +29,7 @@ public class Setting extends Fragment {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     FireBaseMessagingService fireBaseMessagingService = new FireBaseMessagingService();
-    public static Setting newInstance() {
-        return new Setting();
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

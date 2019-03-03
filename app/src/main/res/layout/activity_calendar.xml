@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     >
-<!--<ScrollView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
     <View
         android:layout_width="match_parent"
         android:layout_height="198dp"
@@ -90,5 +90,5 @@
         android:layout_centerHorizontal="true">
 
     </android.support.v7.widget.RecyclerView>
-<!--</ScrollView>-->
 </RelativeLayout>
+    </ScrollView>

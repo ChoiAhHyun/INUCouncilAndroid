@@ -27,13 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class AddMajorActivity extends Activity{
+public class AddMajorActivity extends AppCompatActivity {
     RecyclerView recyclerView = null;
     MajorRecyclerAdapter adapter = null;
-    boolean visible = false;
     Button add_major_choose_btn;
     String addMajor;
-    ImageView arrow;
     String[] major = {
             "건설환경공학부","경영학부","경제학과","공연예술학과","국어교육과","국어국문학과","기계공학과",
             "도시건축학부","도시공학과","도시행정학과","독어독문학과","동북아국제통상학부","디자인학부",
@@ -206,7 +204,7 @@ public class AddMajorActivity extends Activity{
                 SharedPreferences pref = getSharedPreferences("first", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("temp_Major",addMajor);
-                editor.commit();
+                editor.apply();
                 Intent intent = new Intent("add_major");
                 intent.putExtra("isAdded","true");
                 LocalBroadcastManager.getInstance(view.getContext()).sendBroadcast(intent);
@@ -227,7 +225,6 @@ public class AddMajorActivity extends Activity{
             }
         });
 
-        arrow = findViewById(R.id.iv_arrow);
     }
     private BroadcastReceiver mSecondBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -250,18 +247,16 @@ public class AddMajorActivity extends Activity{
                     add_major_choose_btn.setBackgroundColor(Color.rgb(76,110,245));
                     add_major_choose_btn.setText("저장하기");
                     add_major_choose_btn.setEnabled(true);
-                    arrow.setVisibility(View.VISIBLE);
+                    addMajor = data2;
                 }
                 else{
                     add_major_choose_btn.setTextColor(Color.rgb(76,110,245));
                     add_major_choose_btn.setBackgroundDrawable(getDrawable(R.drawable.border));
                     add_major_choose_btn.setText("추가하기");
-                    arrow.setVisibility(View.GONE);
+                    addMajor = null;
                 }
             }
-            if(data2 != null){
-                addMajor = data2;
-            }
+
 
         }
     };

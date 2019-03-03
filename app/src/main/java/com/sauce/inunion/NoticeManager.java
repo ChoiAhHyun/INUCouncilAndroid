@@ -22,13 +22,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,32 +29,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static android.content.ContentValues.TAG;
-
 
 public class NoticeManager extends Fragment {
 
-    public static List<NoticeImageItem> subList1;
     InputMethodManager imm;
     SharedPreferences pref;
     Retrofit retrofit;
     NoticeInterface service;
-    public static NoticeManager newInstance() {
-        return new NoticeManager();
-    }
 
-    @Override
-    public void onCreate(@Nullable Bundle saveInstanceState){
-        super.onCreate(saveInstanceState);
-
-    }
 
     private Date stringToDate(String stringDate) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -168,7 +168,6 @@ public class NoticeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                         fragmentManager.beginTransaction()
                                 .replace(R.id.fragment_container, noticeDetail)
-                                .addToBackStack(null)
                                 .commit();
                     }
                 });

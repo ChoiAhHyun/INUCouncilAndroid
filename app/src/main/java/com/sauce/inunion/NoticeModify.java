@@ -11,8 +11,8 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -27,17 +27,12 @@ import com.gun0912.tedpermission.TedPermission;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,7 +40,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class NoticeModify extends Activity {
+public class NoticeModify extends AppCompatActivity {
     SharedPreferences pref;
     Retrofit retrofit;
     NoticeInterface service;
@@ -55,9 +50,6 @@ public class NoticeModify extends Activity {
 
     private String mCurrentPhotoPath;
     String Id;
-    //    public static NoticeWrite newInstance() {
-//        return new NoticeWrite();
-//    }
 
     EditText editTitle, editContent;
     String department;
@@ -126,7 +118,6 @@ public class NoticeModify extends Activity {
 //                Notice notice = new Notice();
 //                getActivity().getSupportFragmentManager().beginTransaction()
 //                        .replace(R.id.fragment_container, notice)
-//                        .addToBackStack(null)
 //                        .commit();
 //                toolbarActivity.setVisibility(View.VISIBLE);
 //                navigation.setVisibility(View.VISIBLE);

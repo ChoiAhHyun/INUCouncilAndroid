@@ -1,35 +1,20 @@
 package com.sauce.inunion;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.Set;
-
-
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
     FragmentTransaction transaction;
     private final long FINSH_INTERVAL_TIME = 2000; //2초
     private long backPressedTime = 0;
@@ -119,7 +104,6 @@ public class MainActivity extends FragmentActivity {
     public void loadFragment(Fragment fragment) {
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
 
         }
