@@ -36,7 +36,7 @@ public class ContactModify extends Activity {
     ContactInterface service;
 
     EditText editName, editPhoneNumber, editEmail, editPosition, editEtc;
-    String department, addressId;
+    String department, Id;
 
 //    public static ContactModify newInstance() {
 //        return new ContactModify();
@@ -60,7 +60,7 @@ public class ContactModify extends Activity {
         editEtc = (EditText) findViewById(R.id.contact_etc);
 
         Intent intent = getIntent();
-        final String Id = intent.getStringExtra("id");
+        Id = intent.getStringExtra("id");
 
         retrofitSelect = new Retrofit.Builder()
                 .baseUrl("http://117.16.231.66:7001")
@@ -138,7 +138,7 @@ public class ContactModify extends Activity {
                 if (editName.getText().toString().length() == 0) {
                     Toast.makeText(getApplicationContext(), "이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
-                    service.addressModify(editName.getText().toString(), editPhoneNumber.getText().toString(), editEmail.getText().toString(), editPosition.getText().toString(), editEtc.getText().toString(), department, addressId).enqueue(new Callback<RetrofitContact>() {
+                    service.addressModify(editName.getText().toString(), editPhoneNumber.getText().toString(), editEmail.getText().toString(), editPosition.getText().toString(), editEtc.getText().toString(), department, Id).enqueue(new Callback<RetrofitContact>() {
                         @Override
                         public void onResponse(Call<RetrofitContact> call, Response<RetrofitContact> response) {
                             Toast.makeText(getApplicationContext(), "저장완료", Toast.LENGTH_SHORT).show();

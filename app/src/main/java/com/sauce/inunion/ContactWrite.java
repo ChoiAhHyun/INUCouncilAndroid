@@ -2,6 +2,7 @@ package com.sauce.inunion;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class ContactWrite extends Activity {
 
     Retrofit retrofit;
     ContactInterface service;
+    SharedPreferences pref;
 
 //    public static ContactWrite newInstance() {
 //        return new ContactWrite();
@@ -46,6 +48,9 @@ public class ContactWrite extends Activity {
 //        navigation.setVisibility(View.GONE);
 //        final View shadow = (View) findViewById(R.id.shadow);
 //        shadow.setVisibility(View.GONE);
+
+        pref = getSharedPreferences("first", Activity.MODE_PRIVATE);
+        final String department = pref.getString("App_department",null);
 
         ImageView imageBack = (ImageView) findViewById(R.id.toolbar_back);
         TextView textSave = (TextView) findViewById(R.id.toolbar_save);
@@ -108,7 +113,7 @@ public class ContactWrite extends Activity {
                 if (editName.getText().toString().length() == 0 ) {
                     Toast.makeText(getApplicationContext(), "이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
-                    service.addressSave(editName.getText().toString(), editPhoneNumber.getText().toString(), editEmail.getText().toString(), editPosition.getText().toString(), editEtc.getText().toString(), "정보통신공학과").enqueue(new Callback<RetrofitContact>() {
+                    service.addressSave(editName.getText().toString(), editPhoneNumber.getText().toString(), editEmail.getText().toString(), editPosition.getText().toString(), editEtc.getText().toString(), department).enqueue(new Callback<RetrofitContact>() {
                         @Override
                         public void onResponse(Call<RetrofitContact> call, Response<RetrofitContact> response) {
                        /* if(response.isSuccessful()){
