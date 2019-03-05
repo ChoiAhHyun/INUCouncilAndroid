@@ -186,7 +186,7 @@ public class ChooseMajorActivity extends AppCompatActivity {
                 } else {
                     Log.d("major",text);
                     Log.d("major",temp.get(1).getName());
-                    for (int i=0; i<57; i++) {
+                    for (int i=0; i<major.length; i++) {
                         String name = temp.get(i).getName();
                         Log.d("major",name);
                         if (name.contains(text)) {
