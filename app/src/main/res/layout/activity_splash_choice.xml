@@ -6,7 +6,7 @@
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/splash_logo"
+        android:src="@mipmap/ic_launcher"
         android:id="@+id/iv_logo"
         android:layout_marginStart="34dp"
         android:layout_marginTop="70dp"/>
